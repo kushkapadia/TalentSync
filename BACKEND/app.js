@@ -1,35 +1,28 @@
-const express = require('express');
+const express = require("express");
+const router = require("./router");
+const morgan = require("morgan");
+
+const cors = require("cors");
+
+
+//imports here
+
+
+//code here
+
+// Initialize our server
 const app = express();
-const router = require('./router')
+//To access the data user inputs in form.
+app.use(express.urlencoded({ extended: false }));
+//just a bolierplate code, tells our express server to add the user submitted data to request object.
+app.use(express.json());
 
-// const session = require('express-session')
-const MongoStore = require('connect-mongo')
+app.use(express.static("public"));
+app.use(morgan("dev"));
+app.use("/", router);
 
-
-
-// let sessionOptions = session({
-//     secret:  "Maheshmati is Ruled by BhalalDev Instead of Baahubali",
-//     store: MongoStore.create({client: require('./db')}),
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {maxAge: 1000 * 60 * 60 * 48, httpOnly: true}
-// })
-
-// app.use(sessionOptions)
-
-// app.use(function(req, res, next){
-// res.locals.user = req.session.user
-// next()
-// })
-
-app.use(express.urlencoded({extended: false}))
-
-app.use(express.json())
+app.use(cors());
 
 
 
-//it tells the server to call 'router' file, when the server encounters '/' this request
-app.use('/', router)
-
-module.exports = app
-
+module.exports = app;
