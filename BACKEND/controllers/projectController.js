@@ -9,9 +9,7 @@ exports.createProject = async function (req, res) {
   let project = new Project(req.body)
   let projectDoc = await project.createProject()
   let student = new Student()
-
-  //get stud id from somewhere
-  let studId = "66cda848459e72a16470ec16"
+  let studId = req.apiUser._id
   student.appendProject(studId, projectDoc.insertedId)
   new JsonResponse(req, res).jsonSuccess(projectDoc, "Created")
 }
