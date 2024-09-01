@@ -1,16 +1,29 @@
-import React from "react"
-// import { Routes, Route, Navigate} from "react-router-dom";
+import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
-import Navbar from "./pages/Navbar"
+import Internships from "./pages/Internships"
+import Profile from "./pages/Profile"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <><Navbar /><Home /></>
+    },
+    {
+      path: "/internships",
+      element: <><Navbar /><Internships /></>
+    },
+    {
+      path: "/profile",
+      element: <><Navbar /><Profile /></>
+    },
+  ])
   return (
     <>
-      <Navbar />
-      {/* <Routes>
-        <Route path = "" element = {<Home />}></Route>
-      </Routes> */}
-      <Home />
+      <RouterProvider router={router} />
     </>
   )
 }
+
 export default App
