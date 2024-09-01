@@ -11,7 +11,7 @@ const NavbarContainer = styled.nav`
   padding: 1rem 2rem;
 `;
 
-const Logo = styled.a`
+const Logo = styled(Link)`
   font-size: 1.5rem;
   color: #fff;
   text-decoration: none;
@@ -38,6 +38,7 @@ const Navbar = () => {
       <NavLinks>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/Internships">Internships</NavLink>
+        <NavLink to="/AppliedInternships">Applied Internships</NavLink>
         <NavLink to="/Profile">Profile</NavLink>
       </NavLinks>
     </NavbarContainer>

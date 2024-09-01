@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import Internships from "./pages/Internships"
 import Profile from "./pages/Profile"
+import AppliedInternships from "./pages/AppliedInternships"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 function App() {
@@ -13,6 +14,10 @@ function App() {
     {
       path: "/internships",
       element: <><Navbar /><Internships /></>
+    },
+    {
+      path: "/appliedinternships",
+      element: <><Navbar /><AppliedInternships /></>
     },
     {
       path: "/profile",
