@@ -11,6 +11,7 @@ import StateContext from "./StateContext.js"
 //Our components
 import HomeGuest from "./components/HomeGuest"
 import Header from "./components/Header"
+import FlashMessages from "./components/FlashMessages"
 // import Footer from "./components/Footer"
 // import Home from "./components/Home"
 import Internships from "./pages/Internships"
@@ -18,12 +19,11 @@ import JobCard from "./components/JobCard.js"
 function Main() {
   //<> </> this is called as a react fragment.
   const initialState = {
-    loggedIn: Boolean(localStorage.getItem("complexappToken")),
+    loggedIn: Boolean(localStorage.getItem("talentSyncToken")),
     flashMessages: [],
     user: {
-      token: localStorage.getItem("complexappToken"),
-      username: localStorage.getItem("complexappUsername"),
-      avatar: localStorage.getItem("complexappAvatar")
+      token: localStorage.getItem("talentSyncToken"),
+      username: localStorage.getItem("talentSyncEmail")
     }
     //Now we wil have this user object that will be available in our globval or app wide state.
     //Any other component that needs to acces this data, it no longer needs to access it from the broswer, but will be avaialble from within the state.
@@ -33,14 +33,15 @@ function Main() {
     switch (action.type) {
       case "login":
         draft.loggedIn = true
-        draft.user = action.data
+
+        draft.user = action.data.data
         return //Use either return or break
       case "logout":
         draft.loggedIn = false
         return
-      // case "flashMessage":
-      //   draft.flashMessages.push(action.value)
-      //   return
+      case "flashMessage":
+        draft.flashMessages.push(action.value)
+        return
     }
   }
 
@@ -50,14 +51,15 @@ function Main() {
     if (state.loggedIn) {
       //if true
       //localStorage, has nothing to do with react, but with web browser
-      localStorage.setItem("complexappToken", state.user.token)
-      localStorage.setItem("complexappUsername", state.user.username)
-      localStorage.setItem("complexappAvatar", state.user.avatar)
+      localStorage.setItem("talentSyncToken", state.user.token)
+      localStorage.setItem("talentSyncRole", state.user.role)
+      localStorage.setItem("talentSyncId", state.user.id)
+
       //2 arguments. a= name for the piece of data we want to store. (We can name it anything). b == the data we want to store
     } else {
-      localStorage.removeItem("complexappToken")
-      localStorage.removeItem("complexappUsername")
-      localStorage.removeItem("complexappAvatar")
+      localStorage.removeItem("talentSyncToken")
+      localStorage.removeItem("talentSyncEmail")
+      localStorage.removeItem("talentSyncId")
     }
   }, [state.loggedIn])
   //Anytime state.loggedIn changes, the function here will run
@@ -70,11 +72,12 @@ function Main() {
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
         <BrowserRouter>
-          {/* <FlashMessages messages={state.flashMessages} /> */}
           <Header />
+          <FlashMessages messages={state.flashMessages} />
+
           <Routes>
-            <Route path="/" element={state.loggedIn ? <Home /> : <HomeGuest />} />
-            <Route path="/internships" element={<Internships />} />
+            <Route path="/" element={state.loggedIn ? <div>Loged in</div> : <HomeGuest />} />
+            <Route path="/internships" element={state.loggedIn ? <Internships /> : <HomeGuest />} />
 
             {/* PAssing addFlashMessage() funcytion to createPost using pprops */}
           </Routes>

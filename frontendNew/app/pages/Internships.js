@@ -1,48 +1,54 @@
-import React from "react"
+import React, { useEffect, useContext, useState } from "react"
 import JobCard from "../components/JobCard"
 import logo1 from "../Images/logo1.jpg"
 import logo2 from "../Images/logo2.webp"
 import logo3 from "../Images/logo3.jpeg"
 import Page from "../components/Page"
-const jobsData = [
-  {
-    title: "Backend Development",
-    company: "Neuralbits Technologies Private Limited",
-    location: "Mumbai",
-    duration: "3 Months",
-    stipend: "₹ 8,000-12,000 /month",
-    posted: "Today",
-    workType: "",
-    companyLogo: logo1
-  },
-  {
-    title: "Machine Learning",
-    company: "APSV TECHNOLOGIES",
-    location: "Work from home",
-    duration: "1 Month",
-    stipend: "₹ 1,000 /month",
-    posted: "Few hours ago",
-    workType: "Part time",
-    companyLogo: logo2
-  },
-  {
-    title: "Technical Analyst",
-    company: "Aryaamedh Enterprises",
-    location: "Work from home",
-    duration: "6 Months",
-    stipend: "₹ 10,000-15,000 /month",
-    posted: "Few hours ago",
-    workType: "",
-    companyLogo: logo3
-  }
-]
+import axios from "axios"
+import StateContext from "../StateContext"
+
+import LoadingDotsIcon from "../components/LoadingDotsIcon"
 
 function Internships() {
+  const appState = useContext(StateContext)
+
+  const [isLoading, setIslaoding] = useState(true)
+  const [internships, setInternships] = useState([])
+  // const { username } = useParams()
+
+  useEffect(() => {
+    async function fetchinternships() {
+      console.log("internships")
+      try {
+        const token = appState.user.token
+        console.log(appState.user)
+        const response = await axios.get("/jobpost/get-all", {
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            Expires: "0",
+            Authorization: `Bearer ${token}`
+          }
+        })
+        console.log(response.data.data)
+        setInternships(response.data.data)
+        console.log(response.data.data)
+
+        setIslaoding(false)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchinternships()
+  }, [])
+  // console.log(internships)
+  if (isLoading) return <LoadingDotsIcon />
+
   return (
     <Page title="Job List">
       <div className="jobs-list">
-        {jobsData.map((job, index) => (
-          <JobCard key={index} title={job.title} company={job.company} location={job.location} duration={job.duration} stipend={job.stipend} posted={job.posted} workType={job.workType} companyLogo={job.companyLogo} />
+        {internships.map((job, index) => (
+          <JobCard key={index} title={internships.jobTitle} company={job.companyName} location={job.jobLocation} duration={new Date(job.applicationDeadline).getDate() + "/" + new Date(job.applicationDeadline).getMonth() + 1 + "/" + new Date(job.applicationDeadline).getFullYear()} stipend={job.salaryRange} posted={job.postedDate} workType={job.jobType} companyLogo={job.companyLogo} />
         ))}
       </div>
     </Page>

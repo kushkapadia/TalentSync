@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 // import { Link } from "react-router-dom"
-// import HeaderLoggedOut from "./HeaderLoggedOut"
+import HeaderLoggedOut from "./HeaderLoggedOut"
 import HeaderLoggedIn from "./HeaderLoggedIn"
 import StateContext from "../StateContext"
 
@@ -69,7 +69,7 @@ const Header = () => {
             TalentSync
           </Link>
         </h4>
-        {appState.loggedIn ? <div>hi</div> : <HeaderLoggedIn />}
+        {appState.loggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}
       </div>
     </header>
   )
