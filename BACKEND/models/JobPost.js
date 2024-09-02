@@ -12,7 +12,6 @@ let JobPost = function (data) {
 JobPost.prototype.cleanUp = function () {
   // get rid of any bogus properties
   this.data = {
-    jobId: this.data.jobId,
     jobTitle: this.data.jobTitle,
     companyName: this.data.companyName,
     jobLocation: this.data.jobLocation,
@@ -44,7 +43,7 @@ JobPost.prototype.cleanUp = function () {
     TaskDeadline: new Date(this.data.TaskDeadline),
     taskTitle: this.data.taskTitle,
     TaskDesc: this.data.TaskDesc,
-    TaskSubmissioLink: this.data.TaskSubmissioLink,
+    TaskSubmissionLink: this.data.TaskSubmissionLink,
     queryMailId: this.data.queryMailId,
     extraNotes: this.data.extraNotes,
 
