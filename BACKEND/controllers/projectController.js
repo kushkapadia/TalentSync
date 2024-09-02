@@ -4,8 +4,10 @@ const TryCatch = require("../helper/TryCatch")
 const Project = require("../models/Project")
 const jwt = require("jsonwebtoken")
 const Student = require("../models/Student")
+const { ObjectId } = require("mongodb")
 
 exports.createProject = async function (req, res) {
+  req.body.projectAuthor = new ObjectId(req.apiUser._id)
   let project = new Project(req.body)
   let projectDoc = await project.createProject()
   let student = new Student()
