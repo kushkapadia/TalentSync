@@ -29,7 +29,7 @@ Project.prototype.cleanUp = function () {
     githubLink: this.data.githubLink,
     ytLink: this.data.ytLink,
     hostingLink: this.data.hostingLink,
-
+    projectAuthor: this.data.projectAuthor,
     //predfined start
     createdAt: new Date()
     //predefined end
