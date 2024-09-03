@@ -28,6 +28,9 @@ function HeaderLoggedIn(props) {
       <Link to="./internships" className="text-white mr-2">
         Internships
       </Link>
+      <Link to="./applied-internships" className="text-white mr-2">
+        Applied Internships
+      </Link>
       {/* <a className="btn btn-sm btn-success mr-2" href="/create-post">
       Create Post
     </a> ---> This too will work, but this will load entirely a new page. Th emotive of react gets over.*/}
