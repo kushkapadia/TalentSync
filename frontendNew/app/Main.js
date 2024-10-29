@@ -17,6 +17,7 @@ import FlashMessages from "./components/FlashMessages"
 import Internships from "./pages/Internships"
 import JobCard from "./components/JobCard.js"
 import AppliedInternships from "./components/AppliedInternships.js"
+import Landing from "./pages/Landing.js"
 function Main() {
   //<> </> this is called as a react fragment.
   const initialState = {
@@ -77,7 +78,7 @@ function Main() {
           <FlashMessages messages={state.flashMessages} />
 
           <Routes>
-            <Route path="/" element={state.loggedIn ? <div>Loged in</div> : <HomeGuest />} />
+            <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
             <Route path="/internships" element={state.loggedIn ? <Internships /> : <HomeGuest />} />
             <Route path="/applied-internships" element={state.loggedIn ? <AppliedInternships /> : <HomeGuest />} />
 
