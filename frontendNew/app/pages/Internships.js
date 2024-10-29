@@ -1,58 +1,66 @@
-import React, { useEffect, useContext, useState } from "react"
-import JobCard from "../components/JobCard"
-import logo1 from "../Images/logo1.jpg"
-import logo2 from "../Images/logo2.webp"
-import logo3 from "../Images/logo3.jpeg"
-import Page from "../components/Page"
-import axios from "axios"
-import StateContext from "../StateContext"
-
-import LoadingDotsIcon from "../components/LoadingDotsIcon"
+import React from "react";
+// import "./App.css";
+import FilterSidebar from "../components/FilterSidebar";
+import JobCard from "../components/JobCard";
 
 function Internships() {
-  const appState = useContext(StateContext)
-
-  const [isLoading, setIslaoding] = useState(true)
-  const [internships, setInternships] = useState([])
-  // const { username } = useParams()
-
-  useEffect(() => {
-    async function fetchinternships() {
-      console.log("internships")
-      try {
-        const token = appState.user.token
-        console.log(appState.user)
-        const response = await axios.get("/jobpost/get-all", {
-          headers: {
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-            Expires: "0",
-            Authorization: `Bearer ${token}`
-          }
-        })
-        console.log(response.data.data)
-        setInternships(response.data.data)
-        console.log(response.data.data)
-
-        setIslaoding(false)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    fetchinternships()
-  }, [])
-  // console.log(internships)
-  if (isLoading) return <LoadingDotsIcon />
-
   return (
-    <Page title="Job List">
-      <div className="jobs-list">
-        {internships.map((job, index) => (
-          <JobCard key={index} title={internships.jobTitle} company={job.companyName} location={job.jobLocation} duration={new Date(job.applicationDeadline).getDate() + "/" + new Date(job.applicationDeadline).getMonth() + 1 + "/" + new Date(job.applicationDeadline).getFullYear()} stipend={job.salaryRange} posted={job.postedDate} workType={job.jobType} companyLogo={job.companyLogo} />
-        ))}
+    <div className="app-container">
+      <FilterSidebar />
+      <div className="job-listings">
+      <JobCard
+        title="Digital Marketing"
+        company="Web3Task"
+        location="Noida (Hybrid)"
+        duration="3 Months"
+        stipend="₹4,000/month"
+        posted="1 week ago"
+        workType="Internship"
+        companyLogo="https://via.placeholder.com/40"
+      />
+      <JobCard
+        title="Software Engineer"
+        company="Tech Innovators"
+        location="Bangalore (Remote)"
+        duration="Full-time"
+        stipend="₹1,00,000/month"
+        posted="2 days ago"
+        workType="Full-time"
+        companyLogo="https://via.placeholder.com/40"
+      />
+      <JobCard
+        title="Product Designer"
+        company="Creative Studio"
+        location="Delhi (On-site)"
+        duration="6 Months"
+        stipend="₹30,000/month"
+        posted="3 days ago"
+        workType="Contract"
+        companyLogo="https://via.placeholder.com/40"
+      />
+      <JobCard
+        title="Data Analyst"
+        company="Data Insights Co."
+        location="Pune (Remote)"
+        duration="1 Year"
+        stipend="₹50,000/month"
+        posted="5 days ago"
+        workType="Full-time"
+        companyLogo="https://via.placeholder.com/40"
+      />
+      <JobCard
+        title="Web Developer"
+        company="Startup Hub"
+        location="Mumbai (Hybrid)"
+        duration="3 Months"
+        stipend="₹25,000/month"
+        posted="1 week ago"
+        workType="Internship"
+        companyLogo="https://via.placeholder.com/40"
+      />  
       </div>
-    </Page>
-  )
+    </div>
+  );
 }
 
-export default Internships
+export default Internships;
