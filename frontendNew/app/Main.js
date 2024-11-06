@@ -83,8 +83,8 @@ function Main() {
           <Routes>
             <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
             <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <h2>ADMIN SIDE - SHAIL PAGE DAAL DE</h2> : <AdminGuest />} />
-            <Route path="/internships" element={state.loggedIn ? <Internships /> : <HomeGuest />} />
-            <Route path="/applied-internships" element={state.loggedIn ? <AppliedInternships /> : <HomeGuest />} />
+            <Route path="/internships" element={state.loggedIn && state.user?.role === "student" ? <Internships /> : <HomeGuest />} />
+            <Route path="/applied-internships" element={state.loggedIn && state.user?.role === "student" ? <AppliedInternships /> : <HomeGuest />} />
 
             {/* PAssing addFlashMessage() funcytion to createPost using pprops */}
           </Routes>
