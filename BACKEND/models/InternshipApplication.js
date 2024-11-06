@@ -12,14 +12,14 @@ let InternshipApplication = function (data) {
 InternshipApplication.prototype.cleanUp = function () {
   // get rid of any bogus properties
   this.data = {
-    jobId: this.data.jobId,
-    studentId: this.data.studentId,
+    jobId: new ObjectId(this.data.jobId),
+    studentId: new ObjectId(this.data.studentId),
     applicationStatus: this.data.applicationStatus,
     resumeLink: this.data.resumeLink,
     coverLetter: this.data.coverLetter,
     notes: this.data.notes,
     interviewScheduled: this.data.interviewScheduled,
-    interviewDate: this.data.interviewDate,
+    interviewDate: new Date(this.data.interviewDate),
     feedback: this.data.feedback,
     rating: this.data.rating,
     certificate: this.data.certificate,
@@ -42,6 +42,11 @@ InternshipApplication.prototype.getById = async function (id) {
 
 InternshipApplication.prototype.getAllInternshipApplications = async function () {
   let internshipapplicationDoc = await internshipapplicationsCollection.find({}).toArray()
+  return internshipapplicationDoc
+}
+
+InternshipApplication.prototype.getAllInternshipApplicationsByStudentId = async function (studId) {
+  let internshipapplicationDoc = await internshipapplicationsCollection.find({ studentId: new ObjectId(studId) }).toArray()
   return internshipapplicationDoc
 }
 
