@@ -26,7 +26,9 @@ function Main() {
     flashMessages: [],
     user: {
       token: localStorage.getItem("talentSyncToken"),
-      username: localStorage.getItem("talentSyncEmail")
+      username: localStorage.getItem("talentSyncEmail"),
+      id: localStorage.getItem("talentSyncId"),
+      role: localStorage.getItem("talentSyncRole")
     }
     //Now we wil have this user object that will be available in our globval or app wide state.
     //Any other component that needs to acces this data, it no longer needs to access it from the broswer, but will be avaialble from within the state.
@@ -80,7 +82,7 @@ function Main() {
 
           <Routes>
             <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
-            <Route path="/admin" element={state.loggedIn ? <h2>ADMIN SIDE - SHAIL PAGE DAAL DE</h2> : <AdminGuest />} />
+            <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <h2>ADMIN SIDE - SHAIL PAGE DAAL DE</h2> : <AdminGuest />} />
             <Route path="/internships" element={state.loggedIn ? <Internships /> : <HomeGuest />} />
             <Route path="/applied-internships" element={state.loggedIn ? <AppliedInternships /> : <HomeGuest />} />
 
