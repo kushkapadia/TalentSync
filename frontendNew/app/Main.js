@@ -15,10 +15,11 @@ import FlashMessages from "./components/FlashMessages"
 // import Footer from "./components/Footer"
 // import Home from "./components/Home"
 import Internships from "./pages/Internships"
-import JobCard from "./components/JobCard.js"
+// import JobCard from "./components/JobCard.js"
 import AppliedInternships from "./components/AppliedInternships.js"
 import Landing from "./pages/Landing.js"
 import AdminGuest from "./pages/AdminGuest.js"
+import JobDescription from "./components/JobDescription.js"
 function Main() {
   //<> </> this is called as a react fragment.
   const initialState = {
@@ -85,7 +86,7 @@ function Main() {
             <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <h2>ADMIN SIDE - SHAIL PAGE DAAL DE</h2> : <AdminGuest />} />
             <Route path="/internships" element={state.loggedIn && state.user?.role === "student" ? <Internships /> : <HomeGuest />} />
             <Route path="/applied-internships" element={state.loggedIn && state.user?.role === "student" ? <AppliedInternships /> : <HomeGuest />} />
-
+            <Route path="/internships/:jobId" element={state.loggedIn ? <JobDescription /> : <HomeGuest />} />
             {/* PAssing addFlashMessage() funcytion to createPost using pprops */}
           </Routes>
           {/* <Footer /> */}
