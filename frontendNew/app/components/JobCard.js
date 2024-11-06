@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Card = styled.div`
   background-color: #fff;
@@ -73,26 +74,28 @@ const WorkType = styled.span`
   font-weight: bold;
 `;
 
-function JobCard({ title, company, location, duration, stipend, posted, workType, companyLogo }) {
+function JobCard({ id, title, company, location, duration, stipend, posted, workType, companyLogo }) {
   return (
-    <Card>
-      <Header>
-        <Title>{title}</Title>
-        {companyLogo && <CompanyLogo src={companyLogo} alt={`${company} logo`} />}
-      </Header>
-      <CompanyInfo>
-        {company} <HiringStatus>Actively hiring</HiringStatus>
-      </CompanyInfo>
-      <JobDetails>
-        {location && <span>📍 {location}</span>}
-        {duration && <span>⏳ {duration}</span>}
-        {stipend && <span>💰 {stipend}</span>}
-      </JobDetails>
-      <JobFooter>
-        <span>Posted: {posted}</span>
-        {workType && <WorkType>{workType}</WorkType>}
-      </JobFooter>
-    </Card>
+    <Link to={`/internships/${id}`}>
+      <Card>
+        <Header>
+          <Title>{title}</Title>
+          {companyLogo && <CompanyLogo src={companyLogo} alt={`${company} logo`} />}
+        </Header>
+        <CompanyInfo>
+          {company} <HiringStatus>Actively hiring</HiringStatus>
+        </CompanyInfo>
+        <JobDetails>
+          {location && <span>📍 {location}</span>}
+          {duration && <span>⏳ {duration}</span>}
+          {stipend && <span>💰 {stipend}</span>}
+        </JobDetails>
+        <JobFooter>
+          <span>Posted: {posted}</span>
+          {workType && <WorkType>{workType}</WorkType>}
+        </JobFooter>
+      </Card>
+    </Link>
   );
 }
 
