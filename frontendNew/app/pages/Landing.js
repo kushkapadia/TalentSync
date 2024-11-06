@@ -2,7 +2,7 @@ import React from 'react'
 
 function Landing(){
     return (
-        <div className="app-container">
+        <div className="app-container-landing">
           <header className="header">
             <h1>Welcome John Doe</h1>
             <p>Build your profile now to showcase your skills and achievements</p>
