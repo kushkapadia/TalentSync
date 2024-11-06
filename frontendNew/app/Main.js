@@ -18,6 +18,7 @@ import Internships from "./pages/Internships"
 import JobCard from "./components/JobCard.js"
 import AppliedInternships from "./components/AppliedInternships.js"
 import Landing from "./pages/Landing.js"
+import AdminGuest from "./pages/AdminGuest.js"
 function Main() {
   //<> </> this is called as a react fragment.
   const initialState = {
@@ -79,6 +80,7 @@ function Main() {
 
           <Routes>
             <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
+            <Route path="/admin" element={state.loggedIn ? <h2>ADMIN SIDE - SHAIL PAGE DAAL DE</h2> : <AdminGuest />} />
             <Route path="/internships" element={state.loggedIn ? <Internships /> : <HomeGuest />} />
             <Route path="/applied-internships" element={state.loggedIn ? <AppliedInternships /> : <HomeGuest />} />
 
