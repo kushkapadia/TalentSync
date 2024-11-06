@@ -62,7 +62,7 @@ function HeaderLoggedInAdmin() {
 
   return (
     <header className="d-flex align-items-center">
-      <h1 className="text-white mr-3">TalentSync</h1>
+      {/* <h1 className="text-white mr-3">TalentSync</h1> */}
       <div className="flex-row my-3 my-md-0">
         <Link to="/upload-internship" className="text-white mr-2">
           Upload Internships

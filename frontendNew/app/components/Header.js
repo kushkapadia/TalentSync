@@ -1,35 +1,10 @@
-import React, { useContext, useState } from "react"
-// import { Link } from "react-router-dom"
-import HeaderLoggedOut from "./HeaderLoggedOut"
-import HeaderLoggedIn from "./HeaderLoggedIn"
-import StateContext from "../StateContext"
-
-// function Header(props) {
-// const appState = useContext(StateContext)
-
-//   return (
-//     <header className="header-bar bg-primary mb-3">
-//       <div className="container d-flex flex-column flex-md-row align-items-center p-3">
-//         <h4 className="my-0 mr-md-auto font-weight-normal">
-//           <Link to="/" className="text-white">
-//             ComplexApp
-//           </Link>
-//         </h4>
-//         {/* Old way */}
-//         {/* {props.loggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />} */}
-//         {/* New Way */}
-//         {appState.loggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}
-//       </div>
-//     </header>
-//   )
-// }
-
-// export default Header
-
-// Navbar.jsx
-// import React from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import HeaderLoggedOut from "./HeaderLoggedOut"
+import HeaderLoggedIn from "./HeaderLoggedIn"
+import HeaderLoggedInAdmin from "./HeaderLoggedInAdmin"
+import StateContext from "../StateContext"
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -61,6 +36,7 @@ const NavLink = styled(Link)`
 
 const Header = () => {
   const appState = useContext(StateContext)
+
   return (
     <header className="header-bar bg-primary mb-3">
       <div className="container d-flex flex-column flex-md-row align-items-center p-3">
@@ -69,7 +45,16 @@ const Header = () => {
             TalentSync
           </Link>
         </h4>
-        {appState.loggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}
+        {/* Conditional rendering based on user's role */}
+        {appState.loggedIn ? (
+          appState.user?.role === "student" ? (
+            <HeaderLoggedIn />
+          ) : (
+            <HeaderLoggedInAdmin />
+          ) 
+        ) : (
+          <HeaderLoggedOut />
+        )}
       </div>
     </header>
   )
