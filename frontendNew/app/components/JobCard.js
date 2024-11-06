@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React from "react"
+import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 const Card = styled.div`
   background-color: #fff;
@@ -13,39 +13,39 @@ const Card = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
-`;
+`
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-`;
+`
 
 const Title = styled.h2`
   font-size: 20px;
   font-weight: 600;
   color: #333;
   margin: 0;
-`;
+`
 
 const CompanyLogo = styled.img`
   height: 40px;
   width: 40px;
   border-radius: 50%;
   object-fit: cover;
-`;
+`
 
 const CompanyInfo = styled.p`
   font-size: 14px;
   color: #555;
   margin: 10px 0;
-`;
+`
 
 const HiringStatus = styled.span`
   color: #007bff;
   font-weight: bold;
-`;
+`
 
 const JobDetails = styled.div`
   display: flex;
@@ -58,7 +58,7 @@ const JobDetails = styled.div`
     display: flex;
     align-items: center;
   }
-`;
+`
 
 const JobFooter = styled.div`
   margin-top: 15px;
@@ -67,12 +67,12 @@ const JobFooter = styled.div`
   align-items: center;
   font-size: 13px;
   color: #888;
-`;
+`
 
 const WorkType = styled.span`
   color: #28a745;
   font-weight: bold;
-`;
+`
 
 function JobCard({ id, title, company, location, duration, stipend, posted, workType, companyLogo }) {
   return (
@@ -96,7 +96,7 @@ function JobCard({ id, title, company, location, duration, stipend, posted, work
         </JobFooter>
       </Card>
     </Link>
-  );
+  )
 }
 
-export default JobCard;
+export default JobCard

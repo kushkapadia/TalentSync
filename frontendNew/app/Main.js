@@ -99,21 +99,19 @@ function Main() {
 
             <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <InternshipForm /> : <AdminGuest />} />
 
-
             <Route path="/internships" element={state.loggedIn && state.user?.role === "student" ? <Internships /> : <HomeGuest />} />
             <Route path="/applied-internships" element={state.loggedIn && state.user?.role === "student" ? <AppliedInternships /> : <HomeGuest />} />
-            <Route path="/internships/:jobId" element={state.loggedIn ? <JobDescription /> : <HomeGuest />} />
+            <Route path="/internships/:jobId" element={state.loggedIn && state.user?.role === "student" ? <JobDescription /> : <HomeGuest />} />
             {/* PAssing addFlashMessage() funcytion to createPost using pprops */}
           </Routes>
 
           {/* <Routes> */}
-            {/* <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
+          {/* <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
             <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <InternshipForm /> : <AdminGuest />} />
             <Route path="/upload-internship" element={state.loggedIn && state.user?.role === "admin" ? <UploadInternships /> : <HomeGuest />} />
             <Route path="/view-internships" element={state.loggedIn ? <ViewInternships /> : <HomeGuest />} />
             <Route path="/internships/:jobId" element={state.loggedIn ? <JobDescription /> : <HomeGuest />} /> */}
           {/* </Routes> */}
-
 
           {/* <Footer /> */}
         </BrowserRouter>

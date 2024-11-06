@@ -3,7 +3,7 @@ import Axios from "axios"
 import Page from "./Page"
 
 const studentId = localStorage.getItem("talentSyncId")
-
+const token = localStorage.getItem("talentSyncToken")
 function AppliedInternships() {
   const [internships, setInternships] = useState([])
   const [loading, setLoading] = useState(true)
@@ -19,7 +19,7 @@ function AppliedInternships() {
       }
 
       // Retrieve the Bearer token from localStorage
-      const token = localStorage.getItem("talentSyncToken")
+
       if (!token) {
         setError("Authentication token not found.")
         setLoading(false)
@@ -30,6 +30,9 @@ function AppliedInternships() {
         // Include the token in the headers
         const response = await Axios.get(`/internshipapplication/get-by-studId/${studentId}`, {
           headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            Expires: "0",
             Authorization: `Bearer ${token}`
           }
         })
