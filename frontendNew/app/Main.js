@@ -12,6 +12,18 @@ import StateContext from "./StateContext.js"
 import HomeGuest from "./components/HomeGuest"
 import Header from "./components/Header"
 import FlashMessages from "./components/FlashMessages"
+
+import HeaderLoggedInAdmin from "./components/HeaderLoggedInAdmin.js"
+
+// ----------------------------------------------------------------------------------------------------
+import InternshipForm from "./components/InternshipForm"
+
+// Replace the /admin route:
+
+import UploadInternships from "./pages/UploadInternships"
+import ViewInternships from "./pages/ViewInternships"
+// ----------------------------------------------------------------------------------------------------
+
 // import Footer from "./components/Footer"
 // import Home from "./components/Home"
 import Internships from "./pages/Internships"
@@ -83,12 +95,26 @@ function Main() {
 
           <Routes>
             <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
-            <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <h2>ADMIN SIDE - SHAIL PAGE DAAL DE</h2> : <AdminGuest />} />
+            {/* <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <h2>ADMIN SIDE - SHAIL PAGE DAAL DE</h2> : <AdminGuest />} /> */}
+
+            <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <InternshipForm /> : <AdminGuest />} />
+
+
             <Route path="/internships" element={state.loggedIn && state.user?.role === "student" ? <Internships /> : <HomeGuest />} />
             <Route path="/applied-internships" element={state.loggedIn && state.user?.role === "student" ? <AppliedInternships /> : <HomeGuest />} />
             <Route path="/internships/:jobId" element={state.loggedIn ? <JobDescription /> : <HomeGuest />} />
             {/* PAssing addFlashMessage() funcytion to createPost using pprops */}
           </Routes>
+
+          {/* <Routes> */}
+            {/* <Route path="/" element={state.loggedIn ? <Landing /> : <HomeGuest />} />
+            <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <InternshipForm /> : <AdminGuest />} />
+            <Route path="/upload-internship" element={state.loggedIn && state.user?.role === "admin" ? <UploadInternships /> : <HomeGuest />} />
+            <Route path="/view-internships" element={state.loggedIn ? <ViewInternships /> : <HomeGuest />} />
+            <Route path="/internships/:jobId" element={state.loggedIn ? <JobDescription /> : <HomeGuest />} /> */}
+          {/* </Routes> */}
+
+
           {/* <Footer /> */}
         </BrowserRouter>
       </DispatchContext.Provider>
