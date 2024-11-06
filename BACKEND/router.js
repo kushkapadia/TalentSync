@@ -5,6 +5,8 @@ const TryCatch = require("./helper/TryCatch")
 const Messages = require("./constants/Messages")
 
 //imports here
+const adminController = require("./controllers/adminController")
+
 const questionController = require("./controllers/questionController")
 
 const internshipapplicationController = require("./controllers/internshipapplicationController")
@@ -17,6 +19,19 @@ const projectController = require("./controllers/projectController")
 const studentController = require("./controllers/studentController")
 
 //code here
+
+//Entity - Admin --start
+//Authentication - Admin
+router.post("/register-admin", new TryCatch(adminController.apiRegister).tryCatchGlobe())
+router.post("/login-admin", new TryCatch(adminController.apiLogin).tryCatchGlobe())
+
+//CRUD Operations - Admin
+router.post("/admin/does-email-exists", AuthHelper.verifyToken, new TryCatch(adminController.doesEmailExist).tryCatchGlobe())
+router.get("/admin/get-by-id/:id", AuthHelper.verifyToken, new TryCatch(adminController.getById).tryCatchGlobe())
+router.get("/admin/get-by-email/:email", AuthHelper.verifyToken, new TryCatch(adminController.getByEmail).tryCatchGlobe())
+router.get("/admin/get-all", AuthHelper.verifyToken, new TryCatch(adminController.getAllAdmins).tryCatchGlobe())
+router.delete("/admin/delete-by-id/:id", AuthHelper.verifyToken, new TryCatch(adminController.deleteById).tryCatchGlobe())
+//Entity - Admin - End
 
 //Entity - Question --start
 //Authentication - Question
@@ -37,6 +52,7 @@ router.delete("/question/delete-by-id/:id", AuthHelper.verifyToken, new TryCatch
 router.post("/internshipapplication/create", AuthHelper.verifyToken, new TryCatch(internshipapplicationController.createInternshipApplication).tryCatchGlobe())
 router.get("/internshipapplication/get-by-id/:id", AuthHelper.verifyToken, new TryCatch(internshipapplicationController.getById).tryCatchGlobe())
 router.get("/internshipapplication/get-all", AuthHelper.verifyToken, new TryCatch(internshipapplicationController.getAllInternshipApplications).tryCatchGlobe())
+router.get("/internshipapplication/get-by-studId/:id", AuthHelper.verifyToken, new TryCatch(internshipapplicationController.getAllInternshipApplicationsByStudentId).tryCatchGlobe())
 router.delete("/internshipapplication/delete-by-id/:id", AuthHelper.verifyToken, new TryCatch(internshipapplicationController.deleteById).tryCatchGlobe())
 //Entity - InternshipApplication - End
 
