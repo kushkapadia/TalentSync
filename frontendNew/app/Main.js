@@ -76,6 +76,7 @@ function Main() {
       localStorage.removeItem("talentSyncToken")
       localStorage.removeItem("talentSyncEmail")
       localStorage.removeItem("talentSyncId")
+      localStorage.removeItem("talentSyncRole")
     }
   }, [state.loggedIn])
   //Anytime state.loggedIn changes, the function here will run
@@ -92,25 +93,18 @@ function Main() {
           <FlashMessages messages={state.flashMessages} />
 
           <Routes>
-            <Route
-              path="/"
-              element={
-                state.loggedIn
-                  ? (state.user?.role === "student" ? <Landing /> : <AdminLanding />)
-                  : <HomeGuest />
-              }
-            />
+            <Route path="/" element={state.loggedIn ? state.user?.role === "student" ? <Landing /> : <AdminLanding /> : <HomeGuest />} />
             <Route path="/admin" element={state.loggedIn && state.user?.role === "admin" ? <AdminLanding /> : <AdminGuest />} />
             <Route path="/upload-internship" element={state.loggedIn && state.user?.role === "admin" ? <UploadInternships /> : <HomeGuest />} />
             <Route path="/view-internships" element={state.loggedIn && state.user?.role === "admin" ? <ViewInternships /> : <HomeGuest />} />
-            <Route path="/internships/:jobId" element={state.loggedIn && state.user?.role === "admin" ? <JobDescription /> : <HomeGuest />} />
+            <Route path="/internships-admin/:jobId" element={state.loggedIn && state.user?.role === "admin" ? <JobDescription /> : <HomeGuest />} />
             <Route path="/internships" element={state.loggedIn && state.user?.role === "student" ? <Internships /> : <HomeGuest />} />
             <Route path="/applied-internships" element={state.loggedIn && state.user?.role === "student" ? <AppliedInternships /> : <HomeGuest />} />
             <Route path="/internships/:jobId" element={state.loggedIn && state.user?.role === "student" ? <JobDescription /> : <HomeGuest />} />
+            {/* <Route path="/internships/:jobId" element={state.loggedIn && state.user?.role === "student" ? <HomeGuest /> : <JobDescription />} /> */}
+
             {/* PAssing addFlashMessage() funcytion to createPost using pprops */}
           </Routes>
-
-
 
           {/* <Routes> */}
 
