@@ -83,6 +83,7 @@ const StipendRange = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
+  margin: 0;
   margin-top: 15px;
 `;
 
@@ -93,7 +94,7 @@ const FilterButton = styled.button`
   color: #fff;
   border: none;
   border-radius: 4px;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;

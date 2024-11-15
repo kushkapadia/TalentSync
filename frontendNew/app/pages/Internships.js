@@ -9,7 +9,6 @@ const token = localStorage.getItem("talentSyncToken")
 
 const AppContainer = styled.div`
   display: flex;
-  ${'' /* padding: 20px; */}
   margin: 3% 20% 20%;
 `
 
@@ -19,7 +18,15 @@ const JobListings = styled.div`
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  overflow-y: auto;
 `
+const FilterSidebarContainer = styled.div`
+  width: 400px;
+  margin-right: 20px;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+`;
 
 function Internships() {
   const [internships, setInternships] = useState([])
@@ -68,7 +75,9 @@ function Internships() {
 
   return (
     <AppContainer>
-      <FilterSidebar />
+      <FilterSidebarContainer>
+        <FilterSidebar />
+      </FilterSidebarContainer>
       <JobListings>
         {internships.data.map((job, index) => (
           <Link to={`/internships/${job.jobId}`} key={job.jobId}>
