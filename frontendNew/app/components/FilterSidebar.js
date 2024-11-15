@@ -8,6 +8,13 @@ const SidebarContainer = styled.aside`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: none;
+    border-radius: 0;
+  }
 `;
 
 const Title = styled.h3`
@@ -15,10 +22,19 @@ const Title = styled.h3`
   color: #333;
   text-align: center;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
 `;
 
 const FilterItem = styled.div`
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
 `;
 
 const Label = styled.label`
@@ -27,6 +43,10 @@ const Label = styled.label`
   margin-bottom: 8px;
   color: #555;
   font-size: 1.2em;
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+  }
 `;
 
 const TextInput = styled.input`
@@ -34,11 +54,19 @@ const TextInput = styled.input`
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
+
+  @media (max-width: 768px) {
+    padding: 6px;
+  }
 `;
 
 const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const CheckboxInput = styled.input`
@@ -48,6 +76,10 @@ const CheckboxInput = styled.input`
 const CheckboxLabel = styled(Label)`
   margin: 0;
   font-weight: normal;
+
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+  }
 `;
 
 const RangeInput = styled.input`
@@ -70,6 +102,15 @@ const RangeInput = styled.input`
     cursor: pointer;
     border-radius: 50%;
   }
+
+  @media (max-width: 768px) {
+    height: 6px;
+
+    &::-webkit-slider-thumb {
+      width: 14px;
+      height: 14px;
+    }
+  }
 `;
 
 const StipendRange = styled.div`
@@ -78,6 +119,10 @@ const StipendRange = styled.div`
   font-size: 0.9em;
   color: #777;
   margin-top: 8px;
+
+  @media (max-width: 768px) {
+    font-size: 0.8em;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -85,6 +130,11 @@ const ButtonContainer = styled.div`
   gap: 10px;
   margin: 0;
   margin-top: 15px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 5px;
+  }
 `;
 
 const FilterButton = styled.button`
@@ -102,6 +152,11 @@ const FilterButton = styled.button`
 
   &:hover {
     background-color: #0056b3;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+    padding: 8px;
   }
 `;
 

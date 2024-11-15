@@ -57,7 +57,6 @@ function JobDescription() {
   //     "This role involves developing and maintaining software applications. Candidates should have experience in JavaScript, React, and Node.js.",
   // };
   const { jobId } = useParams()
-
   const [job, setJob] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -93,7 +92,7 @@ function JobDescription() {
     }
 
     fetchJobs()
-  }, {})
+  }, [])
 
   if (loading) {
     return <div>Loading...</div>
