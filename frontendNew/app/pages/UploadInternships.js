@@ -1,6 +1,6 @@
-// pages/UploadInternships.js
 import React, { useState } from "react"
 import styled, { keyframes } from "styled-components"
+import Axios from "axios"
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -85,37 +85,52 @@ const SubmitButton = styled.button`
 `
 
 function UploadInternships() {
-  const [profile, setProfile] = useState("")
-  const [company, setCompany] = useState("")
+  const [jobTitle, setJobTitle] = useState("")
+  const [companyName, setCompanyName] = useState("")
   const [jobDescription, setJobDescription] = useState("")
-  const [location, setLocation] = useState("")
-  const [jobType, setJobType] = useState("")
-  const [responsibilities, setResponsibilities] = useState("")
-  const [qualifications, setQualifications] = useState("")
-  const [skillsRequired, setSkillsRequired] = useState("")
-  const [experienceRequired, setExperienceRequired] = useState("")
+  const [jobLocation, setJobLocation] = useState("")
   const [salaryRange, setSalaryRange] = useState("")
-  const [benefits, setBenefits] = useState("")
-  const [applicationDeadline, setApplicationDeadline] = useState("")
-  const [contactPerson, setContactPerson] = useState("")
-  const [contactEmail, setContactEmail] = useState("")
-  const [contactPhone, setContactPhone] = useState("")
-  const [link, setLink] = useState("")
-  const [eligibility, setEligibility] = useState("")
-  const [remoteWork, setRemoteWork] = useState(false)
-  const [requiredLanguages, setRequiredLanguages] = useState("")
-  const [travelRequirement, setTravelRequirement] = useState("")
-  const [workSchedule, setWorkSchedule] = useState(false)
+  const [jobType, setJobType] = useState("")
+  const [applicationLink, setApplicationLink] = useState("")
+  const token = localStorage.getItem("talentSyncToken")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    // Form submission logic goes here
-    console.log({
-      profile, company, jobDescription, location, jobType, responsibilities,
-      qualifications, skillsRequired, experienceRequired, salaryRange, benefits,
-      applicationDeadline, contactPerson, contactEmail, contactPhone, link, eligibility,
-      remoteWork, requiredLanguages, travelRequirement, workSchedule
-    })
+
+    const internshipData = {
+      jobTitle,
+      companyName,
+      jobDescription,
+      jobLocation,
+      salaryRange,
+      jobType,
+      applicationLink
+    }
+
+    try {
+      // Retrieve the Bearer token from localStorage
+      if (!token) {
+        console.log("Authentication token not found.")
+        return
+      }
+
+      // Correct way to send Axios POST request
+      const response = await Axios.post(
+        "/jobpost/create", // Your API endpoint
+        internshipData, // The payload (internship data)
+        {
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            Expires: "0",
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      console.log("Internship submitted successfully:", response.data)
+    } catch (error) {
+      console.error("Error submitting internship:", error)
+    }
   }
 
   return (
@@ -123,67 +138,25 @@ function UploadInternships() {
       <Title>Submit an Internship</Title>
       <Form onSubmit={handleSubmit}>
         <Label>Profile:</Label>
-        <Input type="text" value={profile} onChange={(e) => setProfile(e.target.value)} required />
+        <Input type="text" value={jobTitle} onChange={e => setJobTitle(e.target.value)} required />
 
         <Label>Company Name:</Label>
-        <Input type="text" value={company} onChange={(e) => setCompany(e.target.value)} required />
+        <Input type="text" value={companyName} onChange={e => setCompanyName(e.target.value)} required />
 
         <Label>Job Description:</Label>
-        <TextArea value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} required />
+        <TextArea value={jobDescription} onChange={e => setJobDescription(e.target.value)} required />
 
         <Label>Location:</Label>
-        <Input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
+        <Input type="text" value={jobLocation} onChange={e => setJobLocation(e.target.value)} required />
 
-        <Label>Job Type:</Label>
-        <Input type="text" value={jobType} onChange={(e) => setJobType(e.target.value)} />
+        <Label>Stipend:</Label>
+        <Input type="text" value={salaryRange} onChange={e => setSalaryRange(e.target.value)} required />
 
-        <Label>Responsibilities:</Label>
-        <TextArea value={responsibilities} onChange={(e) => setResponsibilities(e.target.value)} />
-
-        <Label>Qualifications:</Label>
-        <TextArea value={qualifications} onChange={(e) => setQualifications(e.target.value)} />
-
-        <Label>Skills Required:</Label>
-        <TextArea value={skillsRequired} onChange={(e) => setSkillsRequired(e.target.value)} />
-
-        <Label>Experience Required:</Label>
-        <Input type="text" value={experienceRequired} onChange={(e) => setExperienceRequired(e.target.value)} />
-
-        <Label>Salary Range:</Label>
-        <Input type="text" value={salaryRange} onChange={(e) => setSalaryRange(e.target.value)} />
-
-        <Label>Benefits:</Label>
-        <TextArea value={benefits} onChange={(e) => setBenefits(e.target.value)} />
-
-        <Label>Application Deadline:</Label>
-        <Input type="date" value={applicationDeadline} onChange={(e) => setApplicationDeadline(e.target.value)} />
-
-        <Label>Contact Person:</Label>
-        <Input type="text" value={contactPerson} onChange={(e) => setContactPerson(e.target.value)} />
-
-        <Label>Contact Email:</Label>
-        <Input type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />
-
-        <Label>Contact Phone:</Label>
-        <Input type="tel" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} />
+        <Label>Type:</Label>
+        <Input type="text" value={jobType} onChange={e => setJobType(e.target.value)} required />
 
         <Label>Application Link:</Label>
-        <Input type="text" value={link} onChange={(e) => setLink(e.target.value)} required />
-
-        <Label>Eligibility:</Label>
-        <Input type="text" value={eligibility} onChange={(e) => setEligibility(e.target.value)} />
-
-        <Label>Remote Work:</Label>
-        <Input type="checkbox" checked={remoteWork} onChange={(e) => setRemoteWork(e.target.checked)} />
-
-        <Label>Required Languages:</Label>
-        <Input type="text" value={requiredLanguages} onChange={(e) => setRequiredLanguages(e.target.value)} />
-
-        <Label>Travel Requirement:</Label>
-        <Input type="text" value={travelRequirement} onChange={(e) => setTravelRequirement(e.target.value)} />
-
-        <Label>Work Schedule:</Label>
-        <Input type="checkbox" checked={workSchedule} onChange={(e) => setWorkSchedule(e.target.checked)} />
+        <Input type="text" value={applicationLink} onChange={e => setApplicationLink(e.target.value)} required />
 
         <SubmitButton type="submit">Submit Internship</SubmitButton>
       </Form>
