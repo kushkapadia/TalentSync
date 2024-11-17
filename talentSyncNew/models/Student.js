@@ -1,0 +1,125 @@
+const bcrypt = require("bcryptjs");
+const Messages = require("../constants/Message");
+const TryCatch = require("../helper/TryCatch");
+const { ObjectId } = require('mongodb');
+const studentsCollection = require("../db").db().collection("students");
+
+let Student = function (data) {
+  this.data = data;
+  this.errors = [];
+};
+
+Student.prototype.cleanUp = function () {
+  // get rid of any bogus properties
+  this.data = {
+    //predfined start
+    name: this.data.name,
+    lName: this.data.lName,
+    email: this.data.email.trim().toLowerCase(),
+    password: this.data.password,
+    contactNumber: this.data.contactNumber,
+    address: this.data.address,
+    city: this.data.city,
+    //predefined end
+    dateOfBirth: new Date(this.data.dateOfBirth),
+    gender: this.data.gender,
+    enrollmentYear: this.data.enrollmentYear,
+    graduationYear: this.data.graduationYear,
+    course: this.data.course,
+    department: this.data.department,
+    // currentSemester: this.data.currentSemester,
+    CGPA: Number(this.data.CGPA),
+    projects: [], // this will be an [] of project Id's
+    experience: this.data.experience, //{numberOfyears: , company: , }
+    skills: this.data.skills,
+    certificates: this.data.certificates, //array
+    resumeLink: this.data.resumeLink,
+    portfolioLink: this.data.portfolioLink,
+    linkedInProfileLink: this.data.linkedInProfileLink,
+    gitHubProfileLink: this.data.gitHubProfileLink,
+    programmingPlatformLink: this.data.programmingPlatformLink,
+    clubs: this.data.clubs,
+    achievements: this.data.achievements, //array
+    preferredJobRole: this.data.preferredJobRole,
+    preferredJobLocation: this.data.preferredJobLocation,
+    isHigherStudies: Boolean(this.data.isHigherStudies),
+    sapId: this.data.sapId,
+    skillsInterestedToLearn: this.data.skillsInterestedToLearn,
+    reputationScore: Number(this.data.reputationScore),
+    internshipsAppliedIn: this.data.internshipsAppliedIn,
+    badgesRecieved: this.data.badgesRecieved, //array
+    mentorId: new ObjectId(this.data.mentorId),
+    role: "student",
+    createdAt: new Date()
+  }
+};
+
+Student.prototype.login = async function () {
+  let attemptedUser = await studentsCollection.findOne({ email: this.data.email });
+  this.cleanUp();
+  if (
+    attemptedUser &&
+    bcrypt.compareSync(this.data.password, attemptedUser.password)
+  ) {
+    this.data = attemptedUser;
+    return true;
+  } else {
+    return false;
+  }
+};
+
+Student.prototype.register = function () {
+  return new Promise(async (resolve, reject) => {
+    // Step #1: Validate user data
+    //   await this.validate()
+
+    // Step #2: Only if there are no validation errors
+    // then save the user data into a database
+    console.log("Helooooooooooooooooooooooooooooooooooooooooooooooo")
+    console.log(this.data)
+    this.cleanUp()
+    console.log(this.data)
+    if (!this.errors.length) {
+      // hash user password
+      let salt = bcrypt.genSaltSync(10)
+      this.data.password = bcrypt.hashSync(this.data.password, salt)
+      await studentsCollection.insertOne(this.data)
+      resolve()
+    } else {
+      reject(this.errors)
+    }
+  })
+}
+
+Student.prototype.findByEmail = async function (email) {
+  let studentDoc = await studentsCollection.findOne({ email: email })
+  return studentDoc
+
+};
+
+Student.prototype.doesEmailExist = async function (email) {
+
+  let student = await studentsCollection.findOne({ email: email });
+  if (student) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+Student.prototype.getById = async function (id) {
+  let studentDoc = await studentsCollection.findOne({ _id: new ObjectId(id) })
+  return studentDoc
+}
+
+Student.prototype.getAllStudents = async function () {
+  let studentDoc = await studentsCollection.find({}).toArray()
+  return studentDoc
+}
+
+Student.prototype.deleteById = async function (id) {
+  await studentsCollection.deleteOne({ _id: new ObjectId(id) })
+  return
+}
+
+module.exports = Student;
