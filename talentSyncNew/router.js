@@ -5,6 +5,8 @@ const TryCatch = require("./helper/TryCatch")
 const Messages = require("./constants/Message")
 
 //imports here
+const adminController = require('./controllers/adminController');
+
 const mentorController = require('./controllers/mentorController');
 
 const studentController = require('./controllers/studentController');
@@ -13,17 +15,31 @@ const testuserController = require("./controllers/testuserController")
 
 //code here
 
+//Entity - Admin --start
+//Authentication - Admin
+router.post('/register-admin', new TryCatch(adminController.register).tryCatchGlobe());
+router.post('/login-admin', new TryCatch(adminController.login).tryCatchGlobe());
+
+//CRUD Operations - Admin
+router.post('/admin/does-email-exists', new TryCatch(adminController.doesEmailExist).tryCatchGlobe());
+router.get('/admin/get-by-id/:id', new TryCatch(adminController.getById).tryCatchGlobe());
+router.get('/admin/get-by-email/:email', new TryCatch(adminController.getByEmail).tryCatchGlobe());
+router.get('/admin/get-all', new TryCatch(adminController.getAllAdmins).tryCatchGlobe());
+router.delete('/admin/delete-by-id/:id', new TryCatch(adminController.deleteById).tryCatchGlobe());
+//Entity - Admin - End
+
+
 //Entity - Mentor --start
 //Authentication - Mentor
 router.post('/register-mentor', new TryCatch(mentorController.register).tryCatchGlobe());
 router.post('/login-mentor', new TryCatch(mentorController.login).tryCatchGlobe());
 
 //CRUD Operations - Mentor
-router.post('/mentor/does-email-exists', AuthHelper.verifyToken, new TryCatch(mentorController.doesEmailExist).tryCatchGlobe());
-router.get('/mentor/get-by-id/:id', AuthHelper.verifyToken, new TryCatch(mentorController.getById).tryCatchGlobe());
-router.get('/mentor/get-by-email/:email', AuthHelper.verifyToken, new TryCatch(mentorController.getByEmail).tryCatchGlobe());
-router.get('/mentor/get-all', AuthHelper.verifyToken, new TryCatch(mentorController.getAllMentors).tryCatchGlobe());
-router.delete('/mentor/delete-by-id/:id', AuthHelper.verifyToken, new TryCatch(mentorController.deleteById).tryCatchGlobe());
+router.post('/mentor/does-email-exists', new TryCatch(mentorController.doesEmailExist).tryCatchGlobe());
+router.get('/mentor/get-by-id/:id', new TryCatch(mentorController.getById).tryCatchGlobe());
+router.get('/mentor/get-by-email/:email', new TryCatch(mentorController.getByEmail).tryCatchGlobe());
+router.get('/mentor/get-all', new TryCatch(mentorController.getAllMentors).tryCatchGlobe());
+router.delete('/mentor/delete-by-id/:id', new TryCatch(mentorController.deleteById).tryCatchGlobe());
 //Entity - Mentor - End
 
 
@@ -33,11 +49,11 @@ router.post('/register-student', new TryCatch(studentController.register).tryCat
 router.post('/login-student', new TryCatch(studentController.login).tryCatchGlobe());
 
 //CRUD Operations - Student
-router.post('/student/does-email-exists', AuthHelper.verifyToken, new TryCatch(studentController.doesEmailExist).tryCatchGlobe());
-router.get('/student/get-by-id/:id', AuthHelper.verifyToken, new TryCatch(studentController.getById).tryCatchGlobe());
-router.get('/student/get-by-email/:email', AuthHelper.verifyToken, new TryCatch(studentController.getByEmail).tryCatchGlobe());
-router.get('/student/get-all', AuthHelper.verifyToken, new TryCatch(studentController.getAllStudents).tryCatchGlobe());
-router.delete('/student/delete-by-id/:id', AuthHelper.verifyToken, new TryCatch(studentController.deleteById).tryCatchGlobe());
+router.post('/student/does-email-exists', new TryCatch(studentController.doesEmailExist).tryCatchGlobe());
+router.get('/student/get-by-id/:id', new TryCatch(studentController.getById).tryCatchGlobe());
+router.get('/student/get-by-email/:email', new TryCatch(studentController.getByEmail).tryCatchGlobe());
+router.get('/student/get-all', new TryCatch(studentController.getAllStudents).tryCatchGlobe());
+router.delete('/student/delete-by-id/:id', new TryCatch(studentController.deleteById).tryCatchGlobe());
 //Entity - Student - End
 
 
@@ -65,7 +81,7 @@ router.get("/admin-sign-up", function (req, res) {
 })
 
 router.get("/admin-login", function (req, res) {
-  res.render('admin-login')
+  res.render('admin/admin-signin')
 })
 
 router.get("/student-signup", function (req, res) {

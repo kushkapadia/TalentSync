@@ -53,7 +53,7 @@ app.use(
     createParentPath: true
   })
 )
-app.use(morgan("dev"))
+// app.use(morgan("dev"))
 app.use(express.static("public"))
 //We are telling our express server to make the folder accessible.
 //in public folder there are all the files who that we want to show all the visitors of our app. (css, browser.js, etc)
