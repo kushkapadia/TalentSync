@@ -98,5 +98,9 @@ router.post('/logout', function (req, res) {
   })
 })
 
+//Mentor side pages
+router.get("/my-mentees", function (req, res) {
+  res.render('mentor/mentor-myMentees')
+})
 
 module.exports = router
