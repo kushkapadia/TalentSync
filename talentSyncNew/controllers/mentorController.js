@@ -10,32 +10,51 @@ const tokenLasts = "365d";
 
 
 //LOGIN
-exports.apiLogin = async function (req, res) {
-  let mentor = new Mentor(req.body);
+// exports.apiLogin = async function (req, res) {
+//   let mentor = new Mentor(req.body);
 
-  let result = await mentor.login();
-  if (result) {
-    let data = {
-      token: jwt.sign(
-        { _id: mentor.data._id, name: mentor.data.name, email: mentor.data.email },
-        process.env.JWTSECRET,
-        { expiresIn: tokenLasts }
-      ),
-      id: mentor.data._id,
-      name: mentor.data.name,
-      role: "mentor",
-    };
+//   let result = await mentor.login();
+//   if (result) {
+//     let data = {
+//       token: jwt.sign(
+//         { _id: mentor.data._id, name: mentor.data.name, email: mentor.data.email },
+//         process.env.JWTSECRET,
+//         { expiresIn: tokenLasts }
+//       ),
+//       id: mentor.data._id,
+//       name: mentor.data.name,
+//       role: "mentor",
+//     };
 
-    new JsonResponse(req, res).jsonSuccess(data, "Login success");
-  } else {
-    res.locals.data = {
-      isValid: false,
-      loginFailed: true,
-    };
-    res.locals.message = new Messages().INVALID_CREDENTIALS;
-    new JsonResponse(req, res).jsonError();
-  }
-};
+//     new JsonResponse(req, res).jsonSuccess(data, "Login success");
+//   } else {
+//     res.locals.data = {
+//       isValid: false,
+//       loginFailed: true,
+//     };
+//     res.locals.message = new Messages().INVALID_CREDENTIALS;
+//     new JsonResponse(req, res).jsonError();
+//   }
+// };
+
+
+exports.login = function (req, res) {
+  console.log(req.body)
+  let mentor = new Mentor(req.body)
+  mentor.login().then(function (result) {
+    req.session.user = { fName: mentor.data.name, lName: mentor.data.lName, email: mentor.data.email, _id: mentor.data._id, role: mentor.data.role }
+    console.log("here")
+    req.session.save(function () {
+      res.redirect('/')
+    })
+  }).catch(function (e) {
+    console.log(e);
+    // req.flash('errors', e)
+    // req.session.save(function () {
+    res.redirect('/')
+    // })
+  })
+}
 
 //REGISTER
 // exports.apiRegister = async function (req, res) {

@@ -33,19 +33,44 @@ Mentor.prototype.cleanUp = function () {
   };
 };
 
-Mentor.prototype.login = async function () {
-  let attemptedUser = await mentorsCollection.findOne({ email: this.data.email });
-  this.cleanUp();
-  if (
-    attemptedUser &&
-    bcrypt.compareSync(this.data.password, attemptedUser.password)
-  ) {
-    this.data = attemptedUser;
-    return true;
-  } else {
-    return false;
-  }
-};
+
+
+Mentor.prototype.login = function () {
+  console.log(this.data.email)
+  return new Promise((resolve, reject) => {
+    this.cleanUp()
+    mentorsCollection.findOne({ email: this.data.email }).then((attemptedUser) => {
+      console.log("Found! based on email")
+      console.log(attemptedUser)
+      if (attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
+        this.data = attemptedUser
+        console.log(this.data)
+        resolve(this.data)
+      } else {
+        console.log("Invalidd")
+        reject("Invalid username / password.")
+      }
+    }).catch(function () {
+      console.log("Failed")
+      reject("Please try again later.")
+
+    })
+  })
+}
+
+// Mentor.prototype.login = async function () {
+//   let attemptedUser = await mentorsCollection.findOne({ email: this.data.email });
+//   this.cleanUp();
+//   if (
+//     attemptedUser &&
+//     bcrypt.compareSync(this.data.password, attemptedUser.password)
+//   ) {
+//     this.data = attemptedUser;
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
 
 // Mentor.prototype.register = async function () {
 //   this.cleanUp();

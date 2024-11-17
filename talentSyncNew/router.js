@@ -16,7 +16,7 @@ const testuserController = require("./controllers/testuserController")
 //Entity - Mentor --start
 //Authentication - Mentor
 router.post('/register-mentor', new TryCatch(mentorController.register).tryCatchGlobe());
-router.post('/login-mentor', new TryCatch(mentorController.apiLogin).tryCatchGlobe());
+router.post('/login-mentor', new TryCatch(mentorController.login).tryCatchGlobe());
 
 //CRUD Operations - Mentor
 router.post('/mentor/does-email-exists', AuthHelper.verifyToken, new TryCatch(mentorController.doesEmailExist).tryCatchGlobe());
@@ -81,7 +81,7 @@ router.get("/mentor-signup", function (req, res) {
 })
 
 router.get("/mentor-login", function (req, res) {
-  res.render('mentor-login')
+  res.render('mentor/mentor-signin')
 })
 
 // Home route
