@@ -4,7 +4,6 @@ import { Send, Phone, Mail, User } from 'lucide-react';
 
 // Styled Components
 const PageContainer = styled.div`
-  ${'' /* min-height: 25vh; */}
   display: flex;
   align-items: center;
   justify-content: center;

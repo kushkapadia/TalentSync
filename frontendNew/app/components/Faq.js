@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const FAQContainer = styled.div`
-    min-height: 100vh;
-    padding: 5rem 3rem 0rem 3rem;
+    min-height: 75vh;
+    padding: 5rem 3rem 5rem 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
