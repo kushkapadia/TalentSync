@@ -10,32 +10,51 @@ const tokenLasts = "365d";
 
 
 //LOGIN
-exports.apiLogin = async function (req, res) {
-  let student = new Student(req.body);
+// exports.apiLogin = async function (req, res) {
+//   let student = new Student(req.body);
 
-  let result = await student.login();
-  if (result) {
-    let data = {
-      token: jwt.sign(
-        { _id: student.data._id, name: student.data.name, email: student.data.email },
-        process.env.JWTSECRET,
-        { expiresIn: tokenLasts }
-      ),
-      id: student.data._id,
-      name: student.data.name,
-      role: "student",
-    };
+//   let result = await student.login();
+//   if (result) {
+//     let data = {
+//       token: jwt.sign(
+//         { _id: student.data._id, name: student.data.name, email: student.data.email },
+//         process.env.JWTSECRET,
+//         { expiresIn: tokenLasts }
+//       ),
+//       id: student.data._id,
+//       name: student.data.name,
+//       role: "student",
+//     };
 
-    new JsonResponse(req, res).jsonSuccess(data, "Login success");
-  } else {
-    res.locals.data = {
-      isValid: false,
-      loginFailed: true,
-    };
-    res.locals.message = new Messages().INVALID_CREDENTIALS;
-    new JsonResponse(req, res).jsonError();
-  }
-};
+//     new JsonResponse(req, res).jsonSuccess(data, "Login success");
+//   } else {
+//     res.locals.data = {
+//       isValid: false,
+//       loginFailed: true,
+//     };
+//     res.locals.message = new Messages().INVALID_CREDENTIALS;
+//     new JsonResponse(req, res).jsonError();
+//   }
+// };
+
+
+exports.login = function (req, res) {
+  console.log(req.body)
+  let student = new Student(req.body)
+  student.login().then(function (result) {
+    req.session.user = { fName: student.data.name, lName: student.data.lName, email: student.data.email, _id: student.data._id, role: "student" }
+    console.log("here")
+    req.session.save(function () {
+      res.redirect('/')
+    })
+  }).catch(function (e) {
+    console.log(e);
+    // req.flash('errors', e)
+    // req.session.save(function () {
+    res.redirect('/')
+    // })
+  })
+}
 
 //REGISTER
 // exports.apiRegister = async function (req, res) {
@@ -86,10 +105,11 @@ exports.register = function (req, res) {
 //handles login based on rules
 exports.home = async function (req, res) {
   console.log("hi")
-  console.log(req.session.user)
+  // console.log(req.session.user)
   if (req.session.user) {
     if (req.session.user.role == "student") {
       res.render("studentDashboard")
+      // res.send("hi")
     } else if (req.session.user.role == "mentor") {
       res.send("mentor")
     } else if (req.session.user.role == "admin") {

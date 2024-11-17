@@ -30,7 +30,7 @@ router.delete('/mentor/delete-by-id/:id', AuthHelper.verifyToken, new TryCatch(m
 //Entity - Student --start
 //Authentication - Student
 router.post('/register-student', new TryCatch(studentController.register).tryCatchGlobe());
-router.post('/login-student', new TryCatch(studentController.apiLogin).tryCatchGlobe());
+router.post('/login-student', new TryCatch(studentController.login).tryCatchGlobe());
 
 //CRUD Operations - Student
 router.post('/student/does-email-exists', AuthHelper.verifyToken, new TryCatch(studentController.doesEmailExist).tryCatchGlobe());
@@ -85,14 +85,18 @@ router.get("/mentor-login", function (req, res) {
 })
 
 // Home route
-router.get("/", new TryCatch(testuserController.home).tryCatchGlobe())
+router.get("/", new TryCatch(studentController.home).tryCatchGlobe())
 
 //Student side pages
 router.get("/apply-internships", function (req, res) {
   res.render('student-ApplyInternships')
 })
 
-
+router.post('/logout', function (req, res) {
+  req.session.destroy(function () {
+    res.redirect('/')
+  })
+})
 
 
 module.exports = router
