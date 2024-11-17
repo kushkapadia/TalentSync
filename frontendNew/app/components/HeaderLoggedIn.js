@@ -1,44 +1,59 @@
-import React, { useEffect, useContext } from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
-// import ExampleContext from "./ExampleContext"
 import DispatchContext from "../DispatchContext"
 import StateContext from "../StateContext"
+import styled from "styled-components"
+
+// Styled components
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-bottom: 0rem;
+  
+  @media (min-width: 768px) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+`
+const StyledLink = styled(Link)`
+  color: white;
+  margin-right: 1rem;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const SignOutButton = styled.button`
+  background-color: #6c757d;
+  color: white;
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #5a6268;
+  }
+`
 
 function HeaderLoggedIn(props) {
-  // const { setLoggedIn } = useContext(ExampleContext)
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
-  //app meaning global or app wide
-  function handleLogOut() {
-    // setLoggedIn(false)
-    appDispatch({ type: "logout" }) // thats the type of action, we want to dispatch
-  }
-  return (
-    <div className="flex-row my-3 my-md-0">
-      {/* <a href="#" className="text-white mr-2 header-search-icon">
-        <i className="fas fa-search"></i>
-      </a>
-      <span className="mr-2 header-chat-icon text-white">
-        <i className="fas fa-comment"></i>
-        <span className="chat-count-badge text-white"> </span>
-      </span> */}
-      {/* <Link to={`/profile/${appState.user.username}`} className="mr-2">
-        <img className="small-header-avatar" src={appState.user.avatar} />
-      </Link> */}
-      <Link to="./internships" className="text-white mr-2">
-        Internships
-      </Link>
-      <Link to="./applied-internships" className="text-white mr-2">
-        Applied Internships
-      </Link>
-      {/* <a className="btn btn-sm btn-success mr-2" href="/create-post">
-      Create Post
-    </a> ---> This too will work, but this will load entirely a new page. Th emotive of react gets over.*/}
 
-      <button onClick={handleLogOut} className="btn btn-sm btn-secondary">
-        Sign Out
-      </button>
-    </div>
+  function handleLogOut() {
+    appDispatch({ type: "logout" }) // Dispatch logout action
+  }
+
+  return (
+    <HeaderContainer>
+      <StyledLink to="./internships">Internships</StyledLink>
+      <StyledLink to="./applied-internships">Applied Internships</StyledLink>
+      <SignOutButton onClick={handleLogOut}>Sign Out</SignOutButton>
+    </HeaderContainer>
   )
 }
 
