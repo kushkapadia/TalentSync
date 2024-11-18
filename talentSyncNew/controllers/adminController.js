@@ -3,6 +3,7 @@ const JsonResponse = require("../helper/JsonResponse");
 const TryCatch = require("../helper/TryCatch");
 const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
+const JobPost = require("../models/JobPost");
 
 
 // how long a token lasts before expiring
@@ -139,4 +140,14 @@ exports.deleteById = async function (req, res) {
   let admin = new Admin();
   await admin.deleteById()
   new JsonResponse(req, res).jsonSuccess(true, new Messages().SUCCESSFULLY_DELETED)
+}
+
+//admin side page related functions
+
+exports.displayActiveInternshipPage = async function (req, res) {
+  let jobPost = new JobPost()
+  let internships = await jobPost.getAllJobPosts(); //adjust this to only fetch active internships. Add a property named active? in db
+  res.render('admin/admin-active-internships', {
+    internships: internships
+  });
 }

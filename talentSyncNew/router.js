@@ -122,7 +122,15 @@ router.post('/logout', function (req, res) {
   })
 })
 
+router.get('/view-internship/:id', new TryCatch(jobpostController.viewInternshipPage).tryCatchGlobe())
+
 //Mentor side pages
 router.get("/my-mentees", new TryCatch(mentorController.displayMyMenteePage).tryCatchGlobe())
 
 module.exports = router
+
+
+//Admin Side pages
+
+router.get('/admin-active-internships', new TryCatch(adminController.displayActiveInternshipPage).tryCatchGlobe())
+router.get('/admin-view-internship/:id', new TryCatch(jobpostController.displayAdminInternshipDetailPage).tryCatchGlobe())
