@@ -3,6 +3,7 @@ const JsonResponse = require("../helper/JsonResponse");
 const TryCatch = require("../helper/TryCatch");
 const Mentor = require("../models/Mentor");
 const jwt = require("jsonwebtoken");
+const Student = require("../models/Student");
 
 
 // how long a token lasts before expiring
@@ -140,4 +141,16 @@ exports.deleteById = async function (req, res) {
   let mentor = new Mentor();
   await mentor.deleteById()
   new JsonResponse(req, res).jsonSuccess(true, new Messages().SUCCESSFULLY_DELETED)
+}
+
+
+//page related routes
+
+exports.displayMyMenteePage = async function (req, res) {
+  let student = new Student();
+  console.log(req.session.user._id);
+  let myMentees = await student.getMenteesByMentorId(req.session.user._id); //passed the id of logged in user
+  res.render('mentor/mentor-myMentees', {
+    myMentees: myMentees
+  });
 }

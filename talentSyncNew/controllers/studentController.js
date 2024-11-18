@@ -1,6 +1,8 @@
 const Messages = require("../constants/Message");
 const JsonResponse = require("../helper/JsonResponse");
 const TryCatch = require("../helper/TryCatch");
+const JobPost = require("../models/JobPost");
+const Mentor = require("../models/Mentor");
 const Student = require("../models/Student");
 const jwt = require("jsonwebtoken");
 
@@ -162,4 +164,23 @@ exports.deleteById = async function (req, res) {
   let student = new Student();
   await student.deleteById()
   new JsonResponse(req, res).jsonSuccess(true, new Messages().SUCCESSFULLY_DELETED)
+}
+
+//page related routes
+
+exports.displaySignUpPage = async function (req, res) {
+  let mentor = new Mentor()
+  let mentors = await mentor.getAllMentors();
+  res.render('signUp', {
+    mentors: mentors
+  })
+}
+
+exports.displayApplyInternshipPage = async function (req, res) {
+  let jobpost = new JobPost()
+  let internships = await jobpost.getAllJobPosts() //later set this up to only find the applicable internships (based on graduation year, deadline, etc.)
+
+  res.render('student-ApplyInternships', {
+    internships: internships
+  })
 }

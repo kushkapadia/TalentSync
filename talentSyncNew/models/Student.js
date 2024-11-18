@@ -21,6 +21,7 @@ Student.prototype.cleanUp = function () {
     address: this.data.address,
     city: this.data.city,
     //predefined end
+    profileImageLink: this.data.profileImageLink,
     dateOfBirth: new Date(this.data.dateOfBirth),
     gender: this.data.gender,
     enrollmentYear: this.data.enrollmentYear,
@@ -49,6 +50,7 @@ Student.prototype.cleanUp = function () {
     internshipsAppliedIn: this.data.internshipsAppliedIn,
     badgesRecieved: this.data.badgesRecieved, //array
     mentorId: new ObjectId(this.data.mentorId),
+    numberOfPendingInternshipRequest: 0, //this tells the count of no.of internships left to be a[proved by the mentor
     role: "student",
     createdAt: new Date()
   }
@@ -145,6 +147,11 @@ Student.prototype.getAllStudents = async function () {
 Student.prototype.deleteById = async function (id) {
   await studentsCollection.deleteOne({ _id: new ObjectId(id) })
   return
+}
+
+Student.prototype.getMenteesByMentorId = async function (mentorId) {
+  let mentees = await studentsCollection.find({ mentorId: new ObjectId(mentorId) }).toArray()
+  return mentees
 }
 
 module.exports = Student;

@@ -5,6 +5,8 @@ const TryCatch = require("./helper/TryCatch")
 const Messages = require("./constants/Message")
 
 //imports here
+const jobpostController = require('./controllers/jobpostController');
+
 const adminController = require('./controllers/adminController');
 
 const mentorController = require('./controllers/mentorController');
@@ -14,6 +16,16 @@ const studentController = require('./controllers/studentController');
 const testuserController = require("./controllers/testuserController")
 
 //code here
+
+//Entity - JobPost --start
+
+//CRUD Operations - JobPost
+router.post('/jobpost/create', AuthHelper.verifyToken, new TryCatch(jobpostController.createJobPost).tryCatchGlobe());
+router.get('/jobpost/get-by-id/:id', AuthHelper.verifyToken, new TryCatch(jobpostController.getById).tryCatchGlobe());
+router.get('/jobpost/get-all', AuthHelper.verifyToken, new TryCatch(jobpostController.getAllJobPosts).tryCatchGlobe());
+router.delete('/jobpost/delete-by-id/:id', AuthHelper.verifyToken, new TryCatch(jobpostController.deleteById).tryCatchGlobe());
+//Entity - JobPost - End
+
 
 //Entity - Admin --start
 //Authentication - Admin
@@ -84,9 +96,7 @@ router.get("/admin-login", function (req, res) {
   res.render('admin/admin-signin')
 })
 
-router.get("/student-signup", function (req, res) {
-  res.render('signUp')
-})
+router.get("/student-signup", new TryCatch(studentController.displaySignUpPage).tryCatchGlobe());
 
 router.get("/student-login", function (req, res) {
   res.render('student-signin')
@@ -104,9 +114,7 @@ router.get("/mentor-login", function (req, res) {
 router.get("/", new TryCatch(studentController.home).tryCatchGlobe())
 
 //Student side pages
-router.get("/apply-internships", function (req, res) {
-  res.render('student-ApplyInternships')
-})
+router.get("/apply-internships", new TryCatch(studentController.displayApplyInternshipPage).tryCatchGlobe())
 
 router.post('/logout', function (req, res) {
   req.session.destroy(function () {
@@ -115,8 +123,6 @@ router.post('/logout', function (req, res) {
 })
 
 //Mentor side pages
-router.get("/my-mentees", function (req, res) {
-  res.render('mentor/mentor-myMentees')
-})
+router.get("/my-mentees", new TryCatch(mentorController.displayMyMenteePage).tryCatchGlobe())
 
 module.exports = router

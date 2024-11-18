@@ -34,102 +34,121 @@
       </div>
     </div>
     <!-- loader END -->
-
-    <div class="wrapper">
-      <section class="login-content">
-        <div class="row m-0 align-items-center bg-white vh-100">
-          <div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
-            <img src="/assets/images/auth/05.png" class="img-fluid gradient-main animated-scaleX" alt="images" />
-          </div>
-          <div class="col-md-6">
-            <div class="row justify-content-center">
-              <div class="col-md-10">
-                <div class="card card-transparent auth-card shadow-none d-flex justify-content-center mb-0">
-                  <div class="card-body">
-                    <a href="../../dashboard/index.html" class="navbar-brand d-flex align-items-center mb-3">
-                      <!--Logo start-->
-                      <!--logo End-->
-
-                      <!--Logo start-->
-                      <div class="logo-main">
-                        <div class="logo-normal">
-                          <svg class="text-primary icon-30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="-0.757324" y="19.2427" width="28" height="4" rx="2" transform="rotate(-45 -0.757324 19.2427)" fill="currentColor" />
-                            <rect x="7.72803" y="27.728" width="28" height="4" rx="2" transform="rotate(-45 7.72803 27.728)" fill="currentColor" />
-                            <rect x="10.5366" y="16.3945" width="16" height="4" rx="2" transform="rotate(45 10.5366 16.3945)" fill="currentColor" />
-                            <rect x="10.5562" y="-0.556152" width="28" height="4" rx="2" transform="rotate(45 10.5562 -0.556152)" fill="currentColor" />
-                          </svg>
-                        </div>
-                        <div class="logo-mini">
-                          <svg class="text-primary icon-30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="-0.757324" y="19.2427" width="28" height="4" rx="2" transform="rotate(-45 -0.757324 19.2427)" fill="currentColor" />
-                            <rect x="7.72803" y="27.728" width="28" height="4" rx="2" transform="rotate(-45 7.72803 27.728)" fill="currentColor" />
-                            <rect x="10.5366" y="16.3945" width="16" height="4" rx="2" transform="rotate(45 10.5366 16.3945)" fill="currentColor" />
-                            <rect x="10.5562" y="-0.556152" width="28" height="4" rx="2" transform="rotate(45 10.5562 -0.556152)" fill="currentColor" />
-                          </svg>
-                        </div>
-                      </div>
-                      <!--logo End-->
-
-                      <h4 class="logo-title ms-3">TalentSync</h4>
-                    </a>
-                    <h2 class="mb-2 text-center">Sign Up</h2>
-                    <p class="text-center">Create your TalentSync account.</p>
-                    <form action="/register-student" method="POST">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label for="full-name" class="form-label">First Name</label>
-                            <input type="text" class="form-control" name="name" placeholder=" " />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label for="last-name" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lName" name="name" placeholder=" " />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder=" " />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label for="phone" class="form-label">Phone No.</label>
-                            <input type="text" class="form-control" id="phone" placeholder=" " />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder=" " />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
-                      </div>
-                    </form>
+    <div class="col-xl-12 col-lg-8">
+      <div class="card">
+         <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+               <h4 class="card-title">User Information</h4>
+            </div>
+         </div>
+         <div class="card-body">
+            <div class="user-info">
+               <form action="/register-student" method="POST">
+                  <div class="row">
+                     <!-- Basic Information -->
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="name">First Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="First Name">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="lName">Last Name:</label>
+                        <input type="text" class="form-control" id="lName" name="lName" placeholder="Last Name">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="contactNumber">Contact Number:</label>
+                        <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="Contact Number">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="address">Address:</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="city">City:</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                     </div>
+                     
+                     <!-- Additional Information -->
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="dateOfBirth">Date of Birth:</label>
+                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="gender">Gender:</label>
+                        <select class="form-control" id="gender" name="gender">
+                           <option value="" disabled selected>Select Gender</option>
+                           <option value="male">Male</option>
+                           <option value="female">Female</option>
+                           <option value="other">Other</option>
+                        </select>
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="enrollmentYear">Enrollment Year:</label>
+                        <input type="number" class="form-control" id="enrollmentYear" name="enrollmentYear" placeholder="Enrollment Year">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="graduationYear">Graduation Year:</label>
+                        <input type="number" class="form-control" id="graduationYear" name="graduationYear" placeholder="Graduation Year">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="course">Course:</label>
+                        <input type="text" class="form-control" id="course" name="course" placeholder="Course">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="department">Department:</label>
+                        <input type="text" class="form-control" id="department" name="department" placeholder="Department">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="CGPA">CGPA:</label>
+                        <input type="number" step="0.01" class="form-control" id="CGPA" name="CGPA" placeholder="CGPA">
+                     </div>
+                     
+                     <!-- Mentor Dropdown -->
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="mentor">Mentor:</label>
+                        <select class="form-control" id="mentor" name="mentorId">
+                           <option value="" disabled selected>Select Mentor</option>
+                           <!-- Add options dynamically here -->
+                            <% mentors.forEach((mentor)=>{ %>
+                              <option value=<%= mentor._id %>><%= mentor.name%> <%= mentor.lName%> </option>
+                            <% }) %>
+                        
+                           
+                        </select>
+                     </div>
+                     
+                     <!-- Extended Information -->
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="skills">Skills:</label>
+                        <input type="text" class="form-control" id="skills" name="skills" placeholder="Skills (comma-separated)">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="certificates">Certificates:</label>
+                        <input type="text" class="form-control" id="certificates" name="certificates" placeholder="Certificates (comma-separated)">
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label class="form-label" for="resumeLink">Resume Link:</label>
+                        <input type="url" class="form-control" id="resumeLink" name="resumeLink" placeholder="Resume Link">
+                     </div>
+                     <!-- Add more fields similarly -->
+   
+                     <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                     </div>
                   </div>
-                </div>
-              </div>
+               </form>
             </div>
-            <div class="sign-bg sign-bg-right">
-              <svg width="280" height="230" viewBox="0 0 421 359" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g opacity="0.05">
-                  <rect x="-15.0845" y="154.773" width="543" height="77.5714" rx="38.7857" transform="rotate(-45 -15.0845 154.773)" fill="#3A57E8" />
-                  <rect x="149.47" y="319.328" width="543" height="77.5714" rx="38.7857" transform="rotate(-45 149.47 319.328)" fill="#3A57E8" />
-                  <rect x="203.936" y="99.543" width="310.286" height="77.5714" rx="38.7857" transform="rotate(45 203.936 99.543)" fill="#3A57E8" />
-                  <rect x="204.316" y="-229.172" width="543" height="77.5714" rx="38.7857" transform="rotate(45 204.316 -229.172)" fill="#3A57E8" />
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+         </div>
+      </div>
+   </div>
+   
 
     <!-- Library Bundle Script -->
     <script src="/assets/js/core/libs.min.js"></script>
