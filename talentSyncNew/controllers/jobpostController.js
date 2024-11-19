@@ -51,3 +51,7 @@ exports.displayAdminInternshipDetailPage = async function (req, res) {
   })
 
 }
+
+exports.displayAdminUploadInternshipPage = async function (req, res) {
+  res.render('admin/admin-upload-internship')
+}

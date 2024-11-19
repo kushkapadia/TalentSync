@@ -134,3 +134,4 @@ module.exports = router
 
 router.get('/admin-active-internships', new TryCatch(adminController.displayActiveInternshipPage).tryCatchGlobe())
 router.get('/admin-view-internship/:id', new TryCatch(jobpostController.displayAdminInternshipDetailPage).tryCatchGlobe())
+router.get('/admin-upload-internship', new TryCatch(jobpostController.displayAdminUploadInternshipPage).tryCatchGlobe())
