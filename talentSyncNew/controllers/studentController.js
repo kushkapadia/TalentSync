@@ -184,3 +184,7 @@ exports.displayApplyInternshipPage = async function (req, res) {
     internships: internships
   })
 }
+
+exports.displayAppliedInternshipPage = async function (req, res) {
+  res.render('student-AppliedInternships')
+}

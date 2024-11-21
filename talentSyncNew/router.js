@@ -122,6 +122,8 @@ router.post('/logout', function (req, res) {
   })
 })
 
+router.get("/student-applied-internships", new TryCatch(studentController.displayAppliedInternshipPage).tryCatchGlobe())
+
 router.get('/view-internship/:id', new TryCatch(jobpostController.viewInternshipPage).tryCatchGlobe())
 
 //Mentor side pages
