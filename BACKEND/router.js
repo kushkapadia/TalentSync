@@ -5,6 +5,8 @@ const TryCatch = require("./helper/TryCatch")
 const Messages = require("./constants/Messages")
 
 //imports here
+const uploadController = require('./controllers/uploadController');
+const upload = require('./middleware/multer');
 const adminController = require("./controllers/adminController")
 
 const questionController = require("./controllers/questionController")
@@ -19,6 +21,26 @@ const projectController = require("./controllers/projectController")
 const studentController = require("./controllers/studentController")
 
 //code here
+
+    // Add Single file to Cloudinary
+    router.post("/uploadSingleFile", AuthHelper.verifyToken, upload.single("image"), new TryCatch(uploadController.uploadSingleFile).tryCatchGlobe());
+
+    // Add Multiple files to cloudinary - {Array of Attachments}
+    router.post("/uploadMultipleFiles", AuthHelper.verifyToken, upload.array("attachments"), new TryCatch(uploadController.uploadMultipleFiles).tryCatchGlobe());
+
+    // Add files according to fields to cloudinary
+    // [
+    //   { name: 'avatar', maxCount: 1 },
+    //   { name: 'gallery', maxCount: 8 }
+    // ]
+    router.post("/uploadFiles",AuthHelper.verifyToken,upload.fields([{name: "userImage"},{name: "coverPhoto",}]),new TryCatch(uploadController.uploadFiles).tryCatchGlobe());
+
+    // Delete Single file from cloudinary
+    router.post("/deleteSingleFile", AuthHelper.verifyToken, new TryCatch(uploadController.deleteSingleFile).tryCatchGlobe());
+
+    // Delete Multiple files from cloudinary - {Array of Public Ids}
+    router.post("/deleteMultipleFiles", AuthHelper.verifyToken, new TryCatch(uploadController.deleteMultipleFiles).tryCatchGlobe());
+    
 
 //Entity - Admin --start
 //Authentication - Admin

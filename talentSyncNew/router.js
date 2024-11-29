@@ -5,6 +5,10 @@ const TryCatch = require("./helper/TryCatch")
 const Messages = require("./constants/Message")
 
 //imports here
+const internshipapplicationsController = require('./controllers/internshipapplicationsController');
+
+const uploadController = require('./controllers/uploadController');
+const upload = require('./middleware/multer');
 const jobpostController = require('./controllers/jobpostController');
 
 const adminController = require('./controllers/adminController');
@@ -17,13 +21,43 @@ const testuserController = require("./controllers/testuserController")
 
 //code here
 
+//Entity - InternshipApplications --start
+
+//CRUD Operations - InternshipApplications
+router.post('/internshipapplications/create/:jobId', upload.single("image"), uploadController.uploadSingleFile, new TryCatch(internshipapplicationsController.createInternshipApplications).tryCatchGlobe());
+router.get('/internshipapplications/get-by-id/:id', new TryCatch(internshipapplicationsController.getById).tryCatchGlobe());
+router.get('/internshipapplications/get-all', new TryCatch(internshipapplicationsController.getAllInternshipApplicationss).tryCatchGlobe());
+router.delete('/internshipapplications/delete-by-id/:id', new TryCatch(internshipapplicationsController.deleteById).tryCatchGlobe());
+//Entity - InternshipApplications - End
+
+
+// Add Single file to Cloudinary
+router.post("/uploadSingleFile", upload.single("image"), new TryCatch(uploadController.uploadSingleFile).tryCatchGlobe());
+
+// Add Multiple files to cloudinary - {Array of Attachments}
+router.post("/uploadMultipleFiles", upload.array("attachments"), new TryCatch(uploadController.uploadMultipleFiles).tryCatchGlobe());
+
+// Add files according to fields to cloudinary
+// [
+//   { name: 'avatar', maxCount: 1 },
+//   { name: 'gallery', maxCount: 8 }
+// ]
+router.post("/uploadFiles", upload.fields([{ name: "userImage" }, { name: "coverPhoto", }]), new TryCatch(uploadController.uploadFiles).tryCatchGlobe());
+
+// Delete Single file from cloudinary
+router.post("/deleteSingleFile", new TryCatch(uploadController.deleteSingleFile).tryCatchGlobe());
+
+// Delete Multiple files from cloudinary - {Array of Public Ids}
+router.post("/deleteMultipleFiles", new TryCatch(uploadController.deleteMultipleFiles).tryCatchGlobe());
+
+
 //Entity - JobPost --start
 
 //CRUD Operations - JobPost
-router.post('/jobpost/create', AuthHelper.verifyToken, new TryCatch(jobpostController.createJobPost).tryCatchGlobe());
-router.get('/jobpost/get-by-id/:id', AuthHelper.verifyToken, new TryCatch(jobpostController.getById).tryCatchGlobe());
-router.get('/jobpost/get-all', AuthHelper.verifyToken, new TryCatch(jobpostController.getAllJobPosts).tryCatchGlobe());
-router.delete('/jobpost/delete-by-id/:id', AuthHelper.verifyToken, new TryCatch(jobpostController.deleteById).tryCatchGlobe());
+router.post('/jobpost/create', new TryCatch(jobpostController.createJobPost).tryCatchGlobe());
+router.get('/jobpost/get-by-id/:id', new TryCatch(jobpostController.getById).tryCatchGlobe());
+router.get('/jobpost/get-all', new TryCatch(jobpostController.getAllJobPosts).tryCatchGlobe());
+router.delete('/jobpost/delete-by-id/:id', new TryCatch(jobpostController.deleteById).tryCatchGlobe());
 //Entity - JobPost - End
 
 

@@ -85,17 +85,22 @@
                            </tr>
                         </thead>
                         <tbody>
+<% studentsApplied.forEach((as)=>{ %> 
+<!-- as stands fro applied student -->
 
-                           <tr>
-                              <td><input type="checkbox" class="select-row" data-sapid="1234"></td>
-                              <td>Kush Kapadia %></td>
-                              <td> 123 %></td>
-                              <td> kk@gmail.com %></td>
-                              <td>9930990504 </td>
-                              <td> 2026 </td>
-                              <td><a href="#" target="_blank">View Screenshot</a></td>
-                              <td><button class="btn btn-primary">View Profile</button></td>
-                           </tr>
+   <tr>
+      <td><input type="checkbox" class="select-row" data-sapid="<%= as.studentData.sapId %>"></td>
+      <td><img class="rounded img-fluid avatar-40 me-3 bg-primary-subtle" src="<%= as.studentData.profileImageLink %>" alt="profile"><%= as.studentData.name%> <%= as.studentData.lName%></td>
+      <td><%= as.studentData.sapId %></td>
+      <td><%= as.studentData.email %></td>
+      <td><%= as.studentData.contactNumber %> </td>
+      <td> <%= as.studentData.graduationYear %> </td>
+      <td><a href="<%= as.screenshotLink %>" target="_blank">View Screenshot</a></td>
+      <td><button class="btn btn-primary">View Profile</button></td>
+   </tr>
+
+<% }) %>
+                        
 
                         </tbody>
                      </table>

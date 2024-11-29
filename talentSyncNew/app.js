@@ -28,7 +28,7 @@ const session = require("express-session")
 const MongoStore = require("connect-mongo")
 const flash = require("connect-flash")
 const router = require("./router")
-const fileUpload = require("express-fileupload")
+// const fileUpload = require("express-fileupload")
 const morgan = require("morgan")
 const app = express()
 
@@ -48,11 +48,11 @@ let sessionOptions = session({
 
 app.use(sessionOptions)
 app.use(flash())
-app.use(
-  fileUpload({
-    createParentPath: true
-  })
-)
+// app.use(
+//   fileUpload({
+//     createParentPath: true
+//   })
+// )
 // app.use(morgan("dev"))
 app.use(express.static("public"))
 //We are telling our express server to make the folder accessible.
@@ -87,7 +87,7 @@ const path = require("path")
 // app.use(favicon(path.join(__dirname, 'public', 'new.ico')));
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use("/", router)
-var fileupload = require("express-fileupload")
-app.use(fileupload())
+// var fileupload = require("express-fileupload")
+// app.use(fileupload())
 
 module.exports = app

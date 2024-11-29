@@ -1,6 +1,7 @@
 const Messages = require("../constants/Message");
 const JsonResponse = require("../helper/JsonResponse");
 const TryCatch = require("../helper/TryCatch");
+const InternshipApplications = require("../models/InternshipApplications");
 const JobPost = require("../models/JobPost");
 const jwt = require("jsonwebtoken");
 
@@ -45,9 +46,22 @@ exports.displayAdminInternshipDetailPage = async function (req, res) {
   let jobPost = new JobPost();
   let internshipDoc = await jobPost.getById(req.params.id)
   // let application = new Ap
+
+
+
+
+  const jobId = req.params.id // Job for which we are fetching applications
+
+  let internshipapplications = new InternshipApplications()
+  let studentsApplied = await internshipapplications.getAppliedStudentsById(req.params.id)
+  console.log("PARTICIPATED STUDENTS: ")
+  console.log(studentsApplied)
+
+
+
   res.render('admin/admin-internship-detail', {
     internshipDoc: internshipDoc,
-    // studentsApplied: 
+    studentsApplied: studentsApplied
   })
 
 }
