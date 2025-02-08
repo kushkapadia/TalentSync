@@ -34,7 +34,7 @@
 <div class="conatiner-fluid content-inner mt-n5 py-0">
     <div>
        <div class="row">
-          <div class="col-xl-3 col-lg-4">
+          <!-- <div class="col-xl-3 col-lg-4">
              <div class="card">
                 <div class="card-header d-flex justify-content-between">
                    <div class="header-title">
@@ -98,8 +98,23 @@
                    </form>
                 </div>
              </div>
-          </div>
-          <div class="col-xl-9 col-lg-8">
+          </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- <div class="col-xl-9 col-lg-8">
              <div class="card">
                 <div class="card-header d-flex justify-content-between">
                    <div class="header-title">
@@ -186,8 +201,93 @@
                    </div>
                 </div>
              </div>
-          </div>
+          </div> -->
+
+          <div class="col-xl-12 col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="header-title">
+                        <h4 class="card-title">Internship Details</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="internship-info">
+                        <form action="/studentinternships/create" method="POST">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="company">Company Name:</label>
+                                    <input name="companyName" type="text" class="form-control" id="company" placeholder="Company Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="start-date">Start Date:</label>
+                                    <input name="startDate" type="date" class="form-control" id="start-date">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="end-date">End Date:</label>
+                                    <input name="endDate" type="date" class="form-control" id="end-date">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="stipend">Stipend:</label>
+                                    <input name="stipend" type="text" class="form-control" id="stipend" placeholder="Stipend Amount">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="role">Role:</label>
+                                    <input name="role" type="text" class="form-control" id="role" placeholder="Internship Role">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="location">Location:</label>
+                                    <input name="location" type="text" class="form-control" id="location" placeholder="Location">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="mode">Mode:</label>
+                                    <select name="mode" class="form-control" id="mode">
+                                        <option>Select Mode</option>
+                                        <option value="onsite">Onsite</option>
+                                        <option value="remote">Remote</option>
+                                        <option value="hybrid">Hybrid</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="website">Company Website:</label>
+                                    <input name="companyWebsite" type="url" class="form-control" id="website" placeholder="Company Website">
+                                </div>
+                            </div>
+                            <hr>
+                            <h5 class="mb-3">Upload Documents</h5>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="internship-report">Internship Report:</label>
+                                    <input name="internshipReport" type="file" class="form-control" id="internship-report">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="offer-letter">Offer Letter:</label>
+                                    <input name="offerLetter" type="file" class="form-control" id="offer-letter">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="completion-certificate">Completion Certificate:</label>
+                                    <input name="completionCertificate" type="file" class="form-control" id="completion-certificate">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="additional-doc">Additional Document:</label>
+                                    <input name="additionalDoc" type="file" class="form-control" id="additional-doc">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="form-label" for="notes">Notes:</label>
+                                <textarea name="notes" class="form-control" id="notes" placeholder="Additional Notes"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Internship Details</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
        </div>
     </div>
     </div>
+
+
 <%- include('./includes/studentFooter') %>
