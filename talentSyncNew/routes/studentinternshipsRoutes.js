@@ -19,6 +19,6 @@ router.post("/update-by-id/:id", AuthHelper.verifyToken, new TryCatch(studentint
 //Entity - StudentInternships - End
 
 //display page routes
-router.get("/add-internships", AuthHelper.verifyToken, new TryCatch(studentinternshipsController.displayAddInternshipPage).tryCatchGlobe());
+router.get("/add-internships", new TryCatch(studentinternshipsController.displayAddInternshipPage).tryCatchGlobe());
 
 module.exports = router;
