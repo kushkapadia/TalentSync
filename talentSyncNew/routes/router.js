@@ -168,8 +168,9 @@ router.get('/view-internship/:id', new TryCatch(jobpostController.viewInternship
 
 //Mentor side pages
 router.get("/my-mentees", new TryCatch(mentorController.displayMyMenteePage).tryCatchGlobe())
+router.get("/mentee-profile/:id", new TryCatch(mentorController.displayMenteeProfile).tryCatchGlobe())
 
-module.exports = router
+
 
 
 //Admin Side pages
@@ -180,3 +181,4 @@ router.get('/admin-upload-internship', new TryCatch(jobpostController.displayAdm
 
 
 //
+module.exports = router

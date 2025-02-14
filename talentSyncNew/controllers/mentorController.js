@@ -154,3 +154,10 @@ exports.displayMyMenteePage = async function (req, res) {
     myMentees: myMentees
   });
 }
+
+exports.displayMenteeProfile = async function (req, res) {
+  // let student = new Student();
+  // console.log(req.session.user._id);
+  // let myMentees = await student.getMenteesByMentorId(req.session.user._id); //passed the id of logged in user
+  res.render('mentor/mentee-profile');
+}
