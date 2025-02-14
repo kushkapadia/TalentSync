@@ -5,6 +5,12 @@ const Messages = require("../constants/Message");
 const jwt = require("jsonwebtoken");
 
 exports.createStudentInternships = async function(req, res){
+  
+  req.body.internshipReport = req.body.cloudinaryResult[0];
+  req.body.offerLetter = req.body.cloudinaryResult[1];
+  req.body.completionCertificate = req.body.cloudinaryResult[2];
+  req.body.additionalDoc = req.body.cloudinaryResult[3];
+
   let studentinternships = new StudentInternships(req.body)
  let studentinternshipsDoc = await studentinternships.createStudentInternships();
  new JsonResponse(req, res).jsonSuccess(studentinternshipsDoc, "Created")

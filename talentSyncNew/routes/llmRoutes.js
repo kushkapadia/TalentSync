@@ -13,7 +13,7 @@ const LlmHelperOllama = require('../helper/LlmHelperOllama');
 
 //LlmUsingOllama --start
 
-router.post("/ask-llm", AuthHelper.verifyToken, new TryCatch(LlmHelperOllama.llmModel).tryCatchGlobe())
+router.post("/ask-llm", new TryCatch(LlmHelperOllama.llmModel).tryCatchGlobe())
 
 //LlmUsingOllama --end
 

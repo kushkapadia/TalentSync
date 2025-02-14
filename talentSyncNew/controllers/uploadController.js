@@ -46,8 +46,9 @@ exports.uploadSingleFile = async function (req, res, next) {
   // );
 };
 
-exports.uploadMultipleFiles = async function (req, res) {
+exports.uploadMultipleFiles = async function (req, res, next) {
   // Get the Local Path from the server which will be stored by multer defined in the middleware
+  console.log(req.files);
   const attachments = req.files;
 
   // If there are no attachments
@@ -69,11 +70,12 @@ exports.uploadMultipleFiles = async function (req, res) {
   }
 
   console.log("Cloudinary Result: ", result);
-
-  new JsonResponse(req, res).jsonSuccess(
-    result,
-    new Messages().SUCCESSFULLY_RECEIVED
-  );
+req.body.cloudinaryResult = result
+next();
+  // new JsonResponse(req, res).jsonSuccess(
+  //   result,
+  //   new Messages().SUCCESSFULLY_RECEIVED
+  // );
 };
 
 exports.uploadFiles = async function (req, res) {

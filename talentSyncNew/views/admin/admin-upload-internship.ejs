@@ -6,8 +6,10 @@
                 <h5>Internship Details</h5>
             </div>
             <div class="card-body">
-                <textarea class="form-control mb-3" rows="4" placeholder="Enter the internship details here"></textarea>
-                <button class="btn btn-primary">Fill the form</button>
+                <textarea id="internshipJobDescription" class="form-control mb-3" rows="4"
+                    placeholder="Enter the internship details here"></textarea>
+                <button onclick="fillForm()" class="btn btn-primary">Fill the form</button>
+                <span id="loader"></span>
             </div>
         </div>
 
@@ -157,4 +159,97 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        async function fillForm() {
+            // alert('Filling the form')
+             document.getElementById('loader').innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+
+            const input = document.getElementById('internshipJobDescription').value
+
+            
+
+
+            //convert the below code to fetch
+            console.log("Thinking...");
+            fetch('http://localhost:4000/llm/ask-llm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input: input })
+            })
+                .then(response => response.json()) // First parse main response as JSON
+                .then(responseData => {
+                    if (!responseData.success || !responseData.data) {
+                        console.error("Invalid response:", responseData);
+                        return;
+                    }
+
+                    const rawData = responseData.data; // This is the string containing JSON inside
+                    console.log("Raw LLM Response:", rawData);
+                    console.log("Raw LLM Response:", rawData.jobTitle);
+                    // console.log("Raw LLM Response:",JSON.parse(rawData).jobTitle);
+
+
+
+                    // **Extract JSON inside the triple backticks**
+                    // const jsonMatch = rawData.match(/```json\n([\s\S]*?)\n```/);
+                    // if (!jsonMatch) {
+                    //     console.error("No valid JSON found in response:", rawData);
+                    //     return;
+                    // }
+
+                    // let data;
+                    // try {
+                    //     data = JSON.parse(jsonMatch[1]); // Extract and parse JSON
+                    // } catch (error) {
+                    //     console.error("Error parsing JSON:", error, jsonMatch[1]);
+                    //     return;
+                    // }
+
+                    // console.log("Extracted JSON:", data); // Verify extracted data
+
+                    // // Function to get value or empty string if null/N/A
+                    // function getValue(key) {
+                    //     return data[key] && data[key] !== "N/A" ? data[key] : "";
+                    // }
+                    //remove loader
+                   document.getElementById('loader').innerHTML = '';
+
+                    // Fill form fields
+                    document.getElementById("jobTitle").value = rawData.jobTitle;
+                    document.getElementById("companyName").value = rawData.companyName;
+                    document.getElementById("jobLocation").value = rawData.jobLocation;
+                    document.getElementById("jobType").value = rawData.jobType;
+                    document.getElementById("jobDescription").value = rawData.jobDescription;
+                    document.getElementById("experienceRequired").value = rawData.experienceRequired;
+                    document.getElementById("educationRequired").value = rawData.educationRequired;
+                    document.getElementById("salaryRange").value = rawData.salaryRange;
+                    document.getElementById("companyWebsite").value = rawData.companyWebsite;
+                    document.getElementById("responsibilities").value = rawData.responsibilities;
+                    document.getElementById("qualifications").value = rawData.qualifications;
+                    document.getElementById("skillsRequired").value = rawData.skillsRequired;
+                    document.getElementById("benefits").value = rawData.benefits;
+                    document.getElementById("applicationDeadline").value = rawData.applicationDeadline;
+                    document.getElementById("eligibility").value = rawData.eligibility;
+                    document.getElementById("applicationInstructions").value = rawData.applicationInstructions;
+                    document.getElementById("applicationLink").value = rawData.applicationLink;
+                    document.getElementById("taskTitle").value = rawData.taskTitle;
+                    document.getElementById("TaskDesc").value = rawData.TaskDesc;
+                    document.getElementById("taskToBeCompleted").value = rawData.taskToBeCompleted;
+                    document.getElementById("TaskDeadline").value = rawData.TaskDeadline;
+                    document.getElementById("TaskSubmissionLink").value = rawData.TaskSubmissionLink;
+                    document.getElementById("contactPerson").value = rawData.contactPerson;
+                    document.getElementById("contactEmail").value = rawData.contactEmail;
+
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        }
+    </script>
+
     <%- include('../includes/studentFooter') %>

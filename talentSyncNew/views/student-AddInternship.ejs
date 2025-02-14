@@ -212,7 +212,7 @@
                 </div>
                 <div class="card-body">
                     <div class="internship-info">
-                        <form action="/studentinternships/create" method="POST">
+                        <form action="/studentinternships/create" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label class="form-label" for="company">Company Name:</label>
@@ -255,23 +255,23 @@
                             <hr>
                             <h5 class="mb-3">Upload Documents</h5>
                             <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label class="form-label" for="internship-report">Internship Report:</label>
-                                    <input name="internshipReport" type="file" class="form-control" id="internship-report">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="form-label" for="offer-letter">Offer Letter:</label>
-                                    <input name="offerLetter" type="file" class="form-control" id="offer-letter">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="form-label" for="completion-certificate">Completion Certificate:</label>
-                                    <input name="completionCertificate" type="file" class="form-control" id="completion-certificate">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="form-label" for="additional-doc">Additional Document:</label>
-                                    <input name="additionalDoc" type="file" class="form-control" id="additional-doc">
-                                </div>
-                            </div>
+                              <div class="form-group col-md-12">
+                                  <label class="form-label" for="internship-report">Internship Report:</label>
+                                  <input name="attachments" type="file" class="form-control" id="internship-report">
+                              </div>
+                              <div class="form-group col-md-12">
+                                  <label class="form-label" for="offer-letter">Offer Letter:</label>
+                                  <input name="attachments" type="file" class="form-control" id="offer-letter">
+                              </div>
+                              <div class="form-group col-md-12">
+                                  <label class="form-label" for="completion-certificate">Completion Certificate:</label>
+                                  <input name="attachments" type="file" class="form-control" id="completion-certificate">
+                              </div>
+                              <div class="form-group col-md-12">
+                                  <label class="form-label" for="additional-doc">Additional Document:</label>
+                                  <input name="attachments" type="file" class="form-control" id="additional-doc">
+                              </div>
+                          </div>
                             <div class="form-group col-md-12">
                                 <label class="form-label" for="notes">Notes:</label>
                                 <textarea name="notes" class="form-control" id="notes" placeholder="Additional Notes"></textarea>
