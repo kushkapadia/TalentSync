@@ -6,7 +6,7 @@
             <div class="col-md-12">
                <div class="flex-wrap d-flex justify-content-between align-items-center">
                   <div>
-                     <h1>Hello Devs!</h1>
+                     <h1><%= menteeDoc.name %>'s Profile</h1>
                      <p>We are on a mission to help developers like you build successful projects for FREE.</p>
                   </div>
                </div>
@@ -52,7 +52,7 @@
                               class="theme-color-pink-img img-fluid rounded-pill avatar-100">
                         </div>
                         <div class="d-flex flex-wrap align-items-center mb-3 mb-sm-0">
-                           <h4 class="me-2 h4">Austin Robertson</h4>
+                           <h4 class="me-2 h4"><%=menteeDoc.name%></h4>
                            <span> - Web Developer</span>
                         </div>
                      </div>
@@ -77,68 +77,6 @@
          </div>
          <div class="col-lg-12">
             <div class="profile-content tab-content">
-               <div id="profile-pending" class="tab-pane fade active show">
-                  <div class="card">
-                     <div class="row">
-                        <div class="col-sm-12">
-                           <div class="card">
-                              <div class="card-header d-flex justify-content-between">
-                                 <div class="header-title">
-                                    <h4 class="card-title">My Mentees</h4>
-                                 </div>
-                              </div>
-                              <div class="card-body">
-                                 <div class="table-responsive">
-                                    <table id="datatable" class="table table-striped" data-toggle="data-table">
-                                       <thead>
-                                          <tr>
-                                             <th>Company Name</th>
-                                             <th>Role</th>
-                                             <th>Start Date</th>
-                                             <th>End Date</th>
-                                             <th>Stipend</th>
-                                             <th>Location</th>
-                                             <th>Mode</th>
-                                             <th>Company Website</th>
-                                             <th>Action</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-
-                                             <td>Orinson Technologies</td>
-                                             <td>Software Developer Intern</td>
-                                             <td>01/12/2024</td>
-                                             <td>01/02/2025</td>
-                                             <td>5000</td>
-                                             <td>Mumbai</td>
-                                             <td>Hybrid</td>
-                                             <td><a href="https://orinson.com/">Link</a></td>
-                                             <td><a href="/"><button class="btn btn-primary">View profile</button></a>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                       <tfoot>
-                                          <tr>
-                                             <th>Company Name</th>
-                                             <th>Role</th>
-                                             <th>Start Date</th>
-                                             <th>End Date</th>
-                                             <th>Stipend</th>
-                                             <th>Location</th>
-                                             <th>Mode</th>
-                                             <th>Company Website</th>
-                                             <th>Action</th>
-                                          </tr>
-                                       </tfoot>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
                <div id="profile-completed-internships" class="tab-pane fade">
                   <div class="card">
                      <div class="row">
@@ -156,24 +94,104 @@
                                           <tr>
                                              <th>Company Name</th>
                                              <th>Role</th>
+                                             <th>Start Date</th>
+                                             <th>End Date</th>
+                                             <th>Stipend</th>
+                                             <th>Location</th>
+                                             <th>Mode</th>
+                                             <th>Company Website</th>
+                                             <th>View Certificate</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                       
+                                          <tr>
+
+                                             <td>hi</td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td></td>
+                                             <td><a href="/nternship.companyWebsite">Link</a></td>
+                                             <td><a href="/internship.completionCertificate "><button class="btn btn-primary">Completion Certificate</button></a>
+                                             </td>
+                                          </tr>
+                               
+                                      
+                                       </tbody>
+                                       <tfoot>
+                                          <tr>
+                                             <th>Company Name</th>
+                                             <th>Role</th>
+                                             <th>Start Date</th>
+                                             <th>End Date</th>
+                                             <th>Stipend</th>
+                                             <th>Location</th>
+                                             <th>Mode</th>
+                                             <th>Company Website</th>
+                                             <th>View Certificate</th>
+                                          </tr>
+                                       </tfoot>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div id="profile-pending" class="tab-pane fade active show">
+                  <div class="card">
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <div class="card">
+                              <div class="card-header d-flex justify-content-between">
+                                 <div class="header-title">
+                                    <h4 class="card-title">Internships Pending for Approval</h4>
+                                 </div>
+                              </div>
+                              <div class="card-body">
+                                 <div class="table-responsive">
+                                    <table id="datatable" class="table table-striped" data-toggle="data-table">
+                                       <thead>
+                                          <tr>
+                                             <th>Company Name</th>
+                                             <th>Role</th>
                                              <th>Duration</th>
                                              <th>Offer Letter</th>
                                              <th>Report</th>
                                              <th>Completion Certificate</th>
+                                             <th>Action</th>
                                           </tr>
                                        </thead>
                                        <tbody>
+                                          <% menteeInternships.forEach( (internship) => { %>
+                                            <% if(internship.status === "pending") { %>
                                           <tr>
-                                             <td>CodSoft</td>
-                                             <td>Web Development Intern</td>
-                                             <td>1 month</td>
-                                             <td><a href="/"><button class="btn btn-primary">View Offer</button></a>
+                                             <td><%=internship.companyName %></td>
+                                             <td><%=internship.role%></td>
+                                             <td><%=internship.duration%></td>
+                                             <td><a href="<%=internship.offerLetter%>"><button class="btn btn-primary">View Offer</button></a>
                                              </td>
-                                             <td><a href="/"><button class="btn btn-primary">View Report</button></a>
+                                             <td><a href="<%=internship.internshipReport%>"><button class="btn btn-primary">View Report</button></a>
                                              </td>
-                                             <td><a href="/"><button class="btn btn-primary">View Completion</button></a>
+                                             <td><a href="<%=internship.completionCertificate%>"><button class="btn btn-primary">View Completion</button></a>
                                              </td>
+                                             <td>
+                                                <div class="d-flex gap-2">
+                                                  <form action="/studentinternships/accept-internship/<%=internship._id%>" method="POST">
+                                                    <button class="btn btn-success">Accept</button>
+                                                  </form>
+                                                  <form action="/studentinternships/reject-internship/<%=internship._id%>" method="POST">
+                                                    <button class="btn btn-danger">Reject</button>
+                                                  </form>
+                                                </div>
+                                              </td>
                                           </tr>
+                                       <% } %>
+                                          <%  }) %>
                                        </tbody>
                                        <tfoot>
                                           <tr>
@@ -207,7 +225,7 @@
                                  class="rounded-pill avatar-130 img-fluid">
                            </div>
                            <div class="mt-3">
-                              <h3 class="d-inline-block">Austin Robertson</h3>
+                              <h3 class="d-inline-block"><%= menteeDoc.name %></h3>
                               <p class="d-inline-block pl-3"> - Web developer</p>
                               <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
@@ -230,7 +248,7 @@
                            <h6 class="mb-1">Joined:</h6>
                            <p>Feb 15, 2021</p>
                         </div>
-                        <div class="mt-2">
+                        <div class="mt-2">ƒ
                            <h6 class="mb-1">Lives:</h6>
                            <p>United States of America</p>
                         </div>

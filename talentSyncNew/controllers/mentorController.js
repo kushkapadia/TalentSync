@@ -4,6 +4,7 @@ const TryCatch = require("../helper/TryCatch");
 const Mentor = require("../models/Mentor");
 const jwt = require("jsonwebtoken");
 const Student = require("../models/Student");
+const StudentInternships = require("../models/StudentInternships");
 
 
 // how long a token lasts before expiring
@@ -148,16 +149,27 @@ exports.deleteById = async function (req, res) {
 
 exports.displayMyMenteePage = async function (req, res) {
   let student = new Student();
+  let studentinternships = new StudentInternships();
   console.log(req.session.user._id);
   let myMentees = await student.getMenteesByMentorId(req.session.user._id); //passed the id of logged in user
+  // let menteeInternships = await studentinternships.getRequestedInternshipsByMenteeId (req.params.id);
+  // const arrayLength = menteeInternships.length;
+  // console.log(menteeInternships);
   res.render('mentor/mentor-myMentees', {
-    myMentees: myMentees
+    myMentees: myMentees,
+    // arrayLength: arrayLength.toString()
   });
 }
 
 exports.displayMenteeProfile = async function (req, res) {
-  // let student = new Student();
-  // console.log(req.session.user._id);
-  // let myMentees = await student.getMenteesByMentorId(req.session.user._id); //passed the id of logged in user
-  res.render('mentor/mentee-profile');
+
+  console.log(req.params.id);
+  let student = new Student();
+  let studentinternships = new StudentInternships();
+  let menteeInternships = await studentinternships.getRequestedInternshipsByMenteeId (req.params.id);
+  let menteeDoc = await student.getById(req.params.id)
+  res.render('mentor/mentee-profile',{
+    menteeInternships: menteeInternships,
+    menteeDoc: menteeDoc
+  });
 }

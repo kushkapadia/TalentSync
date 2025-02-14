@@ -42,6 +42,21 @@ await studentinternships.deleteById()
 new JsonResponse(req, res).jsonSuccess(true, new Messages().SUCCESSFULLY_DELETED)
 }
 
+exports.acceptInternship = async function (req, res) {
+  let studentinternships = new StudentInternships ();
+  console.log("accept")
+  await studentinternships.acceptInternship(req.params.id)
+  res.redirect('/')
+}
+
+exports.rejectInternship = async function (req, res) {
+  let studentinternships = new StudentInternships ();
+  await studentinternships.rejectInternship(req.params.id)
+  console.log("reject")
+  res.redirect('/')
+
+}
+
 exports.displayAddInternshipPage = async function (req, res) {
   res.render("student-AddInternship");
 }

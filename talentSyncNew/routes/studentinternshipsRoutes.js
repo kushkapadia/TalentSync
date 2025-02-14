@@ -22,5 +22,6 @@ router.post("/update-by-id/:id", new TryCatch(studentinternshipsController.updat
 //display page routes
 router.get("/add-internships", new TryCatch(studentinternshipsController.displayAddInternshipPage).tryCatchGlobe());
 //router.post('/internshipapplications/create/:jobId', upload.single("image"), uploadController.uploadSingleFile, new TryCatch(internshipapplicationsController.createInternshipApplications).tryCatchGlobe());
-
+router.post('/accept-internship/:id', new TryCatch(studentinternshipsController.acceptInternship).tryCatchGlobe());
+router.post('/reject-internship/:id', new TryCatch(studentinternshipsController.rejectInternship).tryCatchGlobe());
 module.exports = router;

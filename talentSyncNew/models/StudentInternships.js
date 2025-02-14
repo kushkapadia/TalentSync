@@ -27,6 +27,7 @@ StudentInternships.prototype.cleanUp = function () {
     additionalDoc: this.data.additionalDoc,
     notes: this.data.notes,
     studentId: new ObjectId(this.data.studentId),
+    state: "pending", //approved or rejected, default is pending
     //predfined start
     createdAt: new Date(),
     //predefined end
@@ -42,6 +43,11 @@ StudentInternships.prototype.createStudentInternships = async function () {
 StudentInternships.prototype.getById = async function (id) {
   let studentinternshipsDoc = await studentinternshipssCollection.findOne({ _id: new ObjectId(id) })
   return studentinternshipsDoc
+}
+
+StudentInternships.prototype.getRequestedInternshipsByMenteeId = async function (id) {
+  let studentinternships = await studentinternshipssCollection.find({ studentId: new ObjectId(id) }).toArray()
+  return studentinternships
 }
 
 StudentInternships.prototype.updateById = async function (id, data) {
@@ -68,6 +74,24 @@ StudentInternships.prototype.getAllStudentInternshipss = async function () {
 
 StudentInternships.prototype.deleteById = async function (id) {
   await studentinternshipssCollection.deleteOne({ _id: new ObjectId(id) })
+  return
+}
+
+StudentInternships.prototype.acceptInternship = async function (id) {
+  await studentinternshipssCollection.findOneAndUpdate(
+    { _id: new ObjectId(id) }, 
+    { $set: { status: "approved" } }
+  );
+  
+  return
+}
+
+StudentInternships.prototype.rejectInternship = async function (id) {
+  await studentinternshipssCollection.findOneAndUpdate(
+    { _id: new ObjectId(id) }, 
+    { $set: { status: "approved" } }
+  );
+  
   return
 }
 
