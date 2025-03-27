@@ -1,0 +1,344 @@
+<%- include('./includes/adminHeader') %>
+
+<div class="iq-navbar-header" style="height: 215px;">
+    <div class="container-fluid iq-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flex-wrap d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1>Administrator Profile</h1>
+                        <p>View and update your admin profile information</p>
+                    </div>
+                    <div>
+                        <a href="#" class="btn btn-link btn-soft-light">
+                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
+                                <path d="M11.997 15.1746C7.684 15.1746 4 15.8546 4 18.5746C4 21.2956 7.661 21.9996 11.997 21.9996C16.31 21.9996 19.994 21.3206 19.994 18.5996C19.994 15.8786 16.334 15.1746 11.997 15.1746Z" fill="currentColor"></path>
+                                <path opacity="0.4" d="M11.9971 12.5838C14.9351 12.5838 17.2891 10.2288 17.2891 7.29176C17.2891 4.35476 14.9351 1.99976 11.9971 1.99976C9.06008 1.99976 6.70508 4.35476 6.70508 7.29176C6.70508 10.2288 9.06008 12.5838 11.9971 12.5838Z" fill="currentColor"></path>
+                            </svg>
+                            Admin Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="conatiner-fluid content-inner mt-n5 py-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="profile-img position-relative me-3 mb-3 mb-lg-0 profile-logo profile-logo1">
+                                <img src="<%= user?.profileImageLink || '/assets/images/avatars/01.png' %>" alt="User-Profile" class="theme-color-default-img img-fluid rounded-pill avatar-100">
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center mb-3 mb-sm-0">
+                                <h4 class="me-2 h4"><%= user?.name || 'Admin' %> <%= user?.lName || '' %></h4>
+                                <span class="badge bg-danger">Administrator</span>
+                            </div>
+                        </div>
+                        <ul class="d-flex nav nav-pills mb-0 text-center profile-tab" data-toggle="slider-tab" id="profile-pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#profile-feed" role="tab" aria-selected="false">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#profile-activity" role="tab" aria-selected="false">Edit Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="tab-content" id="profile-tabContent">
+                <div class="tab-pane fade active show" id="profile-feed" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Personal Information</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <div class="user-profile">
+                                            <img src="<%= user?.profileImageLink || '/assets/images/avatars/01.png' %>" alt="profile-img" class="rounded-pill avatar-130 img-fluid">
+                                        </div>
+                                        <div class="mt-3">
+                                            <h3 class="d-inline-block"><%= user?.name || 'Admin' %> <%= user?.lName || '' %></h3>
+                                            <p class="d-inline-block pl-3"><%= user?.email || 'admin@example.com' %></p>
+                                            <p class="mb-0"><%= user?.role || 'System Administrator' %></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Contact Information</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-start">Email:</td>
+                                                    <td><%= user?.email || 'admin@example.com' %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">Phone:</td>
+                                                    <td><%= user?.contactNumber || 'Not provided' %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">Office Location:</td>
+                                                    <td><%= user?.officeLocation || 'Not provided' %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">Department:</td>
+                                                    <td><%= user?.department || 'Not provided' %></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Administrative Information</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Role</h6>
+                                            <p><%= user?.role || 'System Administrator' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Department</h6>
+                                            <p><%= user?.department || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Access Level</h6>
+                                            <p><%= user?.accessLevel || 'Full Access' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Member Since</h6>
+                                            <p><%= user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Last Login</h6>
+                                            <p><%= user?.lastLogin ? new Date(user.lastLogin).toLocaleString() : 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Status</h6>
+                                            <p><span class="badge bg-success">Active</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Responsibilities & Permissions</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5>Administrative Responsibilities</h5>
+                                    <% if (user?.responsibilities && user.responsibilities.length > 0) { %>
+                                        <ul>
+                                        <% user.responsibilities.forEach(function(resp) { %>
+                                            <li><%= resp %></li>
+                                        <% }); %>
+                                        </ul>
+                                    <% } else { %>
+                                        <ul>
+                                            <li>User account management</li>
+                                            <li>System configuration and maintenance</li>
+                                            <li>Data management and reporting</li>
+                                            <li>Security monitoring and enforcement</li>
+                                            <li>Platform updates and enhancements</li>
+                                        </ul>
+                                    <% } %>
+                                    
+                                    <h5 class="mt-4">System Permissions</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Module</th>
+                                                    <th>View</th>
+                                                    <th>Create</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>User Management</td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Content Management</td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Analytics</td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>System Configuration</td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                    <td><i class="fas fa-check text-success"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">System Activity</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-primary rounded">
+                                                <h5><%= user?.userCount || '0' %></h5>
+                                                <p class="mb-0">Users Managed</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-success rounded">
+                                                <h5><%= user?.actionCount || '0' %></h5>
+                                                <p class="mb-0">Actions Taken</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-danger rounded">
+                                                <h5><%= user?.issuesResolved || '0' %></h5>
+                                                <p class="mb-0">Issues Resolved</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <h5 class="mt-3">Recent Activity</h5>
+                                    <% if (user?.recentActivity && user.recentActivity.length > 0) { %>
+                                        <ul class="list-group">
+                                            <% user.recentActivity.forEach(function(activity) { %>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <%= activity.description %>
+                                                    <span class="badge bg-primary rounded-pill"><%= activity.date %></span>
+                                                </li>
+                                            <% }); %>
+                                        </ul>
+                                    <% } else { %>
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                User account approved
+                                                <span class="badge bg-primary rounded-pill">Today</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                System backup completed
+                                                <span class="badge bg-primary rounded-pill">Yesterday</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Security patches applied
+                                                <span class="badge bg-primary rounded-pill">3 days ago</span>
+                                            </li>
+                                        </ul>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile-activity" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Edit Profile</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="/update-admin-profile">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="name" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<%= user?.name || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lName" name="lName" value="<%= user?.lName || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<%= user?.email || '' %>" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contactNumber" class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" id="contactNumber" name="contactNumber" value="<%= user?.contactNumber || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="role" class="form-label">Role</label>
+                                        <input type="text" class="form-control" id="role" name="role" value="<%= user?.role || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="department" class="form-label">Department</label>
+                                        <input type="text" class="form-control" id="department" name="department" value="<%= user?.department || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="officeLocation" class="form-label">Office Location</label>
+                                        <input type="text" class="form-control" id="officeLocation" name="officeLocation" value="<%= user?.officeLocation || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="accessLevel" class="form-label">Access Level</label>
+                                        <select class="form-select" id="accessLevel" name="accessLevel">
+                                            <option value="Full Access" <%= user?.accessLevel === 'Full Access' ? 'selected' : '' %>>Full Access</option>
+                                            <option value="Department Admin" <%= user?.accessLevel === 'Department Admin' ? 'selected' : '' %>>Department Admin</option>
+                                            <option value="Read-Only Admin" <%= user?.accessLevel === 'Read-Only Admin' ? 'selected' : '' %>>Read-Only Admin</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="profileImageLink" class="form-label">Profile Image URL</label>
+                                        <input type="url" class="form-control" id="profileImageLink" name="profileImageLink" value="<%= user?.profileImageLink || '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="responsibilities" class="form-label">Responsibilities (Comma separated)</label>
+                                        <input type="text" class="form-control" id="responsibilities" name="responsibilities" value="<%= user?.responsibilities ? user.responsibilities.join(', ') : '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="bio" class="form-label">Admin Bio</label>
+                                        <textarea class="form-control" id="bio" name="bio" rows="4"><%= user?.bio || '' %></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('./includes/adminFooter') %> 
