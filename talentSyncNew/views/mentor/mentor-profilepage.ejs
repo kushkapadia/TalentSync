@@ -1,0 +1,364 @@
+<%- include('./includes/mentorHeader') %>
+
+<div class="iq-navbar-header" style="height: 215px;">
+    <div class="container-fluid iq-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flex-wrap d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1>My Profile</h1>
+                        <p>View and update your mentor profile information</p>
+                    </div>
+                    <div>
+                        <a href="#" class="btn btn-link btn-soft-light">
+                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
+                                <path d="M11.997 15.1746C7.684 15.1746 4 15.8546 4 18.5746C4 21.2956 7.661 21.9996 11.997 21.9996C16.31 21.9996 19.994 21.3206 19.994 18.5996C19.994 15.8786 16.334 15.1746 11.997 15.1746Z" fill="currentColor"></path>
+                                <path opacity="0.4" d="M11.9971 12.5838C14.9351 12.5838 17.2891 10.2288 17.2891 7.29176C17.2891 4.35476 14.9351 1.99976 11.9971 1.99976C9.06008 1.99976 6.70508 4.35476 6.70508 7.29176C6.70508 10.2288 9.06008 12.5838 11.9971 12.5838Z" fill="currentColor"></path>
+                            </svg>
+                            Mentor Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="conatiner-fluid content-inner mt-n5 py-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="profile-img position-relative me-3 mb-3 mb-lg-0 profile-logo profile-logo1">
+                                <img src="<%= user?.profileImageLink || '/assets/images/avatars/01.png' %>" alt="User-Profile" class="theme-color-default-img img-fluid rounded-pill avatar-100">
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center mb-3 mb-sm-0">
+                                <h4 class="me-2 h4"><%= user?.name || 'Mentor' %> <%= user?.lName || '' %></h4>
+                                <span class="badge bg-info">Mentor</span>
+                            </div>
+                        </div>
+                        <ul class="d-flex nav nav-pills mb-0 text-center profile-tab" data-toggle="slider-tab" id="profile-pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#profile-feed" role="tab" aria-selected="false">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#profile-activity" role="tab" aria-selected="false">Edit Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="tab-content" id="profile-tabContent">
+                <div class="tab-pane fade active show" id="profile-feed" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Personal Information</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <div class="user-profile">
+                                            <img src="<%= user?.profileImageLink || '/assets/images/avatars/01.png' %>" alt="profile-img" class="rounded-pill avatar-130 img-fluid">
+                                        </div>
+                                        <div class="mt-3">
+                                            <h3 class="d-inline-block"><%= user?.name || 'Mentor' %> <%= user?.lName || '' %></h3>
+                                            <p class="d-inline-block pl-3"><%= user?.email || 'mentor@example.com' %></p>
+                                            <p class="mb-0"><%= user?.specialization || 'Computer Science' %>, <%= user?.department || 'IT Department' %></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Contact Information</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-start">Email:</td>
+                                                    <td><%= user?.email || 'mentor@example.com' %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">Phone:</td>
+                                                    <td><%= user?.contactNumber || 'Not provided' %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">Address:</td>
+                                                    <td><%= user?.address || 'Not provided' %>, <%= user?.city || '' %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">LinkedIn:</td>
+                                                    <td><a href="<%= user?.linkedInProfileLink || '#' %>" target="_blank"><%= user?.linkedInProfileLink ? 'View Profile' : 'Not provided' %></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">GitHub:</td>
+                                                    <td><a href="<%= user?.gitHubProfileLink || '#' %>" target="_blank"><%= user?.gitHubProfileLink ? 'View Profile' : 'Not provided' %></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-start">Portfolio:</td>
+                                                    <td><a href="<%= user?.portfolioLink || '#' %>" target="_blank"><%= user?.portfolioLink ? 'View Portfolio' : 'Not provided' %></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Professional Information</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Specialization</h6>
+                                            <p><%= user?.specialization || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Department</h6>
+                                            <p><%= user?.department || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Years of Experience</h6>
+                                            <p><%= user?.yearsOfExperience || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Current Role</h6>
+                                            <p><%= user?.currentRole || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Current Organization</h6>
+                                            <p><%= user?.currentOrganization || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Available Hours Per Week</h6>
+                                            <p><%= user?.availableHours || 'Not provided' %></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Skills & Expertise</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <% if (user?.skills && user.skills.length > 0) { %>
+                                        <% user.skills.forEach(function(skill) { %>
+                                            <span class="badge bg-primary me-2 mb-2"><%= skill %></span>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <p>No skills listed yet</p>
+                                    <% } %>
+                                    
+                                    <h5 class="mt-4">Areas of Mentorship</h5>
+                                    <% if (user?.areasOfMentorship && user.areasOfMentorship.length > 0) { %>
+                                        <% user.areasOfMentorship.forEach(function(area) { %>
+                                            <span class="badge bg-info me-2 mb-2"><%= area %></span>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <p>No mentorship areas listed yet</p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Experience & Achievements</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5>Experience</h5>
+                                    <% if (user?.workExperience && user.workExperience.length > 0) { %>
+                                        <ul>
+                                        <% user.workExperience.forEach(function(exp) { %>
+                                            <li>
+                                                <strong><%= exp.role || '' %></strong> at <%= exp.company || '' %> 
+                                                (<%= exp.startYear || '' %> - <%= exp.endYear || 'Present' %>)
+                                            </li>
+                                        <% }); %>
+                                        </ul>
+                                    <% } else { %>
+                                        <p>No experience listed yet</p>
+                                    <% } %>
+                                    
+                                    <h5 class="mt-3">Achievements & Recognition</h5>
+                                    <% if (user?.achievements && user.achievements.length > 0) { %>
+                                        <ul>
+                                        <% user.achievements.forEach(function(achievement) { %>
+                                            <li><%= achievement %></li>
+                                        <% }); %>
+                                        </ul>
+                                    <% } else { %>
+                                        <p>No achievements listed yet</p>
+                                    <% } %>
+                                    
+                                    <h5 class="mt-3">Publications & Research</h5>
+                                    <% if (user?.publications && user.publications.length > 0) { %>
+                                        <ul>
+                                        <% user.publications.forEach(function(publication) { %>
+                                            <li><%= publication %></li>
+                                        <% }); %>
+                                        </ul>
+                                    <% } else { %>
+                                        <p>No publications listed yet</p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Mentorship Statistics</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-primary rounded">
+                                                <h5><%= user?.menteeCount || '0' %></h5>
+                                                <p class="mb-0">Total Mentees</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-success rounded">
+                                                <h5><%= user?.successfulPlacements || '0' %></h5>
+                                                <p class="mb-0">Successful Placements</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-info rounded">
+                                                <h5><%= user?.avgRating || '0.0' %>/5.0</h5>
+                                                <p class="mb-0">Average Rating</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile-activity" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Edit Profile</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="/update-mentor-profile">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="name" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<%= user?.name || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lName" name="lName" value="<%= user?.lName || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<%= user?.email || '' %>" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contactNumber" class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" id="contactNumber" name="contactNumber" value="<%= user?.contactNumber || '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address" value="<%= user?.address || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="city" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="city" name="city" value="<%= user?.city || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select class="form-select" id="gender" name="gender">
+                                            <option value="Male" <%= user?.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                                            <option value="Female" <%= user?.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                                            <option value="Other" <%= user?.gender === 'Other' ? 'selected' : '' %>>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="specialization" class="form-label">Specialization</label>
+                                        <input type="text" class="form-control" id="specialization" name="specialization" value="<%= user?.specialization || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="department" class="form-label">Department</label>
+                                        <input type="text" class="form-control" id="department" name="department" value="<%= user?.department || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="yearsOfExperience" class="form-label">Years of Experience</label>
+                                        <input type="number" class="form-control" id="yearsOfExperience" name="yearsOfExperience" value="<%= user?.yearsOfExperience || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="currentRole" class="form-label">Current Role</label>
+                                        <input type="text" class="form-control" id="currentRole" name="currentRole" value="<%= user?.currentRole || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="currentOrganization" class="form-label">Current Organization</label>
+                                        <input type="text" class="form-control" id="currentOrganization" name="currentOrganization" value="<%= user?.currentOrganization || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="availableHours" class="form-label">Available Hours Per Week</label>
+                                        <input type="number" class="form-control" id="availableHours" name="availableHours" value="<%= user?.availableHours || '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="skills" class="form-label">Skills (Comma separated)</label>
+                                        <input type="text" class="form-control" id="skills" name="skills" value="<%= user?.skills ? user.skills.join(', ') : '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="areasOfMentorship" class="form-label">Areas of Mentorship (Comma separated)</label>
+                                        <input type="text" class="form-control" id="areasOfMentorship" name="areasOfMentorship" value="<%= user?.areasOfMentorship ? user.areasOfMentorship.join(', ') : '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="linkedInProfileLink" class="form-label">LinkedIn Profile Link</label>
+                                        <input type="url" class="form-control" id="linkedInProfileLink" name="linkedInProfileLink" value="<%= user?.linkedInProfileLink || '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="gitHubProfileLink" class="form-label">GitHub Profile Link</label>
+                                        <input type="url" class="form-control" id="gitHubProfileLink" name="gitHubProfileLink" value="<%= user?.gitHubProfileLink || '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="portfolioLink" class="form-label">Portfolio Link</label>
+                                        <input type="url" class="form-control" id="portfolioLink" name="portfolioLink" value="<%= user?.portfolioLink || '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="achievements" class="form-label">Achievements (Comma separated)</label>
+                                        <input type="text" class="form-control" id="achievements" name="achievements" value="<%= user?.achievements ? user.achievements.join(', ') : '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="publications" class="form-label">Publications & Research (Comma separated)</label>
+                                        <input type="text" class="form-control" id="publications" name="publications" value="<%= user?.publications ? user.publications.join(', ') : '' %>">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="mentorBio" class="form-label">Mentor Bio</label>
+                                        <textarea class="form-control" id="mentorBio" name="mentorBio" rows="4"><%= user?.mentorBio || '' %></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('./includes/mentorFooter') %> 
