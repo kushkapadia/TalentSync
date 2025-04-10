@@ -1,4 +1,4 @@
-<%- include('./includes/studentHeader') %>
+<%- include('./includes/mentorHeader') %>
 
 <div class="iq-navbar-header" style="height: 215px;">
     <div class="container-fluid iq-container">
@@ -7,7 +7,7 @@
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
                     <div>
                         <h1>My Profile</h1>
-                        <p>View and update your profile information</p>
+                        <p>View and update your mentor profile information</p>
                     </div>
                     <div>
                         <a href="#" class="btn btn-link btn-soft-light">
@@ -15,7 +15,7 @@
                                 <path d="M11.997 15.1746C7.684 15.1746 4 15.8546 4 18.5746C4 21.2956 7.661 21.9996 11.997 21.9996C16.31 21.9996 19.994 21.3206 19.994 18.5996C19.994 15.8786 16.334 15.1746 11.997 15.1746Z" fill="currentColor"></path>
                                 <path opacity="0.4" d="M11.9971 12.5838C14.9351 12.5838 17.2891 10.2288 17.2891 7.29176C17.2891 4.35476 14.9351 1.99976 11.9971 1.99976C9.06008 1.99976 6.70508 4.35476 6.70508 7.29176C6.70508 10.2288 9.06008 12.5838 11.9971 12.5838Z" fill="currentColor"></path>
                             </svg>
-                            Student Profile
+                            Mentor Profile
                         </a>
                     </div>
                 </div>
@@ -35,8 +35,8 @@
                                 <img src="<%= user?.profileImageLink || '/assets/images/avatars/01.png' %>" alt="User-Profile" class="theme-color-default-img img-fluid rounded-pill avatar-100">
                             </div>
                             <div class="d-flex flex-wrap align-items-center mb-3 mb-sm-0">
-                                <h4 class="me-2 h4"><%= user?.name || 'Student' %> <%= user?.lName || '' %></h4>
-                                <span class="badge bg-success">Student</span>
+                                <h4 class="me-2 h4"><%= user?.name || 'Mentor' %> <%= user?.lName || '' %></h4>
+                                <span class="badge bg-info">Mentor</span>
                             </div>
                         </div>
                         <ul class="d-flex nav nav-pills mb-0 text-center profile-tab" data-toggle="slider-tab" id="profile-pills-tab" role="tablist">
@@ -68,9 +68,9 @@
                                             <img src="<%= user?.profileImageLink || '/assets/images/avatars/01.png' %>" alt="profile-img" class="rounded-pill avatar-130 img-fluid">
                                         </div>
                                         <div class="mt-3">
-                                            <h3 class="d-inline-block"><%= user?.name || 'Student' %> <%= user?.lName || '' %></h3>
-                                            <p class="d-inline-block pl-3"><%= user?.email || 'student@example.com' %></p>
-                                            <p class="mb-0"><%= user?.course || 'Computer Science' %>, <%= user?.department || 'IT Department' %></p>
+                                            <h3 class="d-inline-block"><%= user?.name || 'Mentor' %> <%= user?.lName || '' %></h3>
+                                            <p class="d-inline-block pl-3"><%= user?.email || 'mentor@example.com' %></p>
+                                            <p class="mb-0"><%= user?.specialization || 'Computer Science' %>, <%= user?.department || 'IT Department' %></p>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-start">Email:</td>
-                                                    <td><%= user?.email || 'student@example.com' %></td>
+                                                    <td><%= user?.email || 'mentor@example.com' %></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-start">Phone:</td>
@@ -119,34 +119,34 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="header-title">
-                                        <h4 class="card-title">Academic Information</h4>
+                                        <h4 class="card-title">Professional Information</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <h6>SAP ID</h6>
-                                            <p><%= user?.sapId || 'Not provided' %></p>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <h6>CGPA</h6>
-                                            <p><%= user?.CGPA || 'Not provided' %></p>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <h6>Enrollment Year</h6>
-                                            <p><%= user?.enrollmentYear || 'Not provided' %></p>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <h6>Graduation Year</h6>
-                                            <p><%= user?.graduationYear || 'Not provided' %></p>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <h6>Course</h6>
-                                            <p><%= user?.course || 'Not provided' %></p>
+                                            <h6>Specialization</h6>
+                                            <p><%= user?.specialization || 'Not provided' %></p>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <h6>Department</h6>
                                             <p><%= user?.department || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Years of Experience</h6>
+                                            <p><%= user?.yearsOfExperience || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Current Role</h6>
+                                            <p><%= user?.currentRole || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Current Organization</h6>
+                                            <p><%= user?.currentOrganization || 'Not provided' %></p>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6>Available Hours Per Week</h6>
+                                            <p><%= user?.availableHours || 'Not provided' %></p>
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between">
                                     <div class="header-title">
-                                        <h4 class="card-title">Skills</h4>
+                                        <h4 class="card-title">Skills & Expertise</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -166,13 +166,13 @@
                                         <p>No skills listed yet</p>
                                     <% } %>
                                     
-                                    <h5 class="mt-4">Skills Interested to Learn</h5>
-                                    <% if (user?.skillsInterestedToLearn && user.skillsInterestedToLearn.length > 0) { %>
-                                        <% user.skillsInterestedToLearn.forEach(function(skill) { %>
-                                            <span class="badge bg-info me-2 mb-2"><%= skill %></span>
+                                    <h5 class="mt-4">Areas of Mentorship</h5>
+                                    <% if (user?.areasOfMentorship && user.areasOfMentorship.length > 0) { %>
+                                        <% user.areasOfMentorship.forEach(function(area) { %>
+                                            <span class="badge bg-info me-2 mb-2"><%= area %></span>
                                         <% }); %>
                                     <% } else { %>
-                                        <p>No skills listed yet</p>
+                                        <p>No mentorship areas listed yet</p>
                                     <% } %>
                                 </div>
                             </div>
@@ -184,14 +184,20 @@
                                 </div>
                                 <div class="card-body">
                                     <h5>Experience</h5>
-                                    <% if (user?.experience) { %>
-                                        <p><strong>Years:</strong> <%= user.experience.numberOfYears || 'Not provided' %></p>
-                                        <p><strong>Company:</strong> <%= user.experience.company || 'Not provided' %></p>
+                                    <% if (user?.workExperience && user.workExperience.length > 0) { %>
+                                        <ul>
+                                        <% user.workExperience.forEach(function(exp) { %>
+                                            <li>
+                                                <strong><%= exp.role || '' %></strong> at <%= exp.company || '' %> 
+                                                (<%= exp.startYear || '' %> - <%= exp.endYear || 'Present' %>)
+                                            </li>
+                                        <% }); %>
+                                        </ul>
                                     <% } else { %>
                                         <p>No experience listed yet</p>
                                     <% } %>
                                     
-                                    <h5 class="mt-3">Achievements</h5>
+                                    <h5 class="mt-3">Achievements & Recognition</h5>
                                     <% if (user?.achievements && user.achievements.length > 0) { %>
                                         <ul>
                                         <% user.achievements.forEach(function(achievement) { %>
@@ -202,16 +208,45 @@
                                         <p>No achievements listed yet</p>
                                     <% } %>
                                     
-                                    <h5 class="mt-3">Certificates</h5>
-                                    <% if (user?.certificates && user.certificates.length > 0) { %>
+                                    <h5 class="mt-3">Publications & Research</h5>
+                                    <% if (user?.publications && user.publications.length > 0) { %>
                                         <ul>
-                                        <% user.certificates.forEach(function(certificate) { %>
-                                            <li><%= certificate %></li>
+                                        <% user.publications.forEach(function(publication) { %>
+                                            <li><%= publication %></li>
                                         <% }); %>
                                         </ul>
                                     <% } else { %>
-                                        <p>No certificates listed yet</p>
+                                        <p>No publications listed yet</p>
                                     <% } %>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Mentorship Statistics</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-primary rounded">
+                                                <h5><%= user?.menteeCount || '0' %></h5>
+                                                <p class="mb-0">Total Mentees</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-success rounded">
+                                                <h5><%= user?.successfulPlacements || '0' %></h5>
+                                                <p class="mb-0">Successful Placements</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-center mb-3">
+                                            <div class="p-3 bg-soft-info rounded">
+                                                <h5><%= user?.avgRating || '0.0' %>/5.0</h5>
+                                                <p class="mb-0">Average Rating</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +260,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="/update-student-profile">
+                            <form method="POST" action="/update-mentor-profile">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="name" class="form-label">First Name</label>
@@ -260,40 +295,36 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" value="<%= user?.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : '' %>">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="sapId" class="form-label">SAP ID</label>
-                                        <input type="text" class="form-control" id="sapId" name="sapId" value="<%= user?.sapId || '' %>">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="enrollmentYear" class="form-label">Enrollment Year</label>
-                                        <input type="number" class="form-control" id="enrollmentYear" name="enrollmentYear" value="<%= user?.enrollmentYear || '' %>">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="graduationYear" class="form-label">Graduation Year</label>
-                                        <input type="number" class="form-control" id="graduationYear" name="graduationYear" value="<%= user?.graduationYear || '' %>">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="course" class="form-label">Course</label>
-                                        <input type="text" class="form-control" id="course" name="course" value="<%= user?.course || '' %>">
+                                        <label for="specialization" class="form-label">Specialization</label>
+                                        <input type="text" class="form-control" id="specialization" name="specialization" value="<%= user?.specialization || '' %>">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="department" class="form-label">Department</label>
                                         <input type="text" class="form-control" id="department" name="department" value="<%= user?.department || '' %>">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="CGPA" class="form-label">CGPA</label>
-                                        <input type="number" step="0.01" class="form-control" id="CGPA" name="CGPA" value="<%= user?.CGPA || '' %>">
+                                        <label for="yearsOfExperience" class="form-label">Years of Experience</label>
+                                        <input type="number" class="form-control" id="yearsOfExperience" name="yearsOfExperience" value="<%= user?.yearsOfExperience || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="currentRole" class="form-label">Current Role</label>
+                                        <input type="text" class="form-control" id="currentRole" name="currentRole" value="<%= user?.currentRole || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="currentOrganization" class="form-label">Current Organization</label>
+                                        <input type="text" class="form-control" id="currentOrganization" name="currentOrganization" value="<%= user?.currentOrganization || '' %>">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="availableHours" class="form-label">Available Hours Per Week</label>
+                                        <input type="number" class="form-control" id="availableHours" name="availableHours" value="<%= user?.availableHours || '' %>">
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label for="skills" class="form-label">Skills (Comma separated)</label>
                                         <input type="text" class="form-control" id="skills" name="skills" value="<%= user?.skills ? user.skills.join(', ') : '' %>">
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="skillsInterestedToLearn" class="form-label">Skills Interested to Learn (Comma separated)</label>
-                                        <input type="text" class="form-control" id="skillsInterestedToLearn" name="skillsInterestedToLearn" value="<%= user?.skillsInterestedToLearn ? user.skillsInterestedToLearn.join(', ') : '' %>">
+                                        <label for="areasOfMentorship" class="form-label">Areas of Mentorship (Comma separated)</label>
+                                        <input type="text" class="form-control" id="areasOfMentorship" name="areasOfMentorship" value="<%= user?.areasOfMentorship ? user.areasOfMentorship.join(', ') : '' %>">
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label for="linkedInProfileLink" class="form-label">LinkedIn Profile Link</label>
@@ -308,36 +339,16 @@
                                         <input type="url" class="form-control" id="portfolioLink" name="portfolioLink" value="<%= user?.portfolioLink || '' %>">
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="resumeLink" class="form-label">Resume Link</label>
-                                        <input type="url" class="form-control" id="resumeLink" name="resumeLink" value="<%= user?.resumeLink || '' %>">
-                                    </div>
-                                    <div class="col-md-12 mb-3">
-                                        <label for="programmingPlatformLink" class="form-label">Programming Platform Link</label>
-                                        <input type="url" class="form-control" id="programmingPlatformLink" name="programmingPlatformLink" value="<%= user?.programmingPlatformLink || '' %>">
-                                    </div>
-                                    <div class="col-md-12 mb-3">
-                                        <label for="certificates" class="form-label">Certificates (Comma separated)</label>
-                                        <input type="text" class="form-control" id="certificates" name="certificates" value="<%= user?.certificates ? user.certificates.join(', ') : '' %>">
-                                    </div>
-                                    <div class="col-md-12 mb-3">
                                         <label for="achievements" class="form-label">Achievements (Comma separated)</label>
                                         <input type="text" class="form-control" id="achievements" name="achievements" value="<%= user?.achievements ? user.achievements.join(', ') : '' %>">
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="preferredJobRole" class="form-label">Preferred Job Role</label>
-                                        <input type="text" class="form-control" id="preferredJobRole" name="preferredJobRole" value="<%= user?.preferredJobRole || '' %>">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="preferredJobLocation" class="form-label">Preferred Job Location</label>
-                                        <input type="text" class="form-control" id="preferredJobLocation" name="preferredJobLocation" value="<%= user?.preferredJobLocation || '' %>">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="publications" class="form-label">Publications & Research (Comma separated)</label>
+                                        <input type="text" class="form-control" id="publications" name="publications" value="<%= user?.publications ? user.publications.join(', ') : '' %>">
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="isHigherStudies" name="isHigherStudies" <%= user?.isHigherStudies ? 'checked' : '' %>>
-                                            <label class="form-check-label" for="isHigherStudies">
-                                                Interested in Higher Studies
-                                            </label>
-                                        </div>
+                                        <label for="mentorBio" class="form-label">Mentor Bio</label>
+                                        <textarea class="form-control" id="mentorBio" name="mentorBio" rows="4"><%= user?.mentorBio || '' %></textarea>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Profile</button>
@@ -350,4 +361,4 @@
     </div>
 </div>
 
-<%- include('./includes/studentFooter') %>
+<%- include('./includes/mentorFooter') %> 
