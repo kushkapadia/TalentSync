@@ -113,7 +113,7 @@ exports.home = async function (req, res) {
       res.render("studentDashboard")
       // res.send("hi")
     } else if (req.session.user.role == "mentor") {
-      res.render("mentor/mentor-dashboard")
+      res.render("mentor/mentor-myMentees")
     } else if (req.session.user.role == "admin") {
       res.render("admin/admin-dashboard")
 
