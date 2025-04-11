@@ -188,3 +188,11 @@ exports.displayApplyInternshipPage = async function (req, res) {
 exports.displayAppliedInternshipPage = async function (req, res) {
   res.render('student-AppliedInternships')
 }
+
+exports.displayStudentProfile = async function (req, res) {
+
+  console.log(req.params.id);
+  // let student = new Student();
+  // let studentinternships = new StudentInternships();
+  res.render('./student-profilepage');
+}
