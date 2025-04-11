@@ -2,7 +2,9 @@ const Messages = require("../constants/Message");
   const JsonResponse = require("../helper/JsonResponse");
   const TryCatch = require("../helper/TryCatch");
   const StudentInternships = require("../models/StudentInternships");
+  const WhatsappNotification = require("../helper/WhatsappNotification");
 const jwt = require("jsonwebtoken");
+const Nodemailer = require("../helper/Nodemailer");
 
 exports.createStudentInternships = async function(req, res){
   
@@ -44,6 +46,10 @@ new JsonResponse(req, res).jsonSuccess(true, new Messages().SUCCESSFULLY_DELETED
 
 exports.acceptInternship = async function (req, res) {
   let studentinternships = new StudentInternships ();
+  let nodemailer = new Nodemailer("sounaknandi24@gmail.com", "Approval Of internship", "Congrats, Your internship has been approved!")
+  let whatsappNotification = new WhatsappNotification("919930990504", "Congrats, Your internship has been approved!")
+  nodemailer.sendMail()
+  whatsappNotification.sendWhatsappNotification()
   console.log("accept")
   await studentinternships.acceptInternship(req.params.id)
   res.redirect('/')

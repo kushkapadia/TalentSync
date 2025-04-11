@@ -169,6 +169,7 @@ router.get('/view-internship/:id', new TryCatch(jobpostController.viewInternship
 //Mentor side pages
 router.get("/my-mentees", new TryCatch(mentorController.displayMyMenteePage).tryCatchGlobe())
 router.get("/mentee-profile/:id", new TryCatch(mentorController.displayMenteeProfile).tryCatchGlobe())
+router.get("/mentor-profile/:id", new TryCatch(mentorController.displayMentorProfile).tryCatchGlobe())
 
 
 
