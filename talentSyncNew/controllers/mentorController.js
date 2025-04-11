@@ -173,3 +173,16 @@ exports.displayMenteeProfile = async function (req, res) {
     menteeDoc: menteeDoc
   });
 }
+exports.displayMentorProfile = async function (req, res) {
+
+  console.log(req.params.id);
+  let student = new Student();
+  let studentinternships = new StudentInternships();
+  let menteeInternships = await studentinternships.getRequestedInternshipsByMenteeId (req.params.id);
+  let menteeDoc = await student.getById(req.params.id)
+  res.render('mentor/mentor-profilepage',{
+    menteeInternships: menteeInternships,
+    menteeDoc: menteeDoc
+  });
+}
+
