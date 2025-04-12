@@ -8,7 +8,7 @@ const client = new MongoClient(process.env.CONNECTION_STRING)
 async function start() {
   await client.connect()
 
-  console.log("Connected")
+  console.log("Connected, http://localhost:4000/");
   module.exports = client
   const app = require('./app')
   app.listen(process.env.PORT)
