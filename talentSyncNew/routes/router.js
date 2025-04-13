@@ -161,8 +161,8 @@ router.post('/logout', function (req, res) {
 })
 
 router.get("/student-applied-internships", new TryCatch(studentController.displayAppliedInternshipPage).tryCatchGlobe())
-
 router.get('/view-internship/:id', new TryCatch(jobpostController.viewInternshipPage).tryCatchGlobe())
+router.get('/student-profile/:id', new TryCatch(studentController.displayStudentProfile).tryCatchGlobe())
 
 
 
@@ -179,5 +179,6 @@ router.get("/mentor-profile/:id", new TryCatch(mentorController.displayMentorPro
 router.get('/admin-active-internships', new TryCatch(adminController.displayActiveInternshipPage).tryCatchGlobe())
 router.get('/admin-view-internship/:id', new TryCatch(jobpostController.displayAdminInternshipDetailPage).tryCatchGlobe())
 router.get('/admin-upload-internship', new TryCatch(jobpostController.displayAdminUploadInternshipPage).tryCatchGlobe())
+router.get("/admin-profile/:id", new TryCatch(adminController.displayAdminProfile).tryCatchGlobe())
 
 module.exports = router

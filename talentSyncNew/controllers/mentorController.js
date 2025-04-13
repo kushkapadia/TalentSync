@@ -47,7 +47,7 @@ exports.login = function (req, res) {
     req.session.user = { fName: mentor.data.name, lName: mentor.data.lName, email: mentor.data.email, _id: mentor.data._id, role: mentor.data.role }
     console.log("here")
     req.session.save(function () {
-      res.redirect('/')
+      res.redirect('/my-mentees')
     })
   }).catch(function (e) {
     console.log(e);

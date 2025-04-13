@@ -113,7 +113,7 @@ exports.home = async function (req, res) {
       res.render("studentDashboard")
       // res.send("hi")
     } else if (req.session.user.role == "mentor") {
-      res.render("mentor/mentor-dashboard")
+      res.render("mentor/mentor-myMentees")
     } else if (req.session.user.role == "admin") {
       res.render("admin/admin-dashboard")
 
@@ -187,4 +187,12 @@ exports.displayApplyInternshipPage = async function (req, res) {
 
 exports.displayAppliedInternshipPage = async function (req, res) {
   res.render('student-AppliedInternships')
+}
+
+exports.displayStudentProfile = async function (req, res) {
+
+  console.log(req.params.id);
+  // let student = new Student();
+  // let studentinternships = new StudentInternships();
+  res.render('./student-profilepage');
 }

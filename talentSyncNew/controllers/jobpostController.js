@@ -39,8 +39,9 @@ exports.viewInternshipPage = async function (req, res) {
   res.render('internship-detail', {
     internshipDoc: internshipDoc
   })
-
 }
+
+
 
 exports.displayAdminInternshipDetailPage = async function (req, res) {
   let jobPost = new JobPost();

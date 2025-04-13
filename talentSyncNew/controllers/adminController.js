@@ -151,3 +151,7 @@ exports.displayActiveInternshipPage = async function (req, res) {
     internships: internships
   });
 }
+
+exports.displayAdminProfile = async function (req, res) {
+  res.render('admin/admin-profilepage');
+}
