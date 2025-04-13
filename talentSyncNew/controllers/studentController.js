@@ -1,6 +1,7 @@
 const Messages = require("../constants/Message");
 const JsonResponse = require("../helper/JsonResponse");
 const TryCatch = require("../helper/TryCatch");
+const InternshipApplications = require("../models/InternshipApplications");
 const JobPost = require("../models/JobPost");
 const Mentor = require("../models/Mentor");
 const Student = require("../models/Student");
@@ -186,7 +187,9 @@ exports.displayApplyInternshipPage = async function (req, res) {
 }
 
 exports.displayAppliedInternshipPage = async function (req, res) {
-  res.render('student-AppliedInternships')
+  let internshipApplications = new InternshipApplications()
+  internshipApplications = await internshipApplications.getAppliedInternshipByStudentId(req.params.id)
+  res.render('student-AppliedInternships', {internshipApplications: internshipApplications})
 }
 
 exports.displayStudentProfile = async function (req, res) {

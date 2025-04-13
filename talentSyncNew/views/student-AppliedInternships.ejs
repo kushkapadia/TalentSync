@@ -54,101 +54,168 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="profile-content tab-content">
-                    <div id="profile-all" class="tab-pane fade active show">
-                        <div class="card">
-                            <table id="datatable" class="table table-striped" data-toggle="data-table">
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="selectAll"></th>
-                                        <th>Company Name</th>
-                                        <th>Position</th>
-                                        <th>Stipend</th>
-                                        <th>Location</th>
-                                        <th>Duration</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="checkbox" class="select-row" data-sapid="1234"></td>
-                                        <td>Meraki Solutions %></td>
-                                        <td>Content Wrtiter %></td>
-                                        <td>5000%></td>
-                                        <td>Bangalore</td>
-                                        <td>2 months</td>
-                                        <td><span class="badge bg-success py-2 px-3 fs-6 rounded-pill">Selected</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" class="select-row" data-sapid="1234"></td>
-                                        <td>Microsoft %></td>
-                                        <td>SDE %></td>
-                                        <td>1.25 lakh %></td>
-                                        <td>Hyderabad</td>
-                                        <td>2 months</td>
-                                        <td><span class="badge bg-danger py-2 px-3 fs-6 rounded-pill">Rejected</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" class="select-row" data-sapid="1234"></td>
-                                        <td>Google %></td>
-                                        <td>SDE I %></td>
-                                        <td>1.5 lakhs %></td>
-                                        <td>Pune</td>
-                                        <td>1 month</td>
-                                        <td><span class="badge bg-warning py-2 px-3 fs-6 rounded-pill">Pending</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" class="select-row" data-sapid="1234"></td>
-                                        <td>Finapple %></td>
-                                        <td>Full Stack Engineer %></td>
-                                        <td>25000 %></td>
-                                        <td>Goregaon</td>
-                                        <td>3 months</td>
-                                        <td><span class="badge bg-success py-2 px-3 fs-6 rounded-pill">Selected</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" class="select-row" data-sapid="1234"></td>
-                                        <td>Home First Finance %></td>
-                                        <td>Devops Engineer %></td>
-                                        <td>25000 %></td>
-                                        <td>Churchgate</td>
-                                        <td>6 months</td>
-                                        <td><span class="badge bg-danger py-2 px-3 fs-6 rounded-pill">Rejected</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" class="select-row" data-sapid="1234"></td>
-                                        <td>M&G Global %></td>
-                                        <td>Data Analyst %></td>
-                                        <td>50000 %></td>
-                                        <td>Marol</td>
-                                        <td>2 months</td>
-                                        <td><span class="badge bg-warning py-2 px-3 fs-6 rounded-pill">Pending</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+       
+             
+                
+                
+<div class="profile-content tab-content">
+    <!-- All Applications Tab -->
+    <div id="all" class="tab-pane fade active show">
+        <div class="card">
+          <table  id="datatable" class="table table-striped" data-toggle="data-table">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Position</th>
+                        <th>Stipend</th>
+                        <th>Location</th>
+                 
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%  internshipApplications.forEach(application => { %>
+                    <tr>
+                        <td><%= application.company %></td>
+                        <td><%= application.position %></td>
+                        <td><%= application.stipend %></td>
+                        <td><%= application.location %></td>
+               
+                        <td>
+                            <% if (application.status === 'accepted') { %>
+                                <span class="badge bg-success"><%= application.status %></span>
+                            <% } else if (application.status === 'rejected') { %>
+                                <span class="badge bg-danger"><%= application.status %></span>
+                            <% } else if (application.status === 'pending') { %>
+                                <span class="badge bg-warning"><%= application.status %></span>
+                            <% } else { %>
+                                <span class="badge bg-secondary"><%= application.status %></span>
+                            <% } %>
+                    
+               
+                   <% } )%>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Accepted Tab -->
+    <div id="accepted" class="tab-pane fade">
+        <div class="card">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Position</th>
+                        <th>Stipend</th>
+                        <th>Location</th>
+                      
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% internshipApplications.forEach(application => { %>
+                    <% if (application.status === 'accepted') { %>
+                    <tr>
+                        <td><%= application.company %></td>
+                        <td><%= application.position %></td>
+                        <td><%= application.stipend %></td>
+                        <td><%= application.location %></td>
+                  
+                        <td><span class="badge bg-success"><%= application.status %></span></td>
+                    </tr>
+                    <% } %>
+                    <% }) %>    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Rejected Tab -->
+    <div id="rejected" class="tab-pane fade">
+        <div class="card">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Position</th>
+                        <th>Stipend</th>
+                        <th>Location</th>
+                     
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% internshipApplications.forEach(application => { %>
+                    <% if (application.status === 'rejected') { %>
+                    <tr>
+                        <td><%= application.company %></td>
+                        <td><%= application.position %></td>
+                        <td><%= application.stipend %></td>
+                        <td><%= application.location %></td>
+                  
+                        <td><span class="badge bg-danger"><%= application.status %></span></td>
+                    </tr>
+                    <% } %>
+                    <% }) %>
+               
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pending Tab -->
+    <div id="pending" class="tab-pane fade">
+        <div class="card">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Position</th>
+                        <th>Stipend</th>
+                        <th>Location</th>
+                      
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% internshipApplications.forEach(application => { %>
+                    <% if (application.status === 'pending') { %>
+                    <tr>
+                        <td><%= application.company %></td>
+                        <td><%= application.position %></td>
+                        <td><%= application.stipend %></td>
+                        <td><%= application.location %></td>
+                  
+                        <td><span class="badge bg-warning"><%= application.status %></span></td>
+                    </tr>
+                    <% } %>
+                    <% }) %>
+               
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+                
+               
             </div>
         </div>
     </div>
     <script>
         //select all feature
-        document.getElementById("selectAll").addEventListener("change", function () {
-            const checkboxes = document.querySelectorAll(".select-row");
-            const isChecked = this.checked;
+        // document.getElementById("selectAll").addEventListener("change", function () {
+        //     const checkboxes = document.querySelectorAll(".select-row");
+        //     const isChecked = this.checked;
 
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
-                checkbox.parentElement.parentElement.classList.toggle("bg-success", isChecked);
-            });
-        });
+        //     checkboxes.forEach(checkbox => {
+        //         checkbox.checked = isChecked;
+        //         checkbox.parentElement.parentElement.classList.toggle("bg-success", isChecked);
+        //     });
+        // });
 
     </script>
 <%- include('./includes/studentFooter') %>
