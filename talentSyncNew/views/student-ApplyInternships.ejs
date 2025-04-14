@@ -52,12 +52,12 @@
               <h4 class="card-title fw-bold">Filters</h4>
             </div>
             <div class="card-body p-4">
-              <form class="text-black">
+              <form id="filterForm" class="text-black">
                 <!-- Role Filter -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Internship Role:</label>
-                  <select name="role" class="form-select">
-                    <option>Select Role</option>
+                  <select name="role" class="form-select" id="roleFilter">
+                    <option value="">All Roles</option>
                     <option>Web Designer</option>
                     <option>Web Developer</option>
                     <option>Tester</option>
@@ -71,8 +71,8 @@
                 <!-- Location Filter -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Location:</label>
-                  <select name="location" class="form-select">
-                    <option>Select Location</option>
+                  <select name="location" class="form-select" id="locationFilter">
+                    <option value="">All Locations</option>
                     <option>Mumbai</option>
                     <option>Bangalore</option>
                     <option>Delhi</option>
@@ -99,17 +99,11 @@
                   <input type="text" id="salaryDisplay" class="form-control mt-2 text-center" value="₹0" readonly>
                 </div>
           
-                <script>
-                  function updateSalaryDisplay(value) {
-                    document.getElementById('salaryDisplay').value = `₹${value.toLocaleString()}`;
-                  }
-                </script>
-          
                 <!-- Duration Filter -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Internship Duration:</label>
-                  <select name="duration" class="form-select">
-                    <option>Select Duration</option>
+                  <select name="duration" class="form-select" id="durationFilter">
+                    <option value="">All Durations</option>
                     <option>1 month</option>
                     <option>2 months</option>
                     <option>3 months</option>
@@ -119,8 +113,8 @@
           
                 <!-- Buttons -->
                 <div class="d-flex justify-content-between">
-                  <button type="submit" class="btn btn-primary">Clear all</button>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button" class="btn btn-primary" onclick="clearFilters()">Clear all</button>
+                  <button type="button" class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
                 </div>
               </form>
             </div>
@@ -247,3 +241,84 @@
   </div>
 
   <%- include('./includes/studentFooter') %>
+
+<script>
+  // Update salary display
+  function updateSalaryDisplay(value) {
+    document.getElementById('salaryDisplay').value = `₹${value.toLocaleString()}`;
+  }
+
+  // Clear all filters
+  function clearFilters() {
+    document.getElementById('roleFilter').value = '';
+    document.getElementById('locationFilter').value = '';
+    document.getElementById('salaryRange').value = '0';
+    document.getElementById('salaryDisplay').value = '₹0';
+    document.getElementById('durationFilter').value = '';
+    applyFilters();
+  }
+
+  // Apply filters
+  function applyFilters() {
+    const roleFilter = document.getElementById('roleFilter').value.toLowerCase();
+    const locationFilter = document.getElementById('locationFilter').value.toLowerCase();
+    const salaryFilter = parseInt(document.getElementById('salaryRange').value);
+    const durationFilter = document.getElementById('durationFilter').value.toLowerCase();
+
+    const internshipCards = document.querySelectorAll('.internship-card');
+    
+    internshipCards.forEach(card => {
+      const role = card.dataset.role.toLowerCase();
+      const location = card.dataset.location.toLowerCase();
+      const salary = parseInt(card.dataset.salary);
+      const duration = card.dataset.duration.toLowerCase();
+      const company = card.dataset.company.toLowerCase();
+
+      // Role filter - check if job title contains the selected role
+      const roleMatch = !roleFilter || role.includes(roleFilter) || company.includes(roleFilter);
+      
+      // Location filter - check if location matches exactly
+      const locationMatch = !locationFilter || location === locationFilter;
+      
+      // Salary filter - check if stipend is greater than or equal to selected value
+      const salaryMatch = !salaryFilter || salary >= salaryFilter;
+      
+      // Duration filter - check if duration matches exactly
+      const durationMatch = !durationFilter || duration === durationFilter;
+
+      // Show card only if all selected filters match
+      if (roleMatch && locationMatch && salaryMatch && durationMatch) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Show message if no results found
+    const visibleCards = document.querySelectorAll('.internship-card[style="display: block"]');
+    const noResultsMessage = document.getElementById('noResultsMessage');
+    
+    if (visibleCards.length === 0) {
+      if (!noResultsMessage) {
+        const messageDiv = document.createElement('div');
+        messageDiv.id = 'noResultsMessage';
+        messageDiv.className = 'alert alert-info text-center';
+        messageDiv.textContent = 'No internships found matching your criteria. Try adjusting your filters.';
+        document.querySelector('.col-xl-9').appendChild(messageDiv);
+      }
+    } else if (noResultsMessage) {
+      noResultsMessage.remove();
+    }
+  }
+
+  // Add event listeners for filter changes
+  document.getElementById('roleFilter').addEventListener('change', applyFilters);
+  document.getElementById('locationFilter').addEventListener('change', applyFilters);
+  document.getElementById('salaryRange').addEventListener('change', applyFilters);
+  document.getElementById('durationFilter').addEventListener('change', applyFilters);
+
+  // Initialize filters on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    applyFilters();
+  });
+</script>
