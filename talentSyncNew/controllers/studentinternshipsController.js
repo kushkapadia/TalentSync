@@ -5,6 +5,7 @@ const Messages = require("../constants/Message");
   const WhatsappNotification = require("../helper/WhatsappNotification");
 const jwt = require("jsonwebtoken");
 const Nodemailer = require("../helper/Nodemailer");
+const Student = require("../models/Student");
 
 exports.createStudentInternships = async function(req, res){
   
@@ -13,9 +14,17 @@ exports.createStudentInternships = async function(req, res){
   req.body.completionCertificate = req.body.cloudinaryResult[2];
   req.body.additionalDoc = req.body.cloudinaryResult[3];
 
+  req.body.studentId = req.session.user._id
   let studentinternships = new StudentInternships(req.body)
+  console.log(req.body)
+  console.log("============")
+  // console.log(req.user.id)
+  console.log(req.session.user)
+
  let studentinternshipsDoc = await studentinternships.createStudentInternships();
- new JsonResponse(req, res).jsonSuccess(studentinternshipsDoc, "Created")
+//  new JsonResponse(req, res).jsonSuccess(studentinternshipsDoc, "Created")
+
+res.redirect('/')
 }
 
 exports.getById = async function (req, res) {
@@ -52,6 +61,31 @@ exports.acceptInternship = async function (req, res) {
   whatsappNotification.sendWhatsappNotification()
   console.log("accept")
   await studentinternships.acceptInternship(req.params.id)
+  let studentInternshipDoc = await studentinternships.getById(req.params.id)
+console.log(studentInternshipDoc)
+
+const dailyHours = 8; // Assuming 8 hours per day //set part time/full; time if else here.
+const startDate = new Date(studentInternshipDoc.startDate);
+const endDate = new Date(studentInternshipDoc.endDate);
+  
+  if (endDate < startDate) return 0;
+
+  let totalHours = 0;
+  const currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    const day = currentDate.getDay();
+    // Only count weekdays (Mon to Fri)
+    if (day !== 0 && day !== 6) {
+      totalHours += dailyHours;
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+console.log("Total hours: " + totalHours);
+let student = new Student()
+ await student.updateTotalHours(studentInternshipDoc.studentId, totalHours)
+
   res.redirect('/')
 }
 

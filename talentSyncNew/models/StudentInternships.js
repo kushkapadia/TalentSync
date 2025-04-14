@@ -27,7 +27,7 @@ StudentInternships.prototype.cleanUp = function () {
     additionalDoc: this.data.additionalDoc,
     notes: this.data.notes,
     studentId: new ObjectId(this.data.studentId),
-    state: "pending", //approved or rejected, default is pending
+    status: "pending", //approved or rejected, default is pending
     //predfined start
     createdAt: new Date(),
     //predefined end

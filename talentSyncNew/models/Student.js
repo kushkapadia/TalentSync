@@ -52,6 +52,7 @@ Student.prototype.cleanUp = function () {
     mentorId: new ObjectId(this.data.mentorId),
     numberOfPendingInternshipRequest: 0, //this tells the count of no.of internships left to be a[proved by the mentor
     role: "student",
+    totalInternshipHours: 0,
     createdAt: new Date()
   }
 };
@@ -152,6 +153,16 @@ Student.prototype.deleteById = async function (id) {
 Student.prototype.getMenteesByMentorId = async function (mentorId) {
   let mentees = await studentsCollection.find({ mentorId: new ObjectId(mentorId) }).toArray()
   return mentees
+}
+
+
+Student.prototype.updateTotalHours = async function(studentId, totalHours) {
+  const result = await studentsCollection.updateOne(
+    { _id: new ObjectId(studentId) },
+    { $set: { totalInternshipHours: totalHours } }
+  );
+
+  console.log(`${result.modifiedCount} student's hours updated.`);
 }
 
 module.exports = Student;

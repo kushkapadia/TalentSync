@@ -6,6 +6,7 @@ const JobPost = require("../models/JobPost");
 const Mentor = require("../models/Mentor");
 const Student = require("../models/Student");
 const jwt = require("jsonwebtoken");
+const StudentInternships = require("../models/StudentInternships");
 
 
 // how long a token lasts before expiring
@@ -114,7 +115,12 @@ exports.home = async function (req, res) {
       res.render("studentDashboard")
       // res.send("hi")
     } else if (req.session.user.role == "mentor") {
-      res.render("mentor/mentor-myMentees")
+      let student = new Student();
+      console.log(req.session.user._id);
+      let myMentees = await student.getMenteesByMentorId(req.session.user._id); //passed the id of logged in user
+      res.render("mentor/mentor-myMentees", {
+        myMentees: myMentees
+      })
     } else if (req.session.user.role == "admin") {
       res.render("admin/admin-dashboard")
 

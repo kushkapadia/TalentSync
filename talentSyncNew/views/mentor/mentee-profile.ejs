@@ -104,22 +104,22 @@
                                           </tr>
                                        </thead>
                                        <tbody>
-                                       
+                                       <% menteeInternships.forEach( (internship) => { %>
+                                          <% if(internship.status === "approved") { %>
                                           <tr>
-
-                                             <td>hi</td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td></td>
-                                             <td><a href="/nternship.companyWebsite">Link</a></td>
-                                             <td><a href="/internship.completionCertificate "><button class="btn btn-primary">Completion Certificate</button></a>
+                                             <td><%=internship.companyName %></td>
+                                             <td><%=internship.role%></td>
+                                             <td><%=internship.startDate%></td>
+                                             <td><%=internship.endDate%></td>
+                                             <td><%=internship.stipend%></td>
+                                             <td><%=internship.location%></td>
+                                             <td><%=internship.mode%></td>
+                                             <td><a href="<%=internship.companyWebsite%>">Link</a></td>
+                                             <td><a href="<%=internship.completionCertificate %>"><button class="btn btn-primary">View Certificate</button></a>
                                              </td>
                                           </tr>
-                               
-                                      
+                                        <% } %>
+                                          <%  }) %>                                   
                                        </tbody>
                                        <tfoot>
                                           <tr>
