@@ -160,7 +160,7 @@ router.post('/logout', function (req, res) {
   })
 })
 
-router.get("/student-applied-internships", new TryCatch(studentController.displayAppliedInternshipPage).tryCatchGlobe())
+router.get("/student-applied-internships/:id", new TryCatch(studentController.displayAppliedInternshipPage).tryCatchGlobe())
 router.get('/view-internship/:id', new TryCatch(jobpostController.viewInternshipPage).tryCatchGlobe())
 router.get('/student-profile/:id', new TryCatch(studentController.displayStudentProfile).tryCatchGlobe())
 

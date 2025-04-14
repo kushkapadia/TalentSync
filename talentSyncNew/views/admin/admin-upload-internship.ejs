@@ -163,11 +163,11 @@
     <script>
         async function fillForm() {
             // alert('Filling the form')
-             document.getElementById('loader').innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+            document.getElementById('loader').innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
 
             const input = document.getElementById('internshipJobDescription').value
 
-            
+
 
 
             //convert the below code to fetch
@@ -187,6 +187,29 @@
                     }
 
                     const rawData = responseData.data; // This is the string containing JSON inside
+
+
+                    // Convert rawData to a Blob and save it as a file
+                    // const blob = new Blob([JSON.stringify(rawData, null, 2)], { type: 'application/json' });
+                    // const link = document.createElement('a');
+                    // link.href = URL.createObjectURL(blob);
+                    // link.download = 'internshipData.json'; // Name of the file to save
+                     // link.click();
+
+                    
+
+// Ensure it's saved as formatted JSON
+const jsonString = JSON.stringify(rawData, null, 2); // Pretty print with 2-space indent
+const blob = new Blob([jsonString], { type: 'application/json' });
+
+const link = document.createElement('a');
+link.href = URL.createObjectURL(blob);
+link.download = 'internshipData.json';
+link.click();
+
+
+
+
                     console.log("Raw LLM Response:", rawData);
                     console.log("Raw LLM Response:", rawData.jobTitle);
                     // console.log("Raw LLM Response:",JSON.parse(rawData).jobTitle);
@@ -215,7 +238,7 @@
                     //     return data[key] && data[key] !== "N/A" ? data[key] : "";
                     // }
                     //remove loader
-                   document.getElementById('loader').innerHTML = '';
+                    document.getElementById('loader').innerHTML = '';
 
                     // Fill form fields
                     document.getElementById("jobTitle").value = rawData.jobTitle;

@@ -67,4 +67,47 @@ InternshipApplications.prototype.getAppliedStudentsById = async function (jobId)
   return applications
 }
 
+
+InternshipApplications.prototype.getAppliedInternshipByStudentId = async function (studId) {
+ 
+console.log(studId)
+  const applications = await internshipapplicationssCollection.aggregate([
+    {
+      $match: { studId: new ObjectId(studId) }
+    },
+    {
+      $lookup: {
+        from: 'jobposts',            // The name of the job collection
+        localField: 'jobId',     // Field in AppliedInternship
+        foreignField: '_id',     // Field in Job collection
+        as: 'jobDetails'
+      }
+    },
+    {
+      $unwind: '$jobDetails'     // Flatten the jobDetails array
+    },
+    {
+      $project: {
+        _id: 1,
+        status: 1,
+        jobid: 1,
+        studid: 1,
+        company: '$jobDetails.companyName',
+        position: '$jobDetails.jobTitle',
+        stipend: '$jobDetails.salaryRange',
+        location: '$jobDetails.jobLocation',
+        duration: '$jobDetails.duration'
+      }
+    }
+  ]).toArray();
+
+  console.log("APPLICATIONS: ") 
+  console.log(applications)
+return applications
+}
+
+
+
+
+
 module.exports = InternshipApplications;
