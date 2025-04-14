@@ -72,7 +72,8 @@ def main(resume_pdf, job_description_pdf):
         print("\nAll required skills are present in the resume.")
 
 # Step 5: Specify PDF paths and run the main function
-resume_pdf_path = "C:\\Users\\Shail Jain\\Dropbox\\PC\\Desktop\\TalentSync\\ML Model\\candidate_resume.pdf"
-job_description_pdf_path = "C:\\Users\\Shail Jain\\Dropbox\\PC\\Desktop\\TalentSync\\ML Model\\job_description.pdf"
+resume_pdf_path = "candidate_resume.pdf"
+job_description_pdf_path = "job_description.pdf"
+
 
 main(resume_pdf_path, job_description_pdf_path)
