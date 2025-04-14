@@ -19,7 +19,7 @@
                     d="M19.5313 9.82568C18.9966 9.82568 18.5626 10.2533 18.5626 10.7823C18.5626 14.3554 15.6186 17.2627 12.0005 17.2627C8.38136 17.2627 5.43743 14.3554 5.43743 10.7823C5.43743 10.2533 5.00345 9.82568 4.46872 9.82568C3.93398 9.82568 3.5 10.2533 3.5 10.7823C3.5 15.0873 6.79945 18.6413 11.0318 19.1186V21.0434C11.0318 21.5715 11.4648 22.0001 12.0005 22.0001C12.5352 22.0001 12.9692 21.5715 12.9692 21.0434V19.1186C17.2006 18.6413 20.5 15.0873 20.5 10.7823C20.5 10.2533 20.066 9.82568 19.5313 9.82568Z"
                     fill="currentColor"></path>
                 </svg>
-                
+
               </a>
             </div>
           </div>
@@ -67,7 +67,7 @@
                     <option>Marketing Intern</option>
                   </select>
                 </div>
-          
+
                 <!-- Location Filter -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Location:</label>
@@ -80,13 +80,13 @@
                     <option>Chennai</option>
                   </select>
                 </div>
-          
+
                 <!-- Salary Range Slider -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Desired minimum monthly stipend (₹):</label>
                   <input type="range" class="form-range" id="salaryRange" min="0" max="10000" step="2000" value="0"
                     onchange="updateSalaryDisplay(this.value)">
-          
+
                   <div class="d-flex justify-content-between mt-2 text-muted">
                     <small>₹0</small>
                     <small>₹2K</small>
@@ -95,16 +95,16 @@
                     <small>₹8K</small>
                     <small>₹10K</small>
                   </div>
-          
+
                   <input type="text" id="salaryDisplay" class="form-control mt-2 text-center" value="₹0" readonly>
                 </div>
-          
+
                 <script>
                   function updateSalaryDisplay(value) {
                     document.getElementById('salaryDisplay').value = `₹${value.toLocaleString()}`;
                   }
                 </script>
-          
+
                 <!-- Duration Filter -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Internship Duration:</label>
@@ -116,7 +116,7 @@
                     <option>6 months</option>
                   </select>
                 </div>
-          
+
                 <!-- Buttons -->
                 <div class="d-flex justify-content-between">
                   <button type="submit" class="btn btn-primary">Clear all</button>
@@ -124,7 +124,7 @@
                 </div>
               </form>
             </div>
-          </div>          
+          </div>
         </div>
         <div class="col-xl-9 col-lg-8">
           <!-- <div class="card"> -->
@@ -185,52 +185,45 @@
           <!-- </div> -->
 
           <% internships.forEach((internship)=>{ %>
-
-            <a href="/admin-view-internship/<%= internship._id %>">
-              <div class="card shadow-sm">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <!-- Job Title and Company -->
-                    <div>
-                      <h5 class="card-title mb-1">
-                        <%= internship.jobTitle %>
-                      </h5>
-                      <p class="text-muted mb-1">
-                        <%= internship.companyName %> <span class="text-success">Recommended</span>
-                      </p>
+            <div class="mb-4">
+              <a href="/admin-view-internship/<%= internship._id %>">
+                <div class="card shadow-sm">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <!-- Job Title and Company -->
+                      <div>
+                        <h5 class="card-title mb-1">
+                          <%= internship.jobTitle %>
+                        </h5>
+                        <p class="text-muted mb-1">
+                          <%= internship.companyName %> <span class="text-success">Recommended</span>
+                        </p>
+                      </div>
+                      <!-- Company Logo -->
+                      <div>
+                        <img width="70px" height="70px" src="<%= internship.companyLogo %>">
+                      </div>
                     </div>
-                    <!-- Company Logo -->
-                    <div>
-                      <img width="70px" height="70px" src="<%= internship.companyLogo %>">
+                    <!-- Job Details -->
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                      <div class="text-muted">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <%= internship.jobLocation %>
+                      </div>
+                      <div class="text-muted">
+                        <i class="bi bi-currency-rupee"></i> ₹20,000 - ₹30,000 per month
+                      </div>
+                    </div>
+                    <!-- Post Date and Type -->
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                      <div class="text-muted">Posted: 2024-09-02</div>
+                      <div class="badge bg-success">Full-time</div>
                     </div>
                   </div>
-                  <!-- Job Details -->
-                  <div class="d-flex justify-content-between align-items-center mt-2">
-                    <div class="text-muted">
-                      <i class="bi bi-geo-alt-fill"></i>
-                      <%= internship.jobLocation %>
-                    </div>
-                    <div class="text-muted">
-                      <i class="bi bi-currency-rupee"></i> ₹20,000 - ₹30,000 per month
-                    </div>
-                  </div>
-                  <!-- Post Date and Type -->
-                  <div class="d-flex justify-content-between align-items-center mt-3">
-                    <div class="text-muted">Posted: 2024-09-02</div>
-                    <div class="badge bg-success">Full-time</div>
-                  </div>
-                </div>
-            </a>
-
+              </a>
+            </div>
             <% }) %>
-
-
-
         </div>
-
-
-
-
       </div>
       <!-- </div> -->
     </div>
