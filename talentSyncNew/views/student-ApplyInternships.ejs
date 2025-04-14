@@ -106,13 +106,11 @@
           
                 <!-- Duration Filter -->
                 <div class="form-group mb-4">
-                  <label class="form-label fw-semibold">Internship Duration:</label>
-                  <select name="duration" class="form-select" id="durationFilter">
-                    <option value="">All Durations</option>
-                    <option>1 month</option>
-                    <option>2 months</option>
-                    <option>3 months</option>
-                    <option>6 months</option>
+                  <label class="form-label fw-semibold">Job Type:</label>
+                  <select name="jobType" class="form-select" id="jobTypeFilter">
+                    <option value="">All Types</option>
+                    <option>Full-time</option>
+                    <option>Part-time</option>
                   </select>
                 </div>
           
@@ -188,7 +186,7 @@
                  data-role="<%= internship.jobTitle %>"
                  data-location="<%= internship.jobLocation %>"
                  data-salary="<%= internship.stipend %>"
-                 data-duration="<%= internship.duration %>"
+                 data-jobtype="<%= internship.jobType %>"
                  data-company="<%= internship.companyName %>">
               <a href="/view-internship/<%= internship._id %>">
                 <div class="card shadow-sm">
@@ -242,11 +240,12 @@
     // Debug the internship data
     console.log("Internship cards:", document.querySelectorAll('.internship-card').length);
     document.querySelectorAll('.internship-card').forEach(card => {
+      // Log actual jobType values to debug
       console.log("Card data:", {
         role: card.dataset.role,
         location: card.dataset.location,
         salary: card.dataset.salary,
-        duration: card.dataset.duration,
+        jobType: card.dataset.jobtype, // Note: dataset properties are automatically lowercased
         company: card.dataset.company
       });
     });
@@ -262,7 +261,7 @@
       document.getElementById('locationFilter').value = '';
       document.getElementById('salaryRange').value = '0';
       document.getElementById('salaryDisplay').value = '₹0';
-      document.getElementById('durationFilter').value = '';
+      document.getElementById('jobTypeFilter').value = '';
       applyFilters();
     }
 
@@ -271,9 +270,9 @@
       const roleFilter = document.getElementById('roleFilter').value.toLowerCase();
       const locationFilter = document.getElementById('locationFilter').value.toLowerCase();
       const salaryFilter = parseInt(document.getElementById('salaryRange').value);
-      const durationFilter = document.getElementById('durationFilter').value.toLowerCase();
+      const jobTypeFilter = document.getElementById('jobTypeFilter').value.toLowerCase();
 
-      console.log("Applying filters:", { roleFilter, locationFilter, salaryFilter, durationFilter });
+      console.log("Applying filters:", { roleFilter, locationFilter, salaryFilter, jobTypeFilter });
 
       const internshipCards = document.querySelectorAll('.internship-card');
       let visibleCount = 0;
@@ -283,10 +282,11 @@
         const role = (card.dataset.role || '').toLowerCase();
         const location = (card.dataset.location || '').toLowerCase();
         const salary = parseInt(card.dataset.salary) || 0;
-        const duration = (card.dataset.duration || '').toLowerCase();
+        // HTML dataset properties are automatically lowercased
+        const jobType = (card.dataset.jobtype || '').toLowerCase();
         const company = (card.dataset.company || '').toLowerCase();
         
-        console.log("Processing card:", { role, location, salary, duration, company });
+        console.log("Processing card:", { role, location, salary, jobType, company });
 
         // Role filter - check if job title or company name contains the selected role
         const roleMatch = !roleFilter || 
@@ -319,18 +319,36 @@
         // Salary filter - check if stipend is greater than or equal to selected value
         const salaryMatch = !salaryFilter || salary >= salaryFilter;
         
-        // Duration filter - more flexible matching
-        const durationMatch = !durationFilter || 
-                            duration.includes(durationFilter);
+        // Job Type filter - with exact options matching
+        let jobTypeMatch = false;
+        if (!jobTypeFilter) {
+          jobTypeMatch = true;
+        } else {
+          // Handle both formats: capitalization and hyphen
+          if (jobTypeFilter === 'full-time' && (
+            jobType.includes('full-time') || 
+            jobType.includes('full time') || 
+            jobType === 'fulltime')) {
+            jobTypeMatch = true;
+          } else if (jobTypeFilter === 'part-time' && (
+            jobType.includes('part-time') || 
+            jobType.includes('part time') || 
+            jobType === 'parttime')) {
+            jobTypeMatch = true;
+          } else {
+            // Direct comparison as fallback
+            jobTypeMatch = jobType.includes(jobTypeFilter);
+          }
+        }
 
         // Debug the match results
         console.log("Match results:", { 
-          roleMatch, locationMatch, salaryMatch, durationMatch,
-          visible: (roleMatch && locationMatch && salaryMatch && durationMatch)
+          roleMatch, locationMatch, salaryMatch, jobTypeMatch,
+          visible: (roleMatch && locationMatch && salaryMatch && jobTypeMatch)
         });
 
         // Show card only if all selected filters match
-        if (roleMatch && locationMatch && salaryMatch && durationMatch) {
+        if (roleMatch && locationMatch && salaryMatch && jobTypeMatch) {
           card.style.display = 'block';
           visibleCount++;
         } else {
@@ -362,7 +380,7 @@
       updateSalaryDisplay(this.value);
       applyFilters();
     });
-    document.getElementById('durationFilter').addEventListener('change', applyFilters);
+    document.getElementById('jobTypeFilter').addEventListener('change', applyFilters);
 
     // Initialize filters on page load
     applyFilters();
