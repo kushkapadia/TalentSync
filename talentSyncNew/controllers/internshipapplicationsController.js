@@ -36,3 +36,10 @@ exports.deleteById = async function (req, res) {
   await internshipapplications.deleteById()
   new JsonResponse(req, res).jsonSuccess(true, new Messages().SUCCESSFULLY_DELETED)
 }
+
+exports.bulkActionSelect = async function (req, res) {
+  let internshipapplications = new InternshipApplications()
+  console.log(req.body)
+ await internshipapplications.bulkActionSelect(req.params.id, req.body)
+  res.json({ success: true, message: "Bulk action performed successfully" });
+}

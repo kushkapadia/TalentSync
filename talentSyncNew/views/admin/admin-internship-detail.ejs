@@ -550,13 +550,16 @@
             selectedIds.push(checkbox.getAttribute("data-sapid"));
          });
 
+         console.log("Selected SAP IDs:", selectedIds);
+
          if (selectedIds.length === 0) {
             alert("No students selected.");
             return;
          }
 
          // Send selected IDs to the server for bulk processing
-         fetch("/bulk-action", {
+ 
+         fetch(`/bulk-action-select/${internshipId}`, {
             method: "POST",
             headers: {
                "Content-Type": "application/json"
@@ -571,6 +574,14 @@
                console.error("Error performing bulk action:", error);
             });
       });
+
+
+  const path = window.location.pathname;
+  const segments = path.split('/');
+  const internshipId = segments[segments.length - 1];
+  console.log("Internship ID:", internshipId);
+
+
 
    </script>
 

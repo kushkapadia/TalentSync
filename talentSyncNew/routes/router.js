@@ -20,6 +20,7 @@ const mentorController = require('../controllers/mentorController');
 const studentController = require('../controllers/studentController');
 
 const testuserController = require("../controllers/testuserController")
+const InternshipApplications = require("../models/InternshipApplications")
 
 //code here
 router.use("/studentinternships", studentinternshipsRoutes);
@@ -180,5 +181,5 @@ router.get('/admin-active-internships', new TryCatch(adminController.displayActi
 router.get('/admin-view-internship/:id', new TryCatch(jobpostController.displayAdminInternshipDetailPage).tryCatchGlobe())
 router.get('/admin-upload-internship', new TryCatch(jobpostController.displayAdminUploadInternshipPage).tryCatchGlobe())
 router.get("/admin-profile/:id", new TryCatch(adminController.displayAdminProfile).tryCatchGlobe())
-
+router.post('/bulk-action-select/:jobId', new TryCatch(internshipapplicationsController.bulkActionSelect).tryCatchGlobe())
 module.exports = router
