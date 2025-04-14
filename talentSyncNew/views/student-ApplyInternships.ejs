@@ -78,6 +78,11 @@
                     <option>Delhi</option>
                     <option>Pune</option>
                     <option>Chennai</option>
+                    <option>Hyderabad</option>
+                    <option>Kolkata</option>
+                    <option>Remote</option>
+                    <option>Work from Home</option>
+                    <option>Hybrid</option>
                   </select>
                 </div>
           
@@ -179,7 +184,12 @@
           <!-- </div> -->
 
           <% internships.forEach((internship) => { %>
-            <div class="mb-4"> <!-- Added margin-bottom here -->
+            <div class="internship-card mb-4" 
+                 data-role="<%= internship.jobTitle %>"
+                 data-location="<%= internship.jobLocation %>"
+                 data-salary="<%= internship.stipend %>"
+                 data-duration="<%= internship.duration %>"
+                 data-company="<%= internship.companyName %>">
               <a href="/view-internship/<%= internship._id %>">
                 <div class="card shadow-sm">
                   <div class="card-body">
@@ -205,13 +215,13 @@
                         <%= internship.jobLocation %>
                       </div>
                       <div class="text-muted">
-                        <i class="bi bi-currency-rupee"></i> ₹20,000 - ₹30,000 per month
+                        <i class="bi bi-currency-rupee"></i> ₹<%= internship.stipend %> per month
                       </div>
                     </div>
                     <!-- Post Date and Type -->
                     <div class="d-flex justify-content-between align-items-center mt-3">
-                      <div class="text-muted">Posted: 2024-09-02</div>
-                      <div class="badge bg-success">Full-time</div>
+                      <div class="text-muted">Posted: <%= new Date(internship.createdAt).toLocaleDateString() %></div>
+                      <div class="badge bg-success"><%= internship.jobType %></div>
                     </div>
                   </div>
                 </div>
@@ -242,82 +252,134 @@
   <%- include('./includes/studentFooter') %>
 
 <script>
-  // Update salary display
-  function updateSalaryDisplay(value) {
-    document.getElementById('salaryDisplay').value = `₹${value.toLocaleString()}`;
-  }
-
-  // Clear all filters
-  function clearFilters() {
-    document.getElementById('roleFilter').value = '';
-    document.getElementById('locationFilter').value = '';
-    document.getElementById('salaryRange').value = '0';
-    document.getElementById('salaryDisplay').value = '₹0';
-    document.getElementById('durationFilter').value = '';
-    applyFilters();
-  }
-
-  // Apply filters
-  function applyFilters() {
-    const roleFilter = document.getElementById('roleFilter').value.toLowerCase();
-    const locationFilter = document.getElementById('locationFilter').value.toLowerCase();
-    const salaryFilter = parseInt(document.getElementById('salaryRange').value);
-    const durationFilter = document.getElementById('durationFilter').value.toLowerCase();
-
-    const internshipCards = document.querySelectorAll('.internship-card');
-    
-    internshipCards.forEach(card => {
-      const role = card.dataset.role.toLowerCase();
-      const location = card.dataset.location.toLowerCase();
-      const salary = parseInt(card.dataset.salary);
-      const duration = card.dataset.duration.toLowerCase();
-      const company = card.dataset.company.toLowerCase();
-
-      // Role filter - check if job title contains the selected role
-      const roleMatch = !roleFilter || role.includes(roleFilter) || company.includes(roleFilter);
-      
-      // Location filter - check if location matches exactly
-      const locationMatch = !locationFilter || location === locationFilter;
-      
-      // Salary filter - check if stipend is greater than or equal to selected value
-      const salaryMatch = !salaryFilter || salary >= salaryFilter;
-      
-      // Duration filter - check if duration matches exactly
-      const durationMatch = !durationFilter || duration === durationFilter;
-
-      // Show card only if all selected filters match
-      if (roleMatch && locationMatch && salaryMatch && durationMatch) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-
-    // Show message if no results found
-    const visibleCards = document.querySelectorAll('.internship-card[style="display: block"]');
-    const noResultsMessage = document.getElementById('noResultsMessage');
-    
-    if (visibleCards.length === 0) {
-      if (!noResultsMessage) {
-        const messageDiv = document.createElement('div');
-        messageDiv.id = 'noResultsMessage';
-        messageDiv.className = 'alert alert-info text-center';
-        messageDiv.textContent = 'No internships found matching your criteria. Try adjusting your filters.';
-        document.querySelector('.col-xl-9').appendChild(messageDiv);
-      }
-    } else if (noResultsMessage) {
-      noResultsMessage.remove();
-    }
-  }
-
-  // Add event listeners for filter changes
-  document.getElementById('roleFilter').addEventListener('change', applyFilters);
-  document.getElementById('locationFilter').addEventListener('change', applyFilters);
-  document.getElementById('salaryRange').addEventListener('change', applyFilters);
-  document.getElementById('durationFilter').addEventListener('change', applyFilters);
-
-  // Initialize filters on page load
+  // Wait for the DOM to be fully loaded
   document.addEventListener('DOMContentLoaded', function() {
+    // Debug the internship data
+    console.log("Internship cards:", document.querySelectorAll('.internship-card').length);
+    document.querySelectorAll('.internship-card').forEach(card => {
+      console.log("Card data:", {
+        role: card.dataset.role,
+        location: card.dataset.location,
+        salary: card.dataset.salary,
+        duration: card.dataset.duration,
+        company: card.dataset.company
+      });
+    });
+    
+    // Update salary display
+    function updateSalaryDisplay(value) {
+      document.getElementById('salaryDisplay').value = `₹${value.toLocaleString()}`;
+    }
+
+    // Clear all filters
+    window.clearFilters = function() {
+      document.getElementById('roleFilter').value = '';
+      document.getElementById('locationFilter').value = '';
+      document.getElementById('salaryRange').value = '0';
+      document.getElementById('salaryDisplay').value = '₹0';
+      document.getElementById('durationFilter').value = '';
+      applyFilters();
+    }
+
+    // Apply filters
+    window.applyFilters = function() {
+      const roleFilter = document.getElementById('roleFilter').value.toLowerCase();
+      const locationFilter = document.getElementById('locationFilter').value.toLowerCase();
+      const salaryFilter = parseInt(document.getElementById('salaryRange').value);
+      const durationFilter = document.getElementById('durationFilter').value.toLowerCase();
+
+      console.log("Applying filters:", { roleFilter, locationFilter, salaryFilter, durationFilter });
+
+      const internshipCards = document.querySelectorAll('.internship-card');
+      let visibleCount = 0;
+      
+      internshipCards.forEach(card => {
+        // Get card data, handle undefined/null values
+        const role = (card.dataset.role || '').toLowerCase();
+        const location = (card.dataset.location || '').toLowerCase();
+        const salary = parseInt(card.dataset.salary) || 0;
+        const duration = (card.dataset.duration || '').toLowerCase();
+        const company = (card.dataset.company || '').toLowerCase();
+        
+        console.log("Processing card:", { role, location, salary, duration, company });
+
+        // Role filter - check if job title or company name contains the selected role
+        const roleMatch = !roleFilter || 
+                        role.includes(roleFilter) || 
+                        company.includes(roleFilter);
+        
+        // Location filter - case-insensitive matching
+        let locationMatch = false;
+        if (!locationFilter) {
+          locationMatch = true;
+        } else if (location) {
+          if (locationFilter === 'remote' && (
+            location.includes('remote') || 
+            location.toLowerCase() === 'wfh' || 
+            location.toLowerCase().includes('work from home'))) {
+            locationMatch = true;
+          } else if (locationFilter === 'work from home' && (
+            location.includes('wfh') || 
+            location.includes('work from home') || 
+            location.includes('remote'))) {
+            locationMatch = true;
+          } else if (locationFilter === 'hybrid' && location.includes('hybrid')) {
+            locationMatch = true;
+          } else {
+            // Direct city comparison - more flexible
+            locationMatch = location.includes(locationFilter);
+          }
+        }
+        
+        // Salary filter - check if stipend is greater than or equal to selected value
+        const salaryMatch = !salaryFilter || salary >= salaryFilter;
+        
+        // Duration filter - more flexible matching
+        const durationMatch = !durationFilter || 
+                            duration.includes(durationFilter);
+
+        // Debug the match results
+        console.log("Match results:", { 
+          roleMatch, locationMatch, salaryMatch, durationMatch,
+          visible: (roleMatch && locationMatch && salaryMatch && durationMatch)
+        });
+
+        // Show card only if all selected filters match
+        if (roleMatch && locationMatch && salaryMatch && durationMatch) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show/hide no results message
+      const noResultsMessage = document.getElementById('noResultsMessage');
+      if (visibleCount === 0) {
+        if (!noResultsMessage) {
+          const messageDiv = document.createElement('div');
+          messageDiv.id = 'noResultsMessage';
+          messageDiv.className = 'alert alert-info text-center mt-4';
+          messageDiv.textContent = 'No internships found matching your criteria. Try adjusting your filters.';
+          document.querySelector('.col-xl-9').appendChild(messageDiv);
+        }
+      } else if (noResultsMessage) {
+        noResultsMessage.remove();
+      }
+      
+      console.log(`Filter results: ${visibleCount} internships visible`);
+    }
+
+    // Add event listeners for filter changes
+    document.getElementById('roleFilter').addEventListener('change', applyFilters);
+    document.getElementById('locationFilter').addEventListener('change', applyFilters);
+    document.getElementById('salaryRange').addEventListener('change', function() {
+      updateSalaryDisplay(this.value);
+      applyFilters();
+    });
+    document.getElementById('durationFilter').addEventListener('change', applyFilters);
+
+    // Initialize filters on page load
     applyFilters();
   });
 </script>
