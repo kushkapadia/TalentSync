@@ -89,7 +89,7 @@
 <!-- as stands fro applied student -->
 
    <tr>
-      <td><input type="checkbox" class="select-row" data-sapid="<%= as.studentData.sapId %>"></td>
+      <td><input type="checkbox" class="select-row" data-mongoId="<%= as.studentData._id %>" data-sapid="<%= as.studentData.sapId %>"></td>
       <td><img class="rounded img-fluid avatar-40 me-3 bg-primary-subtle" src="<%= as.studentData.profileImageLink %>" alt="profile"><%= as.studentData.name%> <%= as.studentData.lName%></td>
       <td><%= as.studentData.sapId %></td>
       <td><%= as.studentData.email %></td>
@@ -547,10 +547,11 @@
          const checkboxes = document.querySelectorAll(".select-row:checked");
 
          checkboxes.forEach(checkbox => {
-            selectedIds.push(checkbox.getAttribute("data-sapid"));
+            // selectedIds.push(checkbox.getAttribute("data-sapid"));
+            selectedIds.push(checkbox.getAttribute("data-mongoId"));
          });
 
-         console.log("Selected SAP IDs:", selectedIds);
+         console.log("Selected Mongo IDs:", selectedIds);
 
          if (selectedIds.length === 0) {
             alert("No students selected.");
@@ -564,7 +565,7 @@
             headers: {
                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ sapIds: selectedIds })
+            body: JSON.stringify({ _ids: selectedIds })
          })
             .then(response => response.json())
             .then(data => {

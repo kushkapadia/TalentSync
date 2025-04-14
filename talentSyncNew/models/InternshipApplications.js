@@ -107,7 +107,42 @@ return applications
 }
 
 
+InternshipApplications.prototype.bulkActionSelect = async function (id, studentIds) {
 
+
+studentIds = studentIds.map(id => new ObjectId(id));
+console.log(id)
+
+const jobId = new ObjectId(id);
+
+const result = await internshipapplicationssCollection.updateMany(
+  {
+    jobId: jobId,
+    studId: { $in: studentIds },
+    status: "pending"
+  },
+  {
+    $set: { status: "accepted" }
+  }
+);
+
+console.log(`${result.modifiedCount} applications Accpeted.`);
+
+
+  // ❌ Step 2: Reject rest of the pending ones
+  const rejectedResult = await internshipapplicationssCollection.updateMany(
+    {
+      jobId: jobId,
+      studId: { $nin: studentIds }, // not in the accepted list
+      status: "pending"
+    },
+    {
+      $set: { status: "rejected" }
+    }
+  );
+  console.log(`${rejectedResult.modifiedCount} applications Rejected.`);
+
+}
 
 
 module.exports = InternshipApplications;

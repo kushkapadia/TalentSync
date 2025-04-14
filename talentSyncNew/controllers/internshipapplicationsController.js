@@ -38,8 +38,8 @@ exports.deleteById = async function (req, res) {
 }
 
 exports.bulkActionSelect = async function (req, res) {
-  let internshipapplications = new InternshipApplications()
   console.log(req.body)
- await internshipapplications.bulkActionSelect(req.params.id, req.body)
+  let internshipapplications = new InternshipApplications()
+ await internshipapplications.bulkActionSelect(req.params.jobId, req.body._ids)
   res.json({ success: true, message: "Bulk action performed successfully" });
 }
