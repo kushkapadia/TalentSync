@@ -51,12 +51,12 @@
               <h4 class="card-title fw-bold">Filters</h4>
             </div>
             <div class="card-body p-4">
-              <form class="text-black">
+              <form id="filterForm" class="text-black">
                 <!-- Role Filter -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Internship Role:</label>
-                  <select name="role" class="form-select">
-                    <option>Select Role</option>
+                  <select name="role" class="form-select" id="roleFilter">
+                    <option value="">All Roles</option>
                     <option>Web Designer</option>
                     <option>Web Developer</option>
                     <option>Tester</option>
@@ -70,13 +70,18 @@
                 <!-- Location Filter -->
                 <div class="form-group mb-4">
                   <label class="form-label fw-semibold">Location:</label>
-                  <select name="location" class="form-select">
-                    <option>Select Location</option>
+                  <select name="location" class="form-select" id="locationFilter">
+                    <option value="">All Locations</option>
                     <option>Mumbai</option>
                     <option>Bangalore</option>
                     <option>Delhi</option>
                     <option>Pune</option>
                     <option>Chennai</option>
+                    <option>Hyderabad</option>
+                    <option>Kolkata</option>
+                    <option>Remote</option>
+                    <option>Work from Home</option>
+                    <option>Hybrid</option>
                   </select>
                 </div>
 
@@ -98,28 +103,22 @@
                   <input type="text" id="salaryDisplay" class="form-control mt-2 text-center" value="₹0" readonly>
                 </div>
 
-                <script>
-                  function updateSalaryDisplay(value) {
-                    document.getElementById('salaryDisplay').value = `₹${value.toLocaleString()}`;
-                  }
-                </script>
-
-                <!-- Duration Filter -->
+                <!-- Job Type Filter -->
                 <div class="form-group mb-4">
-                  <label class="form-label fw-semibold">Internship Duration:</label>
-                  <select name="duration" class="form-select">
-                    <option>Select Duration</option>
-                    <option>1 month</option>
-                    <option>2 months</option>
-                    <option>3 months</option>
-                    <option>6 months</option>
+                  <label class="form-label fw-semibold">Job Type:</label>
+                  <select name="jobType" class="form-select" id="jobTypeFilter">
+                    <option value="">All Types</option>
+                    <option>Full-time</option>
+                    <option>Part-time</option>
+                    <option>Internship</option>
+                    <option>Contract</option>
                   </select>
                 </div>
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-between">
-                  <button type="submit" class="btn btn-primary">Clear all</button>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button" class="btn btn-primary" onclick="clearFilters()">Clear all</button>
+                  <button type="button" class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
                 </div>
               </form>
             </div>
@@ -184,7 +183,12 @@
           <!-- </div> -->
 
           <% internships.forEach((internship)=>{ %>
-            <div class="mb-4">
+            <div class="internship-card mb-4" 
+                 data-role="<%= internship.jobTitle %>"
+                 data-location="<%= internship.jobLocation %>"
+                 data-salary="<%= internship.stipend %>"
+                 data-jobtype="<%= internship.jobType %>"
+                 data-company="<%= internship.companyName %>">
               <a href="/admin-view-internship/<%= internship._id %>">
                 <div class="card shadow-sm">
                   <div class="card-body">
@@ -210,15 +214,18 @@
                         <%= internship.jobLocation %>
                       </div>
                       <div class="text-muted">
-                        <i class="bi bi-currency-rupee"></i> ₹20,000 - ₹30,000 per month
+                        <i class="bi bi-currency-rupee"></i> ₹<%= internship.stipend %> per month
                       </div>
                     </div>
                     <!-- Post Date and Type -->
                     <div class="d-flex justify-content-between align-items-center mt-3">
-                      <div class="text-muted">Posted: 2024-09-02</div>
-                      <div class="badge bg-success">Full-time</div>
+                      <div class="text-muted">Posted: <%= internship.postedDate %></div>
+                      <div class="badge bg-success">
+                        <%= internship.jobType %>
+                      </div>
                     </div>
                   </div>
+                </div>
               </a>
             </div>
             <% }) %>
@@ -229,3 +236,174 @@
   </div>
   </div>
 <%- include('../includes/studentFooter') %>
+
+<script>
+  // Wait for the DOM to be fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Debug the internship data
+    console.log("Internship cards:", document.querySelectorAll('.internship-card').length);
+    
+    // Fix for missing closing div
+    document.querySelectorAll('.internship-card').forEach(card => {
+      // Debug each card
+      console.log("Card data:", {
+        role: card.dataset.role || 'missing',
+        location: card.dataset.location || 'missing',
+        salary: card.dataset.salary || 'missing',
+        jobType: card.dataset.jobtype || 'missing',
+        company: card.dataset.company || 'missing'
+      });
+    });
+    
+    // Update salary display
+    function updateSalaryDisplay(value) {
+      document.getElementById('salaryDisplay').value = `₹${parseInt(value).toLocaleString()}`;
+    }
+
+    // Clear all filters - using normal function instead of window property
+    function clearFilters() {
+      document.getElementById('roleFilter').value = '';
+      document.getElementById('locationFilter').value = '';
+      document.getElementById('salaryRange').value = '0';
+      document.getElementById('salaryDisplay').value = '₹0';
+      document.getElementById('jobTypeFilter').value = '';
+      applyFilters();
+    }
+    // Expose to global scope for onclick
+    window.clearFilters = clearFilters;
+
+    // Apply filters
+    function applyFilters() {
+      console.log("Applying filters...");
+      const roleFilter = document.getElementById('roleFilter').value.toLowerCase();
+      const locationFilter = document.getElementById('locationFilter').value.toLowerCase();
+      const salaryFilter = parseInt(document.getElementById('salaryRange').value);
+      const jobTypeFilter = document.getElementById('jobTypeFilter').value.toLowerCase();
+
+      console.log("Filter values:", { roleFilter, locationFilter, salaryFilter, jobTypeFilter });
+
+      const internshipCards = document.querySelectorAll('.internship-card');
+      console.log(`Found ${internshipCards.length} internship cards`);
+      
+      let visibleCount = 0;
+      
+      internshipCards.forEach((card, index) => {
+        try {
+          // Get card data, handle undefined/null values
+          const role = (card.dataset.role || '').toLowerCase();
+          const location = (card.dataset.location || '').toLowerCase();
+          const salary = parseInt(card.dataset.salary) || 0;
+          const jobType = (card.dataset.jobtype || '').toLowerCase();
+          const company = (card.dataset.company || '').toLowerCase();
+          
+          console.log(`Card ${index + 1}:`, { role, location, salary, jobType, company });
+
+          // Role filter - check if job title or company contains the filter term
+          const roleMatch = !roleFilter || 
+                          role.includes(roleFilter) || 
+                          company.includes(roleFilter);
+          
+          // Location filter
+          let locationMatch = false;
+          if (!locationFilter) {
+            locationMatch = true;
+          } else if (location) {
+            // More flexible comparison for location
+            locationMatch = location.includes(locationFilter.toLowerCase());
+            
+            // Special handling for remote/WFH
+            if (locationFilter === 'remote' || locationFilter === 'work from home') {
+              locationMatch = location.includes('remote') || 
+                             location.includes('wfh') || 
+                             location.includes('work from home');
+            }
+            // Special handling for hybrid
+            else if (locationFilter === 'hybrid') {
+              locationMatch = location.includes('hybrid');
+            }
+          }
+          
+          // Salary filter
+          const salaryMatch = !salaryFilter || salary >= salaryFilter;
+          
+          // Job Type filter
+          let jobTypeMatch = false;
+          if (!jobTypeFilter) {
+            jobTypeMatch = true;
+          } else {
+            // Direct match
+            jobTypeMatch = jobType.includes(jobTypeFilter);
+            
+            // Handle common variations
+            if (jobTypeFilter === 'full-time' || jobTypeFilter === 'full time' || jobTypeFilter === 'fulltime') {
+              jobTypeMatch = jobType.includes('full') || jobType.includes('fulltime');
+            }
+            else if (jobTypeFilter === 'part-time' || jobTypeFilter === 'part time' || jobTypeFilter === 'parttime') {
+              jobTypeMatch = jobType.includes('part') || jobType.includes('parttime');
+            }
+          }
+
+          console.log(`Card ${index + 1} matches:`, { 
+            roleMatch, locationMatch, salaryMatch, jobTypeMatch,
+            visible: (roleMatch && locationMatch && salaryMatch && jobTypeMatch)
+          });
+
+          // Show card only if all filters match
+          if (roleMatch && locationMatch && salaryMatch && jobTypeMatch) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        } catch (error) {
+          console.error(`Error processing card ${index + 1}:`, error);
+          // Show the card if there's an error
+          card.style.display = 'block';
+          visibleCount++;
+        }
+      });
+
+      // Show message if no results
+      updateNoResultsMessage(visibleCount);
+      
+      console.log(`Filter results: ${visibleCount} internships visible`);
+    }
+    // Expose to global scope for onclick
+    window.applyFilters = applyFilters;
+    
+    // Helper function to show/hide no results message
+    function updateNoResultsMessage(visibleCount) {
+      const resultsContainer = document.querySelector('.col-xl-9');
+      let noResultsMessage = document.getElementById('noResultsMessage');
+      
+      if (visibleCount === 0) {
+        if (!noResultsMessage) {
+          noResultsMessage = document.createElement('div');
+          noResultsMessage.id = 'noResultsMessage';
+          noResultsMessage.className = 'alert alert-info text-center mt-4';
+          noResultsMessage.innerHTML = `
+            <p>No internships found matching your criteria.</p>
+            <p>Try adjusting your filters or <a href="#" onclick="clearFilters(); return false;">clear all filters</a>.</p>
+          `;
+          resultsContainer.appendChild(noResultsMessage);
+        }
+      } else if (noResultsMessage) {
+        noResultsMessage.remove();
+      }
+    }
+
+    // Add event listeners for filter changes
+    document.getElementById('roleFilter').addEventListener('change', applyFilters);
+    document.getElementById('locationFilter').addEventListener('change', applyFilters);
+    document.getElementById('salaryRange').addEventListener('input', function() {
+      updateSalaryDisplay(this.value);
+      applyFilters();
+    });
+    document.getElementById('jobTypeFilter').addEventListener('change', applyFilters);
+
+    // Initialize filters on page load
+    console.log("Initializing filters...");
+    updateSalaryDisplay(document.getElementById('salaryRange').value);
+    applyFilters();
+  });
+</script>
